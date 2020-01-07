@@ -22,8 +22,8 @@ class Search extends Component {
     e.preventDefault();
     var searchComp = {};
     searchComp.eventName = this.state.eventName;
-    if(this.state.category !== '') {
-        searchComp.category = this.state.category;
+    if (this.state.category !== "") {
+      searchComp.category = this.state.category;
     }
 
     $.ajax({
@@ -32,6 +32,7 @@ class Search extends Component {
       data: searchComp,
       success: data => {
         this.updateState(this.state.filttredEvents, data);
+        this.props.events(this.state.filttredEvents);
       },
       error: err => console.log("Error in get request search", err)
     });
