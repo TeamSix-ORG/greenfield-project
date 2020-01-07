@@ -4,10 +4,10 @@ const mongoose = require('mongoose');
 let user_profileSchema = mongoose.Schema({
 
     "id": String,
-    "first-name": String,
-    "last-name": String,
-    "birth-date": String,
-    "img-url": String,
+    "firstName": String,
+    "lastName": String,
+    "birthDate": String,
+    "imgUrl": String,
     "about": String,
 
 

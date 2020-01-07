@@ -54,7 +54,7 @@ class MoreInfo extends Component {
           </div>
           :
           
-          <Attend />
+          <Attend eventId={this.props.eventDescription[this.props.index].id} userId="5e148bf8fc13ae0c40000000"/>
         }
       </div>
     );
