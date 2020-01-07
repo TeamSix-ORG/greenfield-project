@@ -7,15 +7,17 @@ class EventsList extends Component {
         super(props)
         this.state = {
             eventList: true,
-            moreInfo: false
+            moreInfo: false,
+            idx: null
         }
     }
 
     toggleComponents(e){
-        e.preventDefault
+        e.preventDefault()
         this.setState({
             eventList: false,
-            moreInfo: true
+            moreInfo: true,
+            idx: arguments[1]
         })
     }
 
@@ -29,12 +31,12 @@ class EventsList extends Component {
                         <h3>{event.title}</h3>
                         <h3>{event.date}</h3>
                         <p>{event.description}</p>
-                        <button type="submit" onClick={this.toggleComponents}>More Info</button>
+                        <button type="submit" onClick={this.toggleComponents(idx)}>More Info</button>
                     </div>
                 })}  
                 {this.state.eventList ? 
                 null:
-                <MoreInfo /> 
+                <MoreInfo index={this.state.idx} eventDescription={this.props.events}/> 
             }          
             </div>
         );
