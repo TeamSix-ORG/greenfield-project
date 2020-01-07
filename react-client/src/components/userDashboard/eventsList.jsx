@@ -39,7 +39,6 @@ class EventsList extends Component {
     return (
       <div>
         {this.state.eventList ? (
-          // this.props.events.length !== 0 ? (
             this.props.events.map((event, idx) => {
               return (
               <div key={idx} value={idx} name='idx' onClick={this.changeHandler.bind(this)} style={{borderStyle: 'solid'}}>

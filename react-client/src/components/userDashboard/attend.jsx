@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import EventsList from "../userDashboard/userDashboard.jsx"
+import EventsList from "../userDashboard/eventsList.jsx"
 import $ from 'jquery'
 
 class Attend extends Component {
@@ -12,10 +12,20 @@ class Attend extends Component {
   }
 
   handleChange(e) {
+      e.preventDefault()
     this.setState({
       [e.target.name]: e.target.value
     });
   }
+
+  handleClick(e) {
+    e.preventDefault()
+    this.setState({
+        attend: false,
+        home: true
+      });
+  }
+
 
   handleClick() {
     var obj = {};
@@ -94,11 +104,14 @@ class Attend extends Component {
           <button type="submit" onClick={this.handleClick.bind(this)}>
             Submit
           </button>
+          <button type="submit" onClick={this.handleClick.bind(this)}>
+            Cancel
+          </button>
           <hr />
         </div>
         </div>
     :
-    <UserDashboard />    
+    <EventsList  events={this.props.events}/>    
     }
       </div>
     );
