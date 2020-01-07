@@ -15,6 +15,16 @@ app.get('*', (req, res) => {
 
 app.post('/', function(req, res) {});
 
+// Search request SOFIAN \\
+app.get('/events', (req, res) => {
+	var data = req.body
+
+	Event.findOne(data, (err, result) => {
+		if(err) throw err
+		res.send(result)
+	})
+})
+//####################################\\
 let port = 3000;
 
 app.listen(port, function() {

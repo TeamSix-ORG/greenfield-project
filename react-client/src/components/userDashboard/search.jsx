@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import $ from 'jquery'
+import React, { Component } from "react";
+import $ from "jquery";
 
 class Search extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            searchInput: "",
-            category: "",
-            filttredEvents: []
-          };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      eventName: "",
+      category: "",
+      filttredEvents: []
+    };
+  }
 
-    // Hndelse the change of state in the input and the options boxes
+  // Hndelse the change of state in the input and the options boxes
   searchIpuntChangeHandler(e) {
     this.setState({
       [e.target.name]: e.target.value
@@ -21,9 +21,11 @@ class Search extends Component {
   submitSearchHandler(e) {
     e.preventDefault();
     var searchComp = {};
-    searchComp.searchInput = this.state.searchInput;
-    searchComp.category = this.state.category;
-    
+    searchComp.eventName = this.state.eventName;
+    if(this.state.category !== '') {
+        searchComp.category = this.state.category;
+    }
+
     $.ajax({
       url: "/events",
       method: "GET",
@@ -40,17 +42,17 @@ class Search extends Component {
       target: data
     });
   }
-    render() {
-        return (
-            <div>
+  render() {
+    return (
+      <div>
         <form onSubmit={this.submitSearchHandler.bind(this)}>
-            <label htmlFor="search">Search By Name: </label>
+          <label htmlFor="search">Search By Name: </label>
           <input
             type="search"
-            name="searchInput"
-            id="searchInput"
+            name="eventName"
+            id="eventName"
             onChange={this.searchIpuntChangeHandler.bind(this)}
-            value={this.state.searchInput}
+            value={this.state.eventName}
           />
           <select
             name="category"
@@ -64,9 +66,9 @@ class Search extends Component {
           </select>
           <button type="submit">Search</button>
         </form>
-        </div>
-        );
-    }
+      </div>
+    );
+  }
 }
 
 export default Search;
