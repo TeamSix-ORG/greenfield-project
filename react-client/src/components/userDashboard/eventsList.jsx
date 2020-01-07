@@ -8,7 +8,7 @@ class EventsList extends Component {
     this.state = {
       eventList: true,
       moreInfo: false,
-      idx: null,
+      index: null,
       msg: ""
     };
     // console.log(this.props)
@@ -32,7 +32,6 @@ class EventsList extends Component {
     this.setState({
       eventList: false,
       moreInfo: true,
-      idx: arguments[1]
     });
   }
 
@@ -40,10 +39,10 @@ class EventsList extends Component {
     return (
       <div>
         {this.state.eventList ? (
-          this.props.events.length !== 0 ? (
+          // this.props.events.length !== 0 ? (
             this.props.events.map((event, idx) => {
               return (
-              <div key={idx} value ={this.state.idx} onChange={this.changeHandler.bind(this)} style={{borderStyle: 'solid'}}>
+              <div key={idx} value={idx} name='idx' onClick={this.changeHandler.bind(this)} style={{borderStyle: 'solid'}}>
                 <img src={event.imgUrl[0]} />
                 <h3>{event.eventName}</h3>
                 <h3>{event.date}</h3>
@@ -51,21 +50,16 @@ class EventsList extends Component {
                 <p>{event.videos[0]}</p>
                 <p>{event.category}</p>
                 <p>{event.description}</p>
-                <button type="submit" onClick={this.toggleComponents.bind(this)}>
+                <button type="submit" name='index' value={idx} onClick={this.toggleComponents.bind(this)} >
                   More Info
                 </button>
               </div>
               )
             })
-          ) : (
-            <div>
-              {" "}
-              <script> {this.updateState.bind(this)} </script> <p>{this.state.msg}</p>{" "}
-            </div>
-          )
-        ) : (
+        ) 
+        : (
           <MoreInfo
-            index={this.state.idx}
+            index={this.state.index}
             eventDescription={this.props.events}
           />
         )}

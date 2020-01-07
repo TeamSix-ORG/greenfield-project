@@ -1,28 +1,25 @@
 import React, { Component } from "react";
-// import Attend from './attend'
+import Attend from './attend.jsx'
 
 class MoreInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      event: [],
+      event1: [],
       moreInfo: true,
         attendMoney: false
     };
   }
 
-  componentDidMount() {
-    var event = this.props.event;
-    var idx = this.props.index;
-    var data = [event[idx]];
-    this.setState({
-      event: data
-    });
-  }
+  // componentDidMount() {
+  //   this.setState({
+  //     event1: 
+  //   });
+  // }
 
-  attendTogglerFree(e) {
-    // Send request to the backend with the id of the event and user id
-  }
+  // attendTogglerFree(e) {
+  //   // Send request to the backend with the id of the event and user id
+  // }
   attendTogglerMoney(e) {
     e.preventDefault();
     this.setState({
@@ -34,29 +31,30 @@ class MoreInfo extends Component {
   render() {
     return (
       <div>
+        <script>{console.log(this.state.event1)}</script>
         {
             this.state.moreInfo ?
           <div>
-            <img src={this.state.event.imgUrl[0]} />
-                <h3>{this.state.event.eventName}</h3>
-                <h3>{this.state.event.date}</h3>
-                <p>{this.state.event.description}</p>
-                <p>{this.state.event.videos[0]}</p>
-                <p>{this.state.event.category}</p>
-                <p>{this.state.event.description}</p>
-            {this.state.event[0].cost === 0 ?
-            <button type="submit" onClick={this.attendToggler.bind(this)}> 
+            <img src={this.props.eventDescription[this.props.index].imgUrl[0]} />
+                <h3>{this.props.eventDescription[this.props.index].event1Name}</h3>
+                <h3>{this.props.eventDescription[this.props.index].date}</h3>
+                <p>{this.props.eventDescription[this.props.index].description}</p>
+                <p>{this.props.eventDescription[this.props.index].videos[0]}</p>
+                <p>{this.props.eventDescription[this.props.index].category}</p>
+                <p>{this.props.eventDescription[this.props.index].description}</p>
+            {this.props.eventDescription[this.props.index].cost === 0 ?
+            <button type="submit" onClick={this.attendTogglerMoney.bind(this)}> 
               Attend
             </button>
             :
-            <button type="submit" onClick={this.attendToggler.bind(this)}> 
+            <button type="submit" onClick={this.attendTogglerMoney.bind(this)}> 
               Attend
             </button>
             }
           </div>
           :
-          null
-          // <Attend />
+          
+          <Attend />
         }
       </div>
     );
