@@ -13,10 +13,16 @@ app.get('*', (req, res) => {
 	res.sendFile('index.html', { root: path.join(__dirname, '../react-client/dist') });
 });
 
-app.post('/', function(req, res) {});
-
-let port = 3000;
+app.post('/signupuser', function(req, res) {
+	console.log("jjjjjj")
+	console.log(req.body)
+});
+app.post('/login',(req,res)=>{
+	console.log(req.body)
+	res.json('rrrr')
+})
+let port = 3001;
 
 app.listen(port, function() {
-	console.log(`listening on port ${port}`);
+	console.log(`listening, on port ${port}`);
 });

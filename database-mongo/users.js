@@ -1,30 +1,23 @@
-
 var Promise = require('bluebird');
 const mongoose = require('mongoose');
 
 let userSchema = mongoose.Schema({
 
-        username: String,
-        password: String,
-
-
+        "id": String,
+        "user-name": String,
+        "password": String,
+        "email": String,
+        "type": String,
+        "profile-id": String,
 });
 
 let User = mongoose.model('users', userSchema);
 
 
-let save = (user) => {
- 
- 
+let save = (user, callback) => {
+        User.create(user, callback);
+
 }
-
-
-
-
-
-
-
-
 module.exports.save = save;
 
 
