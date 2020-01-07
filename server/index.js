@@ -23,7 +23,7 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 
 app.post('/', function (req, res) {});
 
-
+// ####################################	SOFIAN	PORTS  ######################################### \\
 app.post('/api/events', function (req, res) {
 	var data = req.body
 	console.log(data)
@@ -55,7 +55,7 @@ app.get('*', (req, res) => {
 		root: path.join(__dirname, '../react-client/dist')
 	});
 });
-
+// ####################################	SOFIAN	PORTS  ######################################### \\
 
 let port = 8000;
 
