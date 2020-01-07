@@ -22,6 +22,7 @@ class EventsList extends Component {
     render() {
         return (
             <div>
+                {/* {console.log(this.props.events)} */}
                 {this.props.events.map((event, idx) => {
                     <div key={idx}>
                         <img src={event.img} />

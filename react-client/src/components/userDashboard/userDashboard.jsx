@@ -12,7 +12,15 @@ class UserDashboard extends Component {
         }
     }
 
-    updateState(data ){
+    updateState(e){
+        e.preventDefault
+        var data = arguments[1]
+        if(data){
+            this.setState({
+                eventsArr: data
+            })
+
+        }
         
     }
 
@@ -33,6 +41,7 @@ class UserDashboard extends Component {
         return (
             <div>
                 <h1>userDashboard</h1>
+                {console.log(this.state.eventsArr)}
                 <Search events={this.updateState.bind(this)}/>
                 <EventsList events={this.state.eventsArr}/>
                 <div>

@@ -32,7 +32,6 @@ class Search extends Component {
       data: searchComp,
       success: data => {
         this.updateState(this.state.filttredEvents, data);
-        this.props.events(this.state.filttredEvents);
       },
       error: err => console.log("Error in get request search", err)
     });
@@ -41,7 +40,8 @@ class Search extends Component {
   updateState(target, data) {
     this.setState({
       target: data
-    });
+    },()=> this.props.events(this.state.filttredEvents)
+    );
   }
   render() {
     return (
