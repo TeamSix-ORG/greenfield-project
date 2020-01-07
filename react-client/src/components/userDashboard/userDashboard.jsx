@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Search from './search.jsx';
 import EventsList from './eventsList.jsx'
+import $ from "jquery";
+
 
 class UserDashboard extends Component {
     constructor(props) {
@@ -10,10 +12,8 @@ class UserDashboard extends Component {
         }
     }
 
-    updateState(data){
-        this.updateState({
-            eventsArr : data
-        })
+    updateState(data ){
+        
     }
 
     componentDidMount(){

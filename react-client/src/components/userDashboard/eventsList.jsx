@@ -11,7 +11,8 @@ class EventsList extends Component {
         }
     }
 
-    toggleComponents(){
+    toggleComponents(e){
+        e.preventDefault
         this.setState({
             eventList: false,
             moreInfo: true
