@@ -24,6 +24,7 @@ class App extends React.Component {
 						<Route path="/signuporganizer" component={Create_organizer} />
 						<Route path="/login" component={Login} />
 						<Route path="/userdashboard" component={UserDashboard} />
+
 					</Switch>
 				</Router>
 			</div>

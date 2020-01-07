@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Attend from './attend'
+// import Attend from './attend'
 
 class MoreInfo extends Component {
   constructor(props) {
@@ -7,7 +7,7 @@ class MoreInfo extends Component {
     this.state = {
       event: [],
       moreInfo: true,
-        attend: false
+        attendMoney: false
     };
   }
 
@@ -20,11 +20,14 @@ class MoreInfo extends Component {
     });
   }
 
-  attendToggler(e) {
+  attendTogglerFree(e) {
+    // Send request to the backend with the id of the event and user id
+  }
+  attendTogglerMoney(e) {
     e.preventDefault();
     this.setState({
         moreInfo: false,
-        attend: true
+        attendMoney: true
     })
   }
 
@@ -34,17 +37,26 @@ class MoreInfo extends Component {
         {
             this.state.moreInfo ?
           <div>
-            <img src={this.state.event[0].img} />
-            <h3>{this.state.event[0].title}</h3>
-            <h3>{this.state.event[0].date}</h3>
-            <p>{this.state.event[0].description}</p>
-            <p>{this.state.event[0].cost}</p>
-            <button type="submit" onClick={this.attendToggler.bind(this)}>
+            <img src={this.state.event.imgUrl[0]} />
+                <h3>{this.state.event.eventName}</h3>
+                <h3>{this.state.event.date}</h3>
+                <p>{this.state.event.description}</p>
+                <p>{this.state.event.videos[0]}</p>
+                <p>{this.state.event.category}</p>
+                <p>{this.state.event.description}</p>
+            {this.state.event[0].cost === 0 ?
+            <button type="submit" onClick={this.attendToggler.bind(this)}> 
               Attend
             </button>
+            :
+            <button type="submit" onClick={this.attendToggler.bind(this)}> 
+              Attend
+            </button>
+            }
           </div>
           :
-          <Attend />
+          null
+          // <Attend />
         }
       </div>
     );

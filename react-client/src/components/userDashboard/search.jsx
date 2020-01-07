@@ -7,7 +7,8 @@ class Search extends Component {
     this.state = {
       eventName: "",
       category: "",
-      filttredEvents: []
+      filttredEvents: [],
+      msg:''
     };
   }
 
@@ -25,14 +26,22 @@ class Search extends Component {
     if (this.state.category !== "") {
       searchComp.category = this.state.category;
     }
-
+    console.log('hii')
+// Sends request to the server with the parameters from the search
     $.ajax({
       url: "/events",
-      method: "GET",
+      type: "POST",
       data: searchComp,
       success: data => {
+          if(data === 'No Events with that name') {
+            this.updateState(this.state.msg, data)
+          }else{
+// if it found data it should bring it back and update the state
+console.log(data)
         this.updateState(this.state.filttredEvents, data);
-      },
+        this.props.events(this.state.filttredEvents)
+          }  
+    },
       error: err => console.log("Error in get request search", err)
     });
   }
@@ -40,8 +49,7 @@ class Search extends Component {
   updateState(target, data) {
     this.setState({
       target: data
-    },()=> this.props.events(this.state.filttredEvents)
-    );
+    });
   }
   render() {
     return (
@@ -66,6 +74,7 @@ class Search extends Component {
             <option value="sports">Sports</option>
           </select>
           <button type="submit">Search</button>
+          <p>{this.state.msg}</p>
         </form>
       </div>
     );
