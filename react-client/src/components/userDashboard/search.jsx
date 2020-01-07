@@ -8,11 +8,11 @@ class Search extends Component {
       eventName: "",
       category: "",
       filttredEvents: [],
-      msg:''
+      msg: ""
     };
   }
 
-  // Hndelse the change of state in the input and the options boxes
+  // Handle's the change of state in the input and the options boxes
   searchIpuntChangeHandler(e) {
     this.setState({
       [e.target.name]: e.target.value
@@ -26,34 +26,32 @@ class Search extends Component {
     if (this.state.category !== "") {
       searchComp.category = this.state.category;
     }
-    console.log('hii')
-// Sends request to the server with the parameters from the search
+    // Sends request to the server with the parameters from the search
     $.ajax({
-      url: "/events",
+      url: "/api/events",
       type: "POST",
       data: searchComp,
       success: data => {
-          if(data === 'No Events with that name') {
-            this.updateState(this.state.msg, data)
-          }else{
-// if it found data it should bring it back and update the state
-console.log(data)
-        this.updateState(this.state.filttredEvents, data);
-        this.props.events(this.state.filttredEvents)
-          }  
-    },
+        if (data === "No Events with that name") {
+          this.setState({
+            msg: data
+          });
+        } else {
+          // if it found data it should bring it back and update the state
+          this.setState({
+            filttredEvents: data
+          });
+          this.props.events(this.state.filttredEvents);
+        }
+      },
       error: err => console.log("Error in get request search", err)
     });
   }
-  //Updating state of the filttered array
-  updateState(target, data) {
-    this.setState({
-      target: data
-    });
-  }
+ 
   render() {
     return (
       <div>
+        {console.log(this.state.filttredEvents)}
         <form onSubmit={this.submitSearchHandler.bind(this)}>
           <label htmlFor="search">Search By Name: </label>
           <input
@@ -69,9 +67,11 @@ console.log(data)
             onChange={this.searchIpuntChangeHandler.bind(this)}
           >
             <option value="N/A">N/A</option>
-            <option value="edu">Educational</option>
+            <option value="education">Educational</option>
             <option value="fun">Fun</option>
             <option value="sports">Sports</option>
+            <option value="it">I.T</option>
+            <option value="music">music</option>
           </select>
           <button type="submit">Search</button>
           <p>{this.state.msg}</p>

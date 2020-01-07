@@ -6,6 +6,13 @@ const path = require('path');
 const Event = require('../database-mongo/events.js')
 
 var app = express();
+
+app.use(
+	bodyParser.urlencoded({
+	  extended: false
+	})
+  );
+  
 app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/../react-client/dist'));
@@ -16,7 +23,7 @@ app.post('/', function (req, res) {});
 
 app.post('/api/events', function (req, res) {
 	var data = req.body
-	
+	console.log(data)
 	Event.findOne(data, (err, result) => {
 		if(err) throw err
 		else if(result) res.send(result)

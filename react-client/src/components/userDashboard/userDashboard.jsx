@@ -50,7 +50,6 @@ class UserDashboard extends Component {
     return (
       <div>
         <h1>userDashboard</h1>
-        {console.log(this.state.eventsArr)}
         <Search events={this.updateState.bind(this)} />
         <EventsList events={this.state.eventsArr} />
         <div>{/* user profile properties */}</div>
