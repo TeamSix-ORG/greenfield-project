@@ -5,15 +5,15 @@ import Search from "./search.jsx";
 import { Redirect } from "react-router-dom";
 
 class AttendedEvents extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            userId: "5e148bf8fc13ae0c40000006",
-            attendedArr: [],
-            redirectToUserDashboard: false
-        };
-        window.attendedArr = this.state.attendedArr
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      userId: "5e148bf8fc13ae0c40000006",
+      attendedArr: [],
+      redirectToUserDashboard: false
+    };
+    window.attendedArr = this.state.attendedArr;
+  }
 
   toggleStates(e) {
     e.preventDefault();
@@ -32,9 +32,9 @@ class AttendedEvents extends Component {
         for (var i = 0; i < data.length; i++) {
           if (data[i].userId === this.state.userId) {
             arr.push(data[i].eventId);
+          }
         }
-    }
-    console.log(data, 'hi')
+        console.log(data, "hi");
         this.fetchEvents(arr);
       },
       error: err => {
@@ -56,7 +56,7 @@ class AttendedEvents extends Component {
             }
           }
         }
-        console.log(arr)
+        console.log(arr);
         this.setState({ attendedArr: array });
       }
     });
@@ -72,25 +72,14 @@ class AttendedEvents extends Component {
   render() {
     const container = {
       margin: "50px auto 0",
-      width: '700px',
+      width: "700px",
       boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)"
-    }
+    };
 
-    const cardMedia  = {
-      borderRadius: "2px",
-      boxShadow: "0 2px 8px rgba(0, 0, 0, .12)",
-      height: "125px",
-      marginBottom: "25px",
-      transition: "all 300ms ease-out",
-      width: "100%"
-    }
 
-    const ps={
+    const ps = {
       padding: "2px 16px"
-    }
-
-
-
+    };
 
     if (this.state.redirectToUserDashboard) {
       this.setState({
@@ -112,16 +101,18 @@ class AttendedEvents extends Component {
         </button>
         <div>
           {this.state.attendedArr.map((attended, index) => {
-          return ( <div key={index} style={container}>
-                <img
-              src={attended.imgUrl[0]} style={{width:"100%"}}
-            />
-            <h1>{attended.eventName}</h1>
-            <h4>Date: {attended.date}</h4>
-            <p>{attended.videos[0]}</p>
-            <p>Category:{attended.category}</p>
-            <p>Description: {attended.description}</p> 
-           </div>  )
+            return (
+              <div key={index} style={container}>
+                <img src={attended.imgUrl[0]} style={{ width: "100%" }} />
+                <h1>{attended.eventName}</h1>
+                <h4>Date: {attended.date}</h4>
+                <p style={ps}>{attended.videos[0]}</p>
+                <video width="700" height="480" src={attended.videos[0]} controls></video>
+
+                <p style={ps}>Category:{attended.category}</p>
+                <p style={ps}>Description: {attended.description}</p>
+              </div>
+            );
           })}
         </div>
       </div>
