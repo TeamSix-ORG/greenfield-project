@@ -3,29 +3,42 @@ const mongoose = require('mongoose');
 
 let userSchema = mongoose.Schema({
 
-        "id": String,
-        "user-name": String,
-        "password": String,
-        "email": String,
-        "type": String,
-        "profile-id": String,
+        _id: {
+                type: mongoose.Schema.ObjectId,
+                required: true
+        },
+        username: {
+                type: String,
+                required: true
+        },
+        password: {
+                type: String,
+                required: true
+        },
+        fullname: {
+                type: String,
+                required: true
+        },
+        phoneNnumber: {
+                type: Number,
 
-
+        },
+        email: {
+                type: String,
+                required: true
+        },
+        type: {
+                type: String,
+                required: true
+        },
+        profileId: {
+                type: String,
+                required: true
+        }
 });
 
-let User = mongoose.model('users', userSchema);
-
-
-let save = (user, callback) => {
-        User.create(user, callback);
-
-}
 
 
 
 
-
-
-
-
-module.exports.save = save;
+module.exports = mongoose.model('User', userSchema);
