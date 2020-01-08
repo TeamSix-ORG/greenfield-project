@@ -6,12 +6,9 @@ class Login extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-		  name:"",
 		  username:"",
-		  phoneNumber:"",
 		  email:"",
 		  password:"",
-		  confirmPassord:"",
 		  type:"user"
 		}
 		this.handleChange = this.handleChange.bind(this)
@@ -29,7 +26,7 @@ class Login extends React.Component {
 			  data:this.state,
 			  contentType: 'application/x-www-form-urlencoded',
 			  success: (data) => {
-				console.log(data ==="1")
+				console.log(data)
 			  },
 			  error: (err) => {
 				if(err){console.log(err)}

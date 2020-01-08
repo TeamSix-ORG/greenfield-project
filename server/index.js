@@ -62,6 +62,11 @@ app.post('/login', async (req,res)=>{
 
 	const validPass = await bcrypt.compare(req.body.password, user.password)
 	if(!validPass) return res.status(400).json("wrong password")
+	//tokens 
+	
+	const token = jwt.sign({_id:user._id},"greenfeild")
+	res.header('auth-token', token).json(token)
+	
 
 })
 let port = 3001;
