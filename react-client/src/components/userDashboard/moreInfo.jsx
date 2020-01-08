@@ -59,30 +59,52 @@ updateState(e) {
   }
 
   render() {
+    const container = {
+      margin: "50px auto 0",
+      width: '700px',
+      boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)"
+    }
+
+    const cardMedia  = {
+      borderRadius: "2px",
+      boxShadow: "0 2px 8px rgba(0, 0, 0, .12)",
+      height: "125px",
+      marginBottom: "25px",
+      transition: "all 300ms ease-out",
+      width: "100%"
+    }
+
+    const ps={
+      padding: "2px 16px"
+    }
+
+
+
     return (
       <div>
         {this.state.moreInfo ? (
-          <div>
+          <div style={container}>
             <img
-              src={this.props.eventDescription[this.props.index].imgUrl[0]}
+              src={this.props.eventDescription[this.props.index].imgUrl[0]} style={{width:"100%"}}
             />
-            <h3>{this.props.eventDescription[this.props.index].event1Name}</h3>
-            <h3>{this.props.eventDescription[this.props.index].date}</h3>
-            <p>{this.props.eventDescription[this.props.index].description}</p>
-            <p>{this.props.eventDescription[this.props.index].videos[0]}</p>
+            <h3>Date: {this.props.eventDescription[this.props.index].date}</h3>
+            <h3>Name: {this.props.eventDescription[this.props.index].eventName}</h3>
+            <p>Description: {this.props.eventDescription[this.props.index].description}</p>
+            <video width="700" height="480" src={this.props.eventDescription[this.props.index].videos[0]} controls></video>
+
             <p>{this.props.eventDescription[this.props.index].category}</p>
             <p>{this.props.eventDescription[this.props.index].description}</p>
-            <button type="submit" onClick={this.updateState.bind(this)}>
+            <button type="submit" onClick={this.updateState.bind(this)} style={cardMedia}>
                 back
               </button>
             {this.props.eventDescription[this.props.index].cost === "FREE" ? (
-              <button type="submit" onClick={this.attendToggler.bind(this)}>
+              <button type="submit" onClick={this.attendToggler.bind(this)} style={cardMedia}>
                 FREE
               </button>
             ) : (
               <button
                 type="submit"
-                onClick={this.attendTogglerMoney.bind(this)}
+                onClick={this.attendTogglerMoney.bind(this)} style={cardMedia}
               >
                 Attend
               </button>

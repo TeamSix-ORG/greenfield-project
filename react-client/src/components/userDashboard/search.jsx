@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import $ from "jquery";
+// import ".././design.css";
 
 class Search extends Component {
   constructor(props) {
@@ -47,12 +48,20 @@ class Search extends Component {
       error: err => console.log("Error in get request search", err)
     });
   }
- 
+
   render() {
+    
+    const search = 
+      {
+        width: "490px",
+        display: "block",
+        margin: "0 auto"
+      }
+    
+
     return (
       <div>
-        
-        <form onSubmit={this.submitSearchHandler.bind(this)}>
+        <form onSubmit={this.submitSearchHandler.bind(this)} style={search}>
           <label htmlFor="search">Search By Name: </label>
           <input
             type="search"
@@ -61,6 +70,7 @@ class Search extends Component {
             onChange={this.searchIpuntChangeHandler.bind(this)}
             value={this.state.eventName}
           />
+          <button type="submit">Search</button>
           <select
             name="category"
             value={this.state.category}
@@ -73,7 +83,6 @@ class Search extends Component {
             <option value="it">I.T</option>
             <option value="music">music</option>
           </select>
-          <button type="submit">Search</button>
           <p>{this.state.msg}</p>
         </form>
       </div>

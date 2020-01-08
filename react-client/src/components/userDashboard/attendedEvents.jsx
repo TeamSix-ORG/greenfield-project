@@ -8,7 +8,7 @@ class AttendedEvents extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userId: "5e148bf8fc13ae0c40000000",
+            userId: "5e148bf8fc13ae0c40000006",
             attendedArr: [],
             redirectToUserDashboard: false
         };
@@ -34,6 +34,7 @@ class AttendedEvents extends Component {
             arr.push(data[i].eventId);
         }
     }
+    console.log(data, 'hi')
         this.fetchEvents(arr);
       },
       error: err => {
@@ -50,13 +51,12 @@ class AttendedEvents extends Component {
         var array = [];
         for (var i = 0; i < results.length; i++) {
           for (let j = 0; j < results.length; j++) {
-              console.log(results[j].id === arr[i], results[j].id ,arr[i])
             if (results[j].id === arr[i]) {
               array.push(results[j]);
             }
           }
         }
-        console.log(array)
+        console.log(arr)
         this.setState({ attendedArr: array });
       }
     });
@@ -70,6 +70,28 @@ class AttendedEvents extends Component {
   }
 
   render() {
+    const container = {
+      margin: "50px auto 0",
+      width: '700px',
+      boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)"
+    }
+
+    const cardMedia  = {
+      borderRadius: "2px",
+      boxShadow: "0 2px 8px rgba(0, 0, 0, .12)",
+      height: "125px",
+      marginBottom: "25px",
+      transition: "all 300ms ease-out",
+      width: "100%"
+    }
+
+    const ps={
+      padding: "2px 16px"
+    }
+
+
+
+
     if (this.state.redirectToUserDashboard) {
       this.setState({
         redirectToUserDashboard: false
@@ -90,16 +112,15 @@ class AttendedEvents extends Component {
         </button>
         <div>
           {this.state.attendedArr.map((attended, index) => {
-           return ( <div key={index}>
+          return ( <div key={index} style={container}>
                 <img
-              src={attended.imgUrl[0]}
+              src={attended.imgUrl[0]} style={{width:"100%"}}
             />
-            <h3>{attended.eventName}</h3>
-            <h3>{attended.date}</h3>
-            <p>{attended.description}</p>
+            <h1>{attended.eventName}</h1>
+            <h4>Date: {attended.date}</h4>
             <p>{attended.videos[0]}</p>
-            <p>{attended.category}</p>
-            <p>{attended.description}</p> 
+            <p>Category:{attended.category}</p>
+            <p>Description: {attended.description}</p> 
            </div>  )
           })}
         </div>

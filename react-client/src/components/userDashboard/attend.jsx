@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import EventsList from "../userDashboard/eventsList.jsx"
 import $ from 'jquery'
+// import '../designe.css'
 
 class Attend extends Component {
   constructor(props) {
@@ -50,12 +51,56 @@ class Attend extends Component {
   }
 
   render() {
+    const attendForm = {
+      font: '95% Arial Helvetica sans-serif',
+      maxWidth:" 400px",
+      margin: "10px auto",
+      padding: "16px",
+      background: "#F7F7F7"
+      };
+      const title = {
+      background: "#43D1AF",
+      padding: "20px 0",
+      fontSize: "140%",
+      fontWeight: "300",
+      textAlign: "center",
+      color: "#fff",
+      margin: "-16px -16px 16px -16px"
+      }
+      const inputBox1 = 
+      {
+      outline: "none",
+      width: "100%",
+      background: "#fff",
+      marginBottom: "4%",
+      border: "1px solid #ccc",
+      padding: "3%",
+      color: "#555",
+      font: "95% Arial, Helvetica, sans-serif"
+      }
+        
+      const submit1 = { 
+      boxSizing: "border-box",
+      width: "100%",
+      padding: "3%",
+      background: "#43D1AF",
+      borderBottom: "2px solid #30C29E",
+      borderTopStyle: "none",
+      borderRightStyle: "none",
+      borderLeftStyle: "none",
+      color: "#fff"
+      }
+    
+
+
+
+
     return (
       <div>
           {this.state.attend ?
-          <div>
+          <div style={attendForm}>
         
-        <h1>USER INFO</h1>
+        <h1 style={title}>USER INFO</h1>
         <div>
           <label htmlFor="expiry_date">Expiry date: </label>
           <br />
@@ -64,6 +109,7 @@ class Attend extends Component {
             type="date"
             name="Expiry_date"
             id="Expiry_date"
+            style={inputBox1}
             onChange={this.handleChange.bind(this)}
             placeholder="Enter Credit Card Expiry Date"
             required
@@ -78,6 +124,7 @@ class Attend extends Component {
             type="number"
             name="CVV"
             id="CVV"
+            style={inputBox1}
             onChange={this.handleChange.bind(this)}
             placeholder="Enter CVV"
             required
@@ -92,6 +139,7 @@ class Attend extends Component {
             type="text"
             name="Billing_address"
             id="Billing_address"
+            style={inputBox1}
             onChange={this.handleChange.bind(this)}
             placeholder="Enter password"
             required
@@ -101,10 +149,10 @@ class Attend extends Component {
         <div>
           <br />
           <br />
-          <button type="submit" onClick={this.handleClick.bind(this)}>
+          <button type="submit" style={submit1} onClick={this.handleClick.bind(this)}>
             Submit
           </button>
-          <button type="submit" onClick={this.handleClick.bind(this)}>
+          <button type="submit" style={submit1} onClick={this.handleClick.bind(this)}>
             Cancel
           </button>
           <hr />

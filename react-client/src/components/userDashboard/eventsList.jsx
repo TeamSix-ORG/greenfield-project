@@ -41,20 +41,39 @@ class EventsList extends Component {
   }
 
   render() {
+    const container = {
+      margin: "50px auto 0",
+      width: '700px',
+      boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)"
+    }
+
+    const cardMedia  = {
+      borderRadius: "2px",
+      boxShadow: "0 2px 8px rgba(0, 0, 0, .12)",
+      height: "125px",
+      marginBottom: "25px",
+      transition: "all 300ms ease-out",
+      width: "100%"
+    }
+
+    const ps={
+      padding: "2px 16px"
+    }
+
+
+
+
     return (
       <div>
         {this.state.eventList ? (
             this.props.events.map((event, idx) => {
               return (
-              <div key={idx} value={idx} name='idx' onClick={this.changeHandler.bind(this)} style={{borderStyle: 'solid'}}>
-                <img src={event.imgUrl[0]} />
-                <h3>{event.eventName}</h3>
-                <h3>{event.date}</h3>
-                <p>{event.description}</p>
-                <p>{event.videos[0]}</p>
-                <p>{event.category}</p>
-                <p>{event.description}</p>
-                <button type="submit" name='index' value={idx} onClick={this.toggleComponents.bind(this)} >
+              <div key={idx} value={idx} name='idx' style={container} onClick={this.changeHandler.bind(this)}  >
+                <img src={event.imgUrl[0]} style={{width:"100%"}}/>
+                <h1>{event.eventName}</h1>
+                <h3 style={ps}>Date: {event.date}</h3>
+                <p style={ps}>Category: {event.category}</p>
+                <button type="submit" name='index' value={idx} onClick={this.toggleComponents.bind(this)} style={cardMedia}>
                   More Info
                 </button>
               </div>
