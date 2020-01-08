@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Search from "./search.jsx";
 import EventsList from "./eventsList.jsx";
 import $ from "jquery";
-import  { Redirect } from 'react-router-dom'
+import { Redirect } from "react-router-dom";
 
 import AttendedEvents from "./attendedEvents.jsx";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -14,9 +14,8 @@ class UserDashboard extends Component {
     super(props);
     this.state = {
       eventsArr: [],
-      // attendedEvents: false,
-      // dashboard: true
-      redirectToAttendedEvents:false
+      redirectToAttendedEvents: false,
+      userId: "5e148bf8fc13ae0c40000006"
     };
   }
 
@@ -28,11 +27,10 @@ class UserDashboard extends Component {
     }
   }
 
-  toggleStates(e){
-    e.preventDefault()
+  toggleStates(e) {
+    e.preventDefault();
     this.setState({
       redirectToAttendedEvents: true
-      
     });
   }
 
@@ -41,9 +39,38 @@ class UserDashboard extends Component {
       url: "/api/events",
       type: "GET",
       success: data => {
-        this.setState({
-          eventsArr: data
-        });
+        this.fetchUserEvent(data);
+        // this.setState({
+        //   eventsArr: data
+        // });
+      },
+      error: err => {
+        throw err;
+      }
+    });
+  }
+
+  fetchUserEvent(data) {
+    $.ajax({
+      url: "/api/jointEventUser",
+      type: "GET",
+      success: results => {
+        var arr = [];
+        var array = [];
+        for (let i = 0; i < results.length; i++) {
+          if (results[i].userId === this.state.userId) {
+            arr.push(results[i]);
+          }
+        }
+        for (let j = 0; j < arr.length; j++) {
+          for (let k = 0; k < data.length; k++) {
+            if ( arr[j].eventId === data[k].id ) {
+              console.log('hi')
+              console.log(data.splice(k,1))
+            }
+          }
+          }
+        this.setState({ eventsArr: data })
       },
       error: err => {
         throw err;
@@ -52,24 +79,28 @@ class UserDashboard extends Component {
   }
 
   render() {
-    if(this.state.redirectToAttendedEvents){
-			this.setState({
-				redirectToAttendedEvents: false
-			})
-			return  <Redirect to={{
-			  pathname: '/AttendedEvents',
-			  
-			}} />
-		}
+    if (this.state.redirectToAttendedEvents) {
+      this.setState({
+        redirectToAttendedEvents: false
+      });
+      return (
+        <Redirect
+          to={{
+            pathname: "/AttendedEvents"
+          }}
+        />
+      );
+    }
     return (
       <div>
         <h1>userDashboard</h1>
-          <div>
-          <button type="submit" onClick={this.toggleStates.bind(this)}>Attended Events</button>
-            <Search events1={this.updateState.bind(this)} />
-            <EventsList events={this.state.eventsArr} />
-
-          </div>
+        <div>
+          <button type="submit" onClick={this.toggleStates.bind(this)}>
+            Attended Events
+          </button>
+          <Search events1={this.updateState.bind(this)} />
+          <EventsList events={this.state.eventsArr} />
+        </div>
       </div>
     );
   }

@@ -51,6 +51,7 @@ class Search extends Component {
   render() {
     return (
       <div>
+        
         <form onSubmit={this.submitSearchHandler.bind(this)}>
           <label htmlFor="search">Search By Name: </label>
           <input

@@ -5,14 +5,15 @@ import Search from "./search.jsx";
 import { Redirect } from "react-router-dom";
 
 class AttendedEvents extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userId: "5e148bf8fc13ae0c40000000",
-      attendedArr: [],
-      redirectToUserDashboard: false
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            userId: "5e148bf8fc13ae0c40000000",
+            attendedArr: [],
+            redirectToUserDashboard: false
+        };
+        window.attendedArr = this.state.attendedArr
+    }
 
   toggleStates(e) {
     e.preventDefault();
@@ -104,5 +105,4 @@ class AttendedEvents extends Component {
     );
   }
 }
-
 export default AttendedEvents;
