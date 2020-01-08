@@ -8,7 +8,7 @@ mongoose.Promise = global.Promise;
 // create connection
 var dbName = "eventsmanager"
 mongoose.connect(`mongodb://localhost/${dbName}`, {
-  useMongoClient: true
+ useMongoClient: true
 }, function (err, db) {
   if (err) throw err;
   console.log(`database ${dbName} was created`);
