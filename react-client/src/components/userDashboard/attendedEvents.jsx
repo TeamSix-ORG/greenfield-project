@@ -32,8 +32,8 @@ class AttendedEvents extends Component {
         for (var i = 0; i < data.length; i++) {
           if (data[i].userId === this.state.userId) {
             arr.push(data[i].eventId);
-          }
         }
+    }
         this.fetchEvents(arr);
       },
       error: err => {
@@ -50,11 +50,13 @@ class AttendedEvents extends Component {
         var array = [];
         for (var i = 0; i < results.length; i++) {
           for (let j = 0; j < results.length; j++) {
+              console.log(results[j].id === arr[i], results[j].id ,arr[i])
             if (results[j].id === arr[i]) {
-              array.push(results[i]);
+              array.push(results[j]);
             }
           }
         }
+        console.log(array)
         this.setState({ attendedArr: array });
       }
     });

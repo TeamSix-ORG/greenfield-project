@@ -15,10 +15,10 @@ class UserDashboard extends Component {
     this.state = {
       eventsArr: [],
       redirectToAttendedEvents: false,
-      userId: "5e148bf8fc13ae0c40000006"
+      userId: "5e148bf8fc13ae0c40000000"
     };
   }
-
+//  UPDATING THE STATE OF THE ARRAY CALLED FROM THE SEARCH FUNCTION TO UPDATE THE VIEW
   updateState(data) {
     if (data) {
       this.setState({
@@ -26,14 +26,14 @@ class UserDashboard extends Component {
       });
     }
   }
-
+//  THIS FUNCTION IS USED TO TOGGLE THE REDIRECTION TO THE ATTENDED EVENTS
   toggleStates(e) {
     e.preventDefault();
     this.setState({
       redirectToAttendedEvents: true
     });
   }
-
+//  WHEN THE PAGE IS LOADED WE MAKE A REQUEST TO PULL THE WHOLE MOVIE DATA BASE AND THEN ON SUCCESS WE CALL THE FECH FUNCTION
   componentDidMount() {
     $.ajax({
       url: "/api/events",
@@ -49,14 +49,13 @@ class UserDashboard extends Component {
       }
     });
   }
-
+//  IT'S USED TO GET THE JOINT TABLE OF ALL THE EVENTS ATTENDED BY THE USER AND THEN FILTTERING IT OUT TO GET THE EVNTS THAT THE USER DIDN'T ATTEND TO
   fetchUserEvent(data) {
     $.ajax({
       url: "/api/jointEventUser",
       type: "GET",
       success: results => {
         var arr = [];
-        var array = [];
         for (let i = 0; i < results.length; i++) {
           if (results[i].userId === this.state.userId) {
             arr.push(results[i]);
@@ -77,7 +76,9 @@ class UserDashboard extends Component {
       }
     });
   }
-
+//  IN THE RENDER FUNCTION WECHECK IF THE BUTTON IS CLICKED OR NOT SO WE CAN REDIRECT
+//  AND SEND THE DATA TO THE SEARCH
+//  IN THE EVENT LIST WE SEND THE FILTTERED DATA TO THE EVENTLIST COMPONENT TO VIEW IT
   render() {
     if (this.state.redirectToAttendedEvents) {
       this.setState({

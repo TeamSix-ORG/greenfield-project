@@ -11,8 +11,9 @@ class EventsList extends Component {
       index: null,
       msg: ""
     };
-    // console.log(this.props)
   }
+//  THIS FUNCTION IS USED TO UPDATE THE STATES AND GET THE INDEX OF THE CLICKED DIV TO SEND TO THE MORE INF TAB
+
   changeHandler(e){
     e.preventDefault()
     this.setState({
@@ -20,12 +21,16 @@ class EventsList extends Component {
     })
   }
 
-  updateState(e) {
-      e.preventDefault()
-      this.setState({
-          msg: 'NO EVENTS TO SHOW'
-      })
-  }
+  // 
+
+  // updateState(e) {
+  //     e.preventDefault()
+  //     this.setState({
+  //         msg: 'NO EVENTS TO SHOW'
+  //     })
+  // }
+
+//  THIS FUNCTION IS USED TO TOGGLE THE VIEW BETWEEN THE EVENTS LIST AND THE MORE INFO TAB
 
   toggleComponents(e) {
     e.preventDefault();
