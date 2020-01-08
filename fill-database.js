@@ -6,11 +6,11 @@ var User = require('./database-mongo/users.js');
 var Pofile = require('./database-mongo/user-profile.js');
 var Event = require('./database-mongo/events.js');
 
-mongoose.connect('mongodb://localhost/eventsmanager', {
+mongoose.connect('mongodb://localhost/events', {
 	useMongoClient: true
 });
 
-var seedDb = function (users, userprofile, events) {
+var seedDb = function(users, userprofile, events) {
 	for (var i = 0; i < users.users.length; i++) {
 		User.save(users.users[i], (err, res) => {
 			if (err) {
