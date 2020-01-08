@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Attend from "./attend.jsx";
 import EventsList from './eventsList.jsx'
+import $ from 'jquery'
 
 class MoreInfo extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class MoreInfo extends Component {
   attendToggler(e) {
     // Send request to the backend with the id of the event and user id
       var obj = {};
-      obj.UserId = "userId"
+      obj.userId = "5e148bf8fc13ae0c40000006"
       obj.eventId = this.props.eventDescription[this.props.index].id;;
       console.log(obj , this.props.userId)
       $.ajax({
@@ -24,6 +25,7 @@ class MoreInfo extends Component {
         type: "POST",
         data: obj,
         success: data => {
+          console.log(data)
           if (data === "Joined") {
             this.setState({
               attend: false,
@@ -40,7 +42,7 @@ class MoreInfo extends Component {
     }
 
 updateState(e) {
-  e.preventDefault();
+  // e.preventDefault();
   this.setState({
     moreInfo: false,
     home: true
@@ -74,7 +76,7 @@ updateState(e) {
                 back
               </button>
             {this.props.eventDescription[this.props.index].cost === "FREE" ? (
-              <button type="submit" onClick={this.updateState.bind(this)}>
+              <button type="submit" onClick={this.attendToggler.bind(this)}>
                 FREE
               </button>
             ) : (

@@ -41,6 +41,15 @@ app.get('/api/events', function (req, res) {
 		else res.send('No Events')
 	})
 });
+
+app.get('/api/jointEventUser', function (req, res) {
+
+		Joint.findAll((err, result) => {
+			if(err) throw err
+			else if(result) res.send(result)
+		})
+});
+
 app.post('/api/jointEventUser', function (req, res) {
 	var data = req.body
 	console.log(data)
@@ -49,13 +58,13 @@ app.post('/api/jointEventUser', function (req, res) {
 		else if(result) res.send("Joined")
 	})
 });
+// ####################################	SOFIAN	PORTS  ######################################### \\
 
 app.get('*', (req, res) => {
 	res.sendFile('index.html', {
 		root: path.join(__dirname, '../react-client/dist')
 	});
 });
-// ####################################	SOFIAN	PORTS  ######################################### \\
 
 let port = 8000;
 
