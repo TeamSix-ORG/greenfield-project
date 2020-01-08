@@ -10,6 +10,7 @@ let events_Schema = mongoose.Schema({
     "imgUrl": [String],
     "videos": [String],
     "category": String,
+    "cost": String,
     "organizerId": String,
     "plan-id": String,
 

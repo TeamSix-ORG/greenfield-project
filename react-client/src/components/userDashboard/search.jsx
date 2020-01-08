@@ -41,7 +41,7 @@ class Search extends Component {
           this.setState({
             filttredEvents: data
           });
-          this.props.events(this.state.filttredEvents);
+          this.props.events1(this.state.filttredEvents);
         }
       },
       error: err => console.log("Error in get request search", err)

@@ -7,6 +7,8 @@ import Create_user from './components/signup-user.jsx';
 import Create_organizer from './components/signup-organizer.jsx';
 import Login from './components/login.jsx';
 import UserDashboard from './components/userDashboard/userDashboard.jsx'
+import AttendedEvents from './components/userDashboard/attendedEvents.jsx'
+
 
 class App extends React.Component {
 	constructor(props) {
@@ -24,7 +26,7 @@ class App extends React.Component {
 						<Route path="/signuporganizer" component={Create_organizer} />
 						<Route path="/login" component={Login} />
 						<Route path="/userdashboard" component={UserDashboard} />
-
+						<Route path="/attendedEvents" component={AttendedEvents} />
 					</Switch>
 				</Router>
 			</div>

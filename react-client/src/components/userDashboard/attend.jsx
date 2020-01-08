@@ -29,7 +29,7 @@ class Attend extends Component {
 
   handleClick() {
     var obj = {};
-    obj.UserId = this.props.userId;
+    obj.userId = this.props.userId;
     obj.eventId = this.props.eventId;
     $.ajax({
       url: "/api/jointEventUser",
