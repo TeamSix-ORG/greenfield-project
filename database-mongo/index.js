@@ -7,7 +7,7 @@ mongoose.Promise = global.Promise;
 
   // create connection
   var dbName = "events"
-  mongoose.connect(`mongodb://localhost/${dbName}`,{useMongoClient: true  } ,function(err,db){
+  mongoose.connect(`mongodb://localhost/${dbName}`,{ useUnifiedTopology: true, useNewUrlParser: true  },function(err,db){
       if(err) throw err;
       console.log(`database ${dbName} was created`);
   });

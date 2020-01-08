@@ -22,9 +22,6 @@ class Login extends React.Component {
 	  }
 	  handleSubmit(event) {
 		event.preventDefault()
-		if(this.state.password !== this.state.confirmPassord){
-		  alert("confirm password")
-		}
 			$.ajax({
 			  type: "POST",
 			  url: 'http://localhost:3001/login',
@@ -39,7 +36,6 @@ class Login extends React.Component {
 			  }
 			});
 		  }
-
 		  render () {
 			const {username,email,password} = this.state
 			return (
@@ -47,13 +43,13 @@ class Login extends React.Component {
 		   <h1>create a user account</h1>
 		   <form onSubmit={this.handleSubmit}>
 				  <label>Username:
-				  <input type="text" placeholder="Choose username" name="username" value={username} onChange={this.handleChange}/>
+				  <input type="text" placeholder="Choose username" name="username" value={username} onChange={this.handleChange} required/>
 				  </label>
 				  <label>Email:
-							<input type="text" placeholder="enter your email" name="email" value={email} onChange={this.handleChange}/>
+							<input type="text" placeholder="enter your email" name="email" value={email} onChange={this.handleChange} required/>
 				  </label>
 				  <label>Password:
-							<input type="password" placeholder="enter your password" name="password" value={password} onChange={this.handleChange}/>
+							<input type="password" placeholder="enter your password" name="password" value={password} onChange={this.handleChange} required/>
 				  </label>
 				  <button type="submit">Submit</button>
 						</form> 
