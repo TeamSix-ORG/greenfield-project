@@ -22,11 +22,7 @@ app.use(
 );
 app.use(express.static(__dirname + '/../react-client/dist'));
 
-app.get('*', (req, res) => {
-	res.sendFile('index.html', {
-		root: path.join(__dirname, '../react-client/dist')
-	});
-});
+
 
 // ####################################	SOFIAN	PORTS  ######################################### \\
 app.post('/api/events', function(req, res) {
@@ -40,6 +36,7 @@ app.post('/api/events', function(req, res) {
 });
 
 app.get('/api/events', function(req, res) {
+	console.log("hi")
 	Event.findAll((err, result) => {
 		if (err) throw err;
 		else if (result) res.send(result);
@@ -86,6 +83,12 @@ app.post('/api/login', async (req, res) => {
 	const token = jwt.sign({ _id: user._id }, 'greenfeild');
 	//res.header('auth-token', token).json(token);
 	res.send(user);
+});
+
+app.get('*', (req, res) => {
+	res.sendFile('index.html', {
+		root: path.join(__dirname, '../react-client/dist')
+	});
 });
 let port = 3001;
 

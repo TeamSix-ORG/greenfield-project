@@ -29,8 +29,16 @@ class Attend extends Component {
 
 
   handleClick() {
+    let User = {};
+    if (localStorage && localStorage.getItem("user")) {
+      User = JSON.parse(JSON.parse(localStorage.getItem("user")));
+      this.setState({
+        userId: User._id
+      });
+    }
+
     var obj = {};
-    obj.userId = this.props.userId;
+    obj.userId = User._id;
     obj.eventId = this.props.eventId;
     $.ajax({
       url: "/api/jointEventUser",

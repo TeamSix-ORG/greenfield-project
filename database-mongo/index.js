@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 // create connection
-var dbName = 'events';
+var dbName = 'eventsmanager';
 mongoose.connect(`mongodb://localhost/${dbName}`, { useUnifiedTopology: true, useNewUrlParser: true }, function(
 	err,
 	db
