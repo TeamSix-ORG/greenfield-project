@@ -70,7 +70,7 @@ app.put("/api/users/:id", function(req, res) {
   const id = req.params.id;
   UserProfile.findOneAndUpdate({_userId: id}, req.body,(err, result) =>{
     if(err) throw err
-    else console.log('yes')
+    else res.send('yes')
   })
 });
 // ####################################	SOFIAN	PORTS  ######################################### \\

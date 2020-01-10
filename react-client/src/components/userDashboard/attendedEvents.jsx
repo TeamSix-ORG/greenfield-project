@@ -13,8 +13,16 @@ class AttendedEvents extends Component {
     this.state = {
       userId: "",
       attendedArr: [],
-      redirectToUserDashboard: false
+      redirectToUserDashboard: false,
+      eventId: ""
     };
+  }
+
+  changeHandler(e){
+    e.preventDefault()
+    this.setState({
+        [e.target.name]: e.target.value
+    })
   }
 
   toggleStates(e) {
@@ -57,6 +65,39 @@ class AttendedEvents extends Component {
     });
   }
 
+  clickHandler() {
+   
+   console.log(this.state.eventId)
+  //   let User = {};
+  //   if (localStorage && localStorage.getItem("user")) {
+  //     User = JSON.parse(JSON.parse(localStorage.getItem("user")));
+  //     this.setState({
+  //       userId: User._id
+  //     });
+  //   }
+  //   axios.post(`/api/profile/${User._id}`).then(res => {
+  //     const data1 = res.data;
+  //     for(var i = 0; i < data1.length; i++) {
+  //       if(data1[i] === this.state.eventId){
+  //         data1.splice(i,1)
+  //       }
+  //     }
+  //  console.log(data1)
+  //  var obj = { attendedEvents: data1 }
+  //     $.ajax({
+  //       url: `/api/users/${User._id}`,
+  //       type: `PUT`,
+  //       data: obj,
+  //       success: (res) => {
+  //         console.log(res)
+  //       },
+  //       err: (err) => {
+  //         console.log('err')
+  //       }
+  //     })
+  //   });
+  }
+
   render() {
     const container = {
       margin: "50px auto 0",
@@ -90,7 +131,13 @@ class AttendedEvents extends Component {
         <div>
           {this.state.attendedArr.map((attended, index) => {
             return (
-              <div key={index} style={container}>
+              <div
+                key={index}
+                style={container}
+                value={attended.id}
+                name="eventId"
+                onClick={this.changeHandler.bind(this)}
+              >
                 <img src={attended.imgUrl[0]} style={{ width: "100%" }} />
                 <h1>{attended.eventName}</h1>
                 <h4>Date: {attended.date}</h4>
@@ -98,6 +145,18 @@ class AttendedEvents extends Component {
                 <ReactPlayer url={attended.videos[0]} />
                 <p style={ps}>Category:{attended.category}</p>
                 <p style={ps}>Description: {attended.description}</p>
+                <center>
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    style={{ margin: "25px" }}
+                    onClick={this.clickHandler.bind(this)}
+                    name="eventId"
+                    value={attended.id}
+                  >
+                    Cancel
+                  </button>
+                </center>
               </div>
             );
           })}
@@ -106,4 +165,5 @@ class AttendedEvents extends Component {
     );
   }
 }
+
 export default AttendedEvents;
