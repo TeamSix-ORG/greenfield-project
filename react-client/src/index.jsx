@@ -8,6 +8,9 @@ import Create_organizer from './components/signup-organizer.jsx';
 import Login from './components/login.jsx';
 import UserDashboard from './components/userDashboard/userDashboard.jsx'
 import AttendedEvents from './components/userDashboard/attendedEvents.jsx'
+import UserProfile from './components/userDashboard/userProfile.jsx'
+
+
 
 
 class App extends React.Component {
@@ -27,6 +30,7 @@ class App extends React.Component {
 						<Route path="/login" component={Login} />
 						<Route path="/userdashboard" component={UserDashboard} />
 						<Route path="/attendedEvents" component={AttendedEvents} />
+						<Route path="/profile" component={UserProfile} />
 					</Switch>
 				</Router>
 			</div>

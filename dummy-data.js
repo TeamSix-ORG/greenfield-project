@@ -4,7 +4,7 @@ const users = [{
 		"password": "w1mlEkryt",
 		"email": "gtassell0@tinypic.com",
 		"type": "user",
-		"profile-id": "5e148bf8fc13ae0c40000001"
+		"profileId": "5e148bf8fc13ae0c40000001"
 	},
 	{
 		"id": "5e148bf8fc13ae0c40000002",
@@ -12,7 +12,7 @@ const users = [{
 		"password": "6BSym3",
 		"email": "tcristoforetti1@nasa.gov",
 		"type": "user",
-		"profile-id": "5e148bf8fc13ae0c40000003"
+		"profileId": "5e148bf8fc13ae0c40000003"
 	},
 	{
 		"id": "5e148bf8fc13ae0c40000004",
@@ -20,7 +20,7 @@ const users = [{
 		"password": "1pK97cFHXIC",
 		"email": "elaval2@icio.us",
 		"type": "organizer",
-		"profile-id": "5e148bf8fc13ae0c40000005"
+		"profileId": "5e148bf8fc13ae0c40000005"
 	},
 	{
 		"id": "5e148bf8fc13ae0c40000006",
@@ -28,7 +28,7 @@ const users = [{
 		"password": "T0Ou0Ud",
 		"email": "dpowter3@sitemeter.com",
 		"type": "organizer",
-		"profile-id": "5e148bf8fc13ae0c40000007"
+		"profileId": "5e148bf8fc13ae0c40000007"
 	}
 ];
 const userprofile = [{
@@ -74,8 +74,8 @@ const events = [{
 		"videos": ["https://www.youtube.com/watch?v=NpEaa2P7qZI"],
 		"category": "music",
 		"cost": "FREE",
-		"organizer-id": "5e148bf8fc13ae0c40000004",
-		"plan-id": "5e148aadfc13ae1216000001"
+		"organizerId": "5e148bf8fc13ae0c40000004",
+		"planId": "5e148aadfc13ae1216000001"
 
 	},
 	{
@@ -87,8 +87,8 @@ const events = [{
 		"videos": ["https://www.youtube.com/watch?v=NpEaa2P7qZI"],
 		"category": "it",
 		"cost": "2,99$",
-		"organizer-id": "5e148bf8fc13ae0c40000004",
-		"plan-id": "5e148aadfc13ae1216000003"
+		"organizerId": "5e148bf8fc13ae0c40000004",
+		"planId": "5e148aadfc13ae1216000003"
 
 	},
 	{
@@ -100,8 +100,8 @@ const events = [{
 		"videos": ["https://www.youtube.com/watch?v=NpEaa2P7qZI"],
 		"category": "music",
 		"cost": "FREE",
-		"organizer-id": "5e148bf8fc13ae0c40000006",
-		"plan-id": "5e148aadfc13ae1216000005"
+		"organizerId": "5e148bf8fc13ae0c40000006",
+		"planId": "5e148aadfc13ae1216000005"
 
 	},
 	{
@@ -113,8 +113,8 @@ const events = [{
 		"videos": ["https://www.youtube.com/watch?v=NpEaa2P7qZI"],
 		"category": "education",
 		"cost": "FREE",
-		"organizer-id": "5e148bf8fc13ae0c40000006",
-		"plan-id": "5e148aadfc13ae1216000007"
+		"organizerId": "5e148bf8fc13ae0c40000006",
+		"planId": "5e148aadfc13ae1216000007"
 
 	}
 ];

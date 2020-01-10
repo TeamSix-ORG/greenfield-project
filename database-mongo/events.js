@@ -12,7 +12,7 @@ let events_Schema = mongoose.Schema({
     "category": String,
     "cost": String,
     "organizerId": String,
-    "plan-id": String,
+    "plan-Id": String,
 
 
 });

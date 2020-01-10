@@ -7,6 +7,9 @@ const path = require('path');
 
 const Event = require('../database-mongo/events.js')
 const Joint = require('../database-mongo/jointEventUser.js')
+const Profile = require('../database-mongo/user-profile.js')
+const User = require('../database-mongo/users.js')
+
 
 var app = express();
 
@@ -58,6 +61,25 @@ app.post('/api/jointEventUser', function (req, res) {
 		else if(result) res.send("Joined")
 	})
 });
+
+app.get(`/api/users/:id`, (req, res) => {
+	const id = req.params
+	User.findOne(id, (err, results) => {
+		if(err) throw err
+		else res.send(results)
+	})
+
+})
+app.get(`/api/profiles/:id`, (req, res) => {
+	const id = req.params
+	console.log(id)
+	Profile.findOne(id, (err, results) => {
+		if(err) throw err
+		else res.send(results)
+	})
+
+})
+
 // ####################################	SOFIAN	PORTS  ######################################### \\
 
 app.get('*', (req, res) => {
