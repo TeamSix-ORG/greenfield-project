@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const users = [
 	{
 		_id: new Mongoose.Types.ObjectId(),
@@ -30,6 +31,39 @@ const users = [
 		email: 'dpowter3@sitemeter.com',
 		type: 'organizer',
 		profileId: '5e148bf8fc13ae0c40000007'
+=======
+const users = [{
+		"id": "5e148bf8fc13ae0c40000000",
+		"userName": "dforgan0",
+		"password": "w1mlEkryt",
+		"email": "gtassell0@tinypic.com",
+		"type": "user",
+		"profileId": "5e148bf8fc13ae0c40000001"
+	},
+	{
+		"id": "5e148bf8fc13ae0c40000002",
+		"userName": "dperell1",
+		"password": "6BSym3",
+		"email": "tcristoforetti1@nasa.gov",
+		"type": "user",
+		"profileId": "5e148bf8fc13ae0c40000003"
+	},
+	{
+		"id": "5e148bf8fc13ae0c40000004",
+		"userName": "kdodgshon2",
+		"password": "1pK97cFHXIC",
+		"email": "elaval2@icio.us",
+		"type": "organizer",
+		"profileId": "5e148bf8fc13ae0c40000005"
+	},
+	{
+		"id": "5e148bf8fc13ae0c40000006",
+		"userName": "dchomiszewski3",
+		"password": "T0Ou0Ud",
+		"email": "dpowter3@sitemeter.com",
+		"type": "organizer",
+		"profileId": "5e148bf8fc13ae0c40000007"
+>>>>>>> f87c584f37b4f95b7e3abb134484c1743af912de
 	}
 ];
 const userprofile = [
@@ -69,6 +103,7 @@ const userprofile = [
 	}
 ];
 
+<<<<<<< HEAD
 const events = [
 	{
 		_id: new Mongoose.Types.ObjectId(),
@@ -119,6 +154,59 @@ const events = [
 		cost: 'FREE',
 		organizerId: '5e148bf8fc13ae0c40000006',
 		planId: '5e148aadfc13ae1216000007'
+=======
+const events = [{
+		"id": "5e148aadfc13ae1216000000",
+		"eventName": "tristique",
+		"description": "amet nulla quisque arcu libero rutrum ac lobortis vel dapibus at diam nam",
+		"date": "1/27/2018",
+		"imgUrl": ["http://dummyimage.com/205x223.jpg/5fa2dd/ffffff"],
+		"videos": ["https://www.youtube.com/watch?v=NpEaa2P7qZI"],
+		"category": "music",
+		"cost": "FREE",
+		"organizerId": "5e148bf8fc13ae0c40000004",
+		"planId": "5e148aadfc13ae1216000001"
+
+	},
+	{
+		"id": "5e148aadfc13ae1216000002",
+		"eventName": "et",
+		"description": "ut massa volutpat convallis morbi odio odio elementum eu interdum eu tincidunt in leo maecenas pulvinar",
+		"date": "3/30/2018",
+		"imgUrl": ["http://dummyimage.com/185x240.jpg/5fa2dd/ffffff"],
+		"videos": ["https://www.youtube.com/watch?v=NpEaa2P7qZI"],
+		"category": "it",
+		"cost": "2,99$",
+		"organizerId": "5e148bf8fc13ae0c40000004",
+		"planId": "5e148aadfc13ae1216000003"
+
+	},
+	{
+		"id": "5e148aadfc13ae1216000004",
+		"eventName": "pede morbi",
+		"description": "lacus morbi sem mauris laoreet ut rhoncus aliquet pulvinar sed",
+		"date": "5/10/2018",
+		"imgUrl": ["http://dummyimage.com/239x231.jpg/ff4444/ffffff"],
+		"videos": ["https://www.youtube.com/watch?v=NpEaa2P7qZI"],
+		"category": "music",
+		"cost": "FREE",
+		"organizerId": "5e148bf8fc13ae0c40000006",
+		"planId": "5e148aadfc13ae1216000005"
+
+	},
+	{
+		"id": "5e148aadfc13ae1216000006",
+		"eventName": "tristique tortor",
+		"description": "parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur",
+		"date": "3/8/2018",
+		"imgUrl": ["http://dummyimage.com/233x226.jpg/ff4444/ffffff"],
+		"videos": ["https://www.youtube.com/watch?v=NpEaa2P7qZI"],
+		"category": "education",
+		"cost": "FREE",
+		"organizerId": "5e148bf8fc13ae0c40000006",
+		"planId": "5e148aadfc13ae1216000007"
+
+>>>>>>> f87c584f37b4f95b7e3abb134484c1743af912de
 	}
 ];
 
