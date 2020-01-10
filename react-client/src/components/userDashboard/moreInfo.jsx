@@ -91,7 +91,6 @@ class MoreInfo extends Component {
 							controls
 						/>
 
-<<<<<<< HEAD
 						<p>{this.props.eventDescription[this.props.index].category}</p>
 						<p>{this.props.eventDescription[this.props.index].description}</p>
 						<button type="submit" onClick={this.updateState.bind(this)} style={cardMedia}>
@@ -119,39 +118,6 @@ class MoreInfo extends Component {
 			</div>
 		);
 	}
-=======
-            <p>{this.props.eventDescription[this.props.index].category}</p>
-            <p>{this.props.eventDescription[this.props.index].description}</p>
-            <button type="submit" onClick={this.updateState.bind(this)} style={cardMedia}>
-                back
-              </button>
-            {this.props.eventDescription[this.props.index].cost === "FREE" ? (
-              <button type="submit" onClick={this.attendToggler.bind(this)} style={cardMedia}>
-                FREE
-              </button>
-            ) : (
-              <button
-                type="submit"
-                onClick={this.attendTogglerMoney.bind(this)} style={cardMedia}
-              >
-                Attend
-              </button>
-            )}
-          </div>
-        ) : this.state.attendMoney ? (
-          <Attend
-            eventId={this.props.eventDescription[this.props.index].id}
-            userId="5e148bf8fc13ae0c40000006"
-            events={this.props.eventDescription}
-          />
-        )
-        :
-        <EventsList events={this.props.eventDescription} />
-      }
-      </div>
-    );
-  }
->>>>>>> f87c584f37b4f95b7e3abb134484c1743af912de
 }
 
 export default MoreInfo;

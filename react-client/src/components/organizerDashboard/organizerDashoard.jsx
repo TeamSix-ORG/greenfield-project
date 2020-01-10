@@ -21,9 +21,9 @@ class OrganizerDashboard extends Component {
 	}
 
 	render() {
-		if (this.state.redirectToAttendedEvents) {
+		if (this.state.createEvent) {
 			this.setState({
-				redirectToAttendedEvents: false
+				createEvent: false
 			});
 			return (
 				<Redirect
