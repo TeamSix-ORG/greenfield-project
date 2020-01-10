@@ -26,21 +26,12 @@ class Create_organizer extends React.Component {
 		}
 		$.ajax({
 			type: 'POST',
-			url: 'http://localhost:3001//signupuser',
+			url: '/api/signupuser',
 			dataType: 'text',
 			data: this.state,
 			contentType: 'application/x-www-form-urlencoded',
 			success: (data) => {
-				console.log(data === '1');
-				if (data === '1') {
-					console.log('aazazaz');
-				}
-				if (data === '0') {
-					alert('Please verify your password');
-				}
-				if (data === '2') {
-					alert('Account Created you can Login');
-				}
+				console.log(data);
 			},
 			error: (err) => {
 				if (err) {

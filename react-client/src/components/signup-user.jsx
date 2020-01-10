@@ -26,7 +26,7 @@ class Create_user extends React.Component {
 		}
 		$.ajax({
 			type: 'POST',
-			url: 'http://localhost:3001/signupuser',
+			url: '/api/signupuser',
 			dataType: 'text',
 			data: this.state,
 			contentType: 'application/x-www-form-urlencoded',
