@@ -53,7 +53,8 @@ class EventsList extends Component {
       height: "125px",
       marginBottom: "25px",
       transition: "all 300ms ease-out",
-      width: "100%"
+      width: "100%",
+      fontSize: "300%"
     }
 
     const ps={
@@ -65,20 +66,29 @@ class EventsList extends Component {
 
     return (
       <div>
+
         {this.state.eventList ? (
+          this.props.events.length !== 0 ? (
+            
             this.props.events.map((event, idx) => {
               return (
               <div key={idx} value={idx} name='idx' style={container} onClick={this.changeHandler.bind(this)}  >
                 <img src={event.imgUrl[0]} style={{width:"100%"}}/>
+                <div className="container">
                 <h1>{event.eventName}</h1>
                 <h3 style={ps}>Date: {event.date}</h3>
                 <p style={ps}>Category: {event.category}</p>
-                <button type="submit" name='index' value={idx} onClick={this.toggleComponents.bind(this)} style={cardMedia}>
+                <center>
+
+                <button type="submit" name='index' value={idx} onClick={this.toggleComponents.bind(this)} className="btn btn-primary" style={{margin:'25px'}}>
                   More Info
                 </button>
+                </center>
+                </div>
               </div>
               )
             })
+          ):<p>NO EVENTS TO SHOW FOR NOW </p> 
         ) 
         : (
           <MoreInfo
@@ -90,5 +100,4 @@ class EventsList extends Component {
     );
   }
 }
-
 export default EventsList;

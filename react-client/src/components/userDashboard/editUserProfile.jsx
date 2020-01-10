@@ -1,50 +1,142 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import Axios from "axios";
+import $ from "jquery";
+import NavBar from "./navBar.jsx";
 
 class EditUserProfile extends Component {
-    constructor(props) {
-        super(props)
-        this.state={}
+  constructor(props) {
+    super(props);
+    this.state = {
+      fullname: "",
+      dateOfBirth: "",
+      phoneNumber: "",
+      about: "",
+      imgUrl: ""
+    };
+  }
+
+  onCHangeHandler(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  onSubmitHandler(e) {
+    e.preventDefault();
+    let User = {};
+    if (localStorage && localStorage.getItem("user")) {
+      User = JSON.parse(JSON.parse(localStorage.getItem("user")));
+      this.setState({
+        userId: User._id
+      });
     }
-    render() {
-        return (
-            <div>
-                <form>
-  <fieldset>
-    <legend>Legend</legend>
-    <div class="form-group row">
-      <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-      <div class="col-sm-10">
-        <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value="email@example.com"/>
+
+    $.ajax({
+      url: `/api/users/${User._id}`,
+      type: "PUT",
+      data: this.state,
+      success: data => {
+        console.log(data);
+      },
+      error: err => console.log("reeeee")
+    });
+  }
+  render() {
+    const { fullname, dateOfBirth, phoneNumber, about, imgUrl } = this.state;
+    return (
+      <div>
+        <NavBar />
+
+        <div className="container">
+          <form onSubmit={this.onSubmitHandler.bind(this)}>
+            <fieldset>
+              <legend>Edit User Profile</legend>
+
+              <div className="form-group">
+                <label htmlFor="fullName">Full Name: </label>
+                <input
+                  type="text"
+                  value={fullname}
+                  name="fullname"
+                  className="form-control"
+                  id="fullName"
+                  aria-describedby="emailHelp"
+                  placeholder="Enter Your Full Name"
+                  onChange={this.onCHangeHandler.bind(this)}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="dateOfBirth">Date Of Birth</label>
+                <input
+                  type="date"
+                  value={dateOfBirth}
+                  name="birthDate"
+                  className="form-control"
+                  id="dateOfBirth"
+                  placeholder="Enter Your Birth Date"
+                  onChange={this.onCHangeHandler.bind(this)}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="phoneNumber">Phone Number</label>
+                <input
+                  type="number"
+                  value={phoneNumber}
+                  name="phoneNumber"
+                  className="form-control"
+                  id="phoneNumber"
+                  placeholder="Enter Your Phone number"
+                  onChange={this.onCHangeHandler.bind(this)}
+                />
+                <small id="emailHelp" className="form-text text-muted">
+                  We'll never share your Phone Number with anyone else without
+                  your premision.
+                </small>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="about">About</label>
+                <textarea
+                  className="form-control"
+                  value={about}
+                  name="about"
+                  id="about"
+                  rows="3"
+                  onChange={this.onCHangeHandler.bind(this)}
+                ></textarea>
+              </div>
+              {/* <div className="form-group">
+                <label htmlFor="uploadPicture">
+                  Upload a Picture or add an image url
+                </label>
+                <input
+                  type="file"
+                  value={imgUrl}
+                  name="imgUrl"
+                  className="form-control-file"
+                  id="uploadPicture"
+                  onChange={this.onCHangeHandler.bind(this)}
+                />
+              </div> */}
+              <div className="form-group">
+                <label htmlFor="urlPic">Add an image url</label>
+                <input
+                  type="text"
+                  value={imgUrl}
+                  name="imgUrl"
+                  className="form-control-file"
+                  onChange={this.onCHangeHandler.bind(this)}
+                />
+              </div>
+              <button type="submit" className="btn btn-primary">
+                Submit
+              </button>
+            </fieldset>
+          </form>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"/>
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"/>
-    </div>
-    
-    <div class="form-group">
-      <label for="exampleTextarea">Example textarea</label>
-      <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputFile">File input</label>
-      <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" />
-      <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
-    </div>
-    
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </fieldset>
-</form>
-            </div>
-        );
-    }
+    );
+  }
 }
-
-
 
 export default EditUserProfile;
