@@ -5,6 +5,7 @@ import Search from "./search.jsx";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import ReactPlayer from "react-player";
+import NavBar from "./navBar.jsx";
 
 class AttendedEvents extends Component {
   constructor(props) {
@@ -23,53 +24,6 @@ class AttendedEvents extends Component {
       dashboard: true
     });
   }
-
-  // componentDidMount() {
-  // 	let User = {};
-  // if (localStorage && localStorage.getItem("user")) {
-  //   User = JSON.parse(JSON.parse(localStorage.getItem("user")));
-  //   this.setState({
-  //     userId: User._id
-  //   });
-  // }
-
-  // 	$.ajax({
-  // 		url: '/api/jointEventUser',
-  // 		type: 'GET',
-  // 		success: (data) => {
-  // 			var arr = [];
-  // 			for (var i = 0; i < data.length; i++) {
-  // 				if (data[i].userId === User._id) {
-  // 					arr.push(data[i].eventId);
-  // 				}
-  // 			}
-  // 			console.log(data, 'hi');
-  // 			this.fetchEvents(arr);
-  // 		},
-  // 		error: (err) => {
-  // 			throw err;
-  // 		}
-  // 	});
-  // }
-
-  // fetchEvents(arr) {
-  // 	$.ajax({
-  // 		url: '/api/events',
-  // 		type: 'GET',
-  // 		success: (results) => {
-  // 			var array = [];
-  // 			for (var i = 0; i < results.length; i++) {
-  // 				for (let j = 0; j < results.length; j++) {
-  // 					if (results[j].id === arr[i]) {
-  // 						array.push(results[j]);
-  // 					}
-  // 				}
-  // 			}
-  // 			console.log(arr);
-  // 			this.setState({ attendedArr: array });
-  // 		}
-  // 	});
-  // }
 
   componentDidMount() {
     let User = {};
@@ -129,9 +83,10 @@ class AttendedEvents extends Component {
 
     return (
       <div>
-        <button type="submit" onClick={this.toggleStates.bind(this)}>
+        <NavBar />
+        {/* <button type="submit" onClick={this.toggleStates.bind(this)}>
           Dashboard
-        </button>
+        </button> */}
         <div>
           {this.state.attendedArr.map((attended, index) => {
             return (

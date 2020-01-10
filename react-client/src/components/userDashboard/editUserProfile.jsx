@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import $ from "jquery";
+import NavBar from "./navBar.jsx";
 
 class EditUserProfile extends Component {
   constructor(props) {
@@ -42,6 +43,8 @@ class EditUserProfile extends Component {
     const { fullname, dateOfBirth, phoneNumber, about, imgUrl } = this.state;
     return (
       <div>
+        <NavBar />
+
         <div className="container">
           <form onSubmit={this.onSubmitHandler.bind(this)}>
             <fieldset>

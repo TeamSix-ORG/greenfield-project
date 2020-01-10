@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import NavBar from "./navBar.jsx";
 
 class UserProfile extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class UserProfile extends Component {
 
     axios.post(`/api/users/${User._id}`).then(res => {
       const profile = res.data;
-      this.setState({ profile: profile })
+      this.setState({ profile: profile });
     });
   }
   changeRedirection() {
@@ -77,13 +78,11 @@ class UserProfile extends Component {
     }
     return (
       <div>
-        {console.log(this.state.profile)}
+        <NavBar />
         {!this.state.redirect ? (
           <div style={card}>
             <img src={this.state.profile.imgUrl} style={{ width: "100%" }} />
-            <h1>
-              {this.state.profile.fullname}
-            </h1>
+            <h1>{this.state.profile.fullname}</h1>
             <p style={title}>CEO & Founder, Example</p>
             <p>Birth Date: {this.state.profile.birthDate}</p>
             <p>About: {this.state.profile.about}</p>
