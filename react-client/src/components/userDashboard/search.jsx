@@ -62,12 +62,12 @@ class Search extends Component {
     return (
       <div>
 
-      <form class="form-inline my-2 my-lg-0" onSubmit={this.submitSearchHandler.bind(this)}>
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" name="eventName"
+      <form className="form-inline my-2 my-lg-0" onSubmit={this.submitSearchHandler.bind(this)}>
+      <input className="form-control mr-sm-2" type="text" placeholder="Search" name="eventName"
             id="eventName"
             onChange={this.searchIpuntChangeHandler.bind(this)}
             value={this.state.eventName}/>
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+      <button className="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
     </form>
       </div>
       // <div>

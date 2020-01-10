@@ -1,10 +1,15 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 class UserProfile extends Component {
   constructor(props) {
     super(props);
-    this.state = { userId: "5e148bf8fc13ae0c40000006", profile: [] };
+    this.state = {
+      userId: "5e148bf8fc13ae0c40000006",
+      profile: [],
+      redirect: false
+    };
   }
 
   componentDidMount() {
@@ -15,9 +20,9 @@ class UserProfile extends Component {
       });
     });
   }
-  // fetchUserProfile(id){
-
-  // }
+  changeRedirection() {
+    this.setState({ redirect: !this.state.redirect });
+  }
 
   render() {
     // D  E   S   I   G   N   E //
@@ -52,10 +57,21 @@ class UserProfile extends Component {
       color: "black"
     };
 
-    //                          //
+    //  F   I   N   I   S   H   E   D//
+    if (this.state.redirect) {
+      this.changeRedirection();
+      return (
+        <Redirect
+          to={{
+            pathname: "/editUserProfile",
+            state: { userId: this.state.userId }
+          }}
+        />
+      );
+    }
     return (
       <div>
-        {this.state.profile.length > 0 ? (
+        {this.state.profile.length > 0 && !this.state.redirect ? (
           <div style={card}>
             <img src={this.state.profile[0].imgUrl} style={{ width: "100%" }} />
             <h1>
@@ -67,7 +83,12 @@ class UserProfile extends Component {
             <p>Birth Date: {this.state.profile[0].birthDate}</p>
             <p>About: {this.state.profile[0].about}</p>
             <p>
-              <button style={button} onClick={this.editUserProfile}>Edit</button>
+              <button
+                style={button}
+                onClick={this.changeRedirection.bind(this)}
+              >
+                Edit
+              </button>
             </p>
           </div>
         ) : null}

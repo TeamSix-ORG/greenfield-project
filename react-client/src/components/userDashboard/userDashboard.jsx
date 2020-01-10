@@ -104,12 +104,12 @@ class UserDashboard extends Component {
       //   </div>
       // </div>
       <div>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="/userdashboard">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a className="navbar-brand" href="/userdashboard">
           Home
         </a>
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-toggle="collapse"
           data-target="#navbarColor01"
@@ -117,26 +117,26 @@ class UserDashboard extends Component {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarColor01">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
+        <div className="collapse navbar-collapse" id="navbarColor01">
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item">
               <a
-                class="nav-link"
+                className="nav-link"
                 href="/attendedevents"
                 // onClick={this.toggleStates.bind(this)}
               >
                 Attended Events
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/profile">
+            <li className="nav-item">
+              <a className="nav-link" href="/profile">
                 Profile
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
+            <li className="nav-item">
+              <a className="nav-link" href="#">
                 About
               </a>
             </li>
