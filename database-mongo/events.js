@@ -2,7 +2,10 @@ var Promise = require('bluebird');
 const mongoose = require('mongoose');
 
 let events_Schema = mongoose.Schema({
-	id: String,
+	_id: {
+		type: mongoose.Schema.ObjectId,
+		required: true
+	},
 	eventName: String,
 	description: String,
 	date: String,
@@ -14,20 +17,4 @@ let events_Schema = mongoose.Schema({
 	'plan-id': String
 });
 
-let Events = mongoose.model('events', events_Schema);
-
-let save = (event, callback) => {
-	Events.create(event, callback);
-};
-
-let findAll = (callback) => {
-	Events.find({}, callback);
-};
-
-let findOne = (event, callback) => {
-	Events.find(event, callback);
-};
-
-module.exports.save = save;
-module.exports.findAll = findAll;
-module.exports.findOne = findOne;
+module.exports = mongoose.model('events', events_Schema);

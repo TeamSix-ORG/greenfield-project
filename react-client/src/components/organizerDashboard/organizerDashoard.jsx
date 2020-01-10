@@ -28,7 +28,7 @@ class OrganizerDashboard extends Component {
 			return (
 				<Redirect
 					to={{
-						pathname: '/AttendedEvents'
+						pathname: '/createevent'
 					}}
 				/>
 			);

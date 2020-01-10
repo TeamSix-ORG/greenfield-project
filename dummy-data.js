@@ -1,73 +1,4 @@
-const users = [
-	{
-		_id: new Mongoose.Types.ObjectId(),
-		userName: 'dforgan0',
-		password: 'w1mlEkryt',
-		email: 'gtassell0@tinypic.com',
-		type: 'user',
-		profileId: '5e148bf8fc13ae0c40000001'
-	},
-	{
-		_id: new Mongoose.Types.ObjectId(),
-		userName: 'dperell1',
-		password: '6BSym3',
-		email: 'tcristoforetti1@nasa.gov',
-		type: 'user',
-		profileId: '5e148bf8fc13ae0c40000003'
-	},
-	{
-		_id: new Mongoose.Types.ObjectId(),
-		userName: 'kdodgshon2',
-		password: '1pK97cFHXIC',
-		email: 'elaval2@icio.us',
-		type: 'organizer',
-		profileId: '5e148bf8fc13ae0c40000005'
-	},
-	{
-		_id: new Mongoose.Types.ObjectId(),
-		userName: 'dchomiszewski3',
-		password: 'T0Ou0Ud',
-		email: 'dpowter3@sitemeter.com',
-		type: 'organizer',
-		profileId: '5e148bf8fc13ae0c40000007'
-	}
-];
-const userprofile = [
-	{
-		_id: new Mongoose.Types.ObjectId(),
-		firstName: 'Goraud',
-		lastName: 'Baynom',
-		birthDate: '5/1/2018',
-		imgUrl: 'http://dummyimage.com/204x248.jpg/ff4444/ffffff',
-		about:
-			'ligula pellentesque ultrices phasellus id sapien in sapien iaculis congue vivamus metus arcu adipiscing molestie'
-	},
-	{
-		_id: new Mongoose.Types.ObjectId(),
-		firstName: 'Giacomo',
-		lastName: 'Bramwich',
-		birthDate: '11/26/2018',
-		imgUrl: 'http://dummyimage.com/228x137.jpg/5fa2dd/ffffff',
-		about: 'pellentesque ultrices phasellus id sapien in sapien iaculis congue vivamus metus arcu adipiscing'
-	},
-	{
-		_id: new Mongoose.Types.ObjectId(),
-		firstName: 'Pace',
-		lastName: 'Phippen',
-		birthDate: '7/7/2018',
-		imgUrl: 'http://dummyimage.com/103x131.jpg/dddddd/000000',
-		about:
-			'in lectus pellentesque at nulla suspendisse potenti cras in purus eu magna vulputate luctus cum sociis natoque penatibus et'
-	},
-	{
-		_id: new Mongoose.Types.ObjectId(),
-		firstName: 'Luca',
-		lastName: 'Lodemann',
-		birthDate: '8/24/2018',
-		imgUrl: 'http://dummyimage.com/225x121.jpg/dddddd/000000',
-		about: 'in eleifend quam a odio in hac habitasse platea dictumst maecenas'
-	}
-];
+var Mongoose = require('mongoose');
 
 const events = [
 	{
@@ -122,6 +53,4 @@ const events = [
 	}
 ];
 
-module.exports.users = users;
-module.exports.userprofile = userprofile;
 module.exports.events = events;

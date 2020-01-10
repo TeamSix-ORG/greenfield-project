@@ -28,6 +28,24 @@ app.get('*', (req, res) => {
 	});
 });
 
+app.post('/api/createevnt', async function(req, res) {
+	const event = new Event({
+		_id: new Mongoose.Types.ObjectId(),
+		eventName: req.body.eventname,
+		description: req.body.description,
+		date: req.body.date,
+		category: req.body.category,
+		cost: req.body.cost
+	});
+
+	try {
+		const newevent = await Event.create(event);
+		res.json(newevent);
+	} catch (err) {
+		console.log(err);
+		res.status(400).json(err);
+	}
+});
 // ####################################	SOFIAN	PORTS  ######################################### \\
 app.post('/api/events', function(req, res) {
 	var data = req.body;
@@ -87,6 +105,7 @@ app.post('/api/login', async (req, res) => {
 	//res.header('auth-token', token).json(token);
 	res.send(user);
 });
+
 let port = 3001;
 
 app.listen(port, function() {

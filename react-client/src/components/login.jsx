@@ -33,7 +33,6 @@ class Login extends React.Component {
 				this.setState({
 					authentified: true
 				});
-				console.log(this.state);
 				localStorage.setItem('user', JSON.stringify(data));
 			},
 			error: (err) => {
