@@ -6,17 +6,24 @@ var User = require('./database-mongo/users.js');
 var Pofile = require('./database-mongo/user-profile.js');
 var Event = require('./database-mongo/events.js');
 
-mongoose.connect('mongodb://localhost/events', {
-	useMongoClient: true
+var dbName = 'events';
+mongoose.connect(`mongodb://localhost/${dbName}`, { useUnifiedTopology: true, useNewUrlParser: true }, function(
+	err,
+	db
+) {
+	if (err) throw err;
+	console.log(`database ${dbName} was created`);
 });
 
 var seedDb = function(users, userprofile, events) {
 	for (var i = 0; i < users.users.length; i++) {
-		User.save(users.users[i], (err, res) => {
+		//console.log(User.create, users.users);
+		User.create(users.users[i], (err, res) => {
 			if (err) {
+				console.log(err);
 				return err;
 			} else {
-				console.log('database is populated');
+				console.log('database is populated user');
 			}
 		});
 	}
@@ -25,7 +32,7 @@ var seedDb = function(users, userprofile, events) {
 			if (err) {
 				return err;
 			} else {
-				console.log('database is populated');
+				console.log('database is populated user profile');
 			}
 		});
 	}
@@ -34,7 +41,7 @@ var seedDb = function(users, userprofile, events) {
 			if (err) {
 				return err;
 			} else {
-				console.log('database is populated');
+				console.log('database is populated events');
 			}
 		});
 	}

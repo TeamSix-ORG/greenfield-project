@@ -4,13 +4,22 @@ const db = require('../database-mongo/index');
 const path = require('path');
 var Mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-const User = require('../database-mongo/users');
 const { signUpValidation, loginValidation } = require('../validation');
 const bcrypt = require('bcryptjs');
+
+const UserProfile = require('../database-mongo/user-profile.js');
+const signup = require('./user/signup.js');
+const User = require('../database-mongo/users.js');
+const Event = require('../database-mongo/events.js');
+const Joint = require('../database-mongo/jointEventUser.js');
 var app = express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(
+	bodyParser.urlencoded({
+		extended: false
+	})
+);
 app.use(express.static(__dirname + '/../react-client/dist'));
 
 app.get('*', (req, res) => {
@@ -19,46 +28,46 @@ app.get('*', (req, res) => {
 	});
 });
 
-app.post('/signupuser', async (req, res) => {
-	// DATA VALIDATION
-	const { error } = signUpValidation({
-		username: req.body.username,
-		email: req.body.email,
-		password: req.body.password
+// ####################################	SOFIAN	PORTS  ######################################### \\
+app.post('/api/events', function(req, res) {
+	var data = req.body;
+	console.log(data);
+	Event.findOne(data, (err, result) => {
+		if (err) throw err;
+		else if (result) res.send(result);
+		else res.send('No Events with that name');
 	});
-	if (error) return res.status(400).json(error.details[0].message);
-
-	//checking if the email exists
-	const emaiExist = await User.findOne({ email: req.body.email });
-	if (emaiExist) {
-		res.status(400).json('Email already exists');
-	}
-
-	//hashing the password
-	const salt = await bcrypt.genSalt(10);
-	const hashedPassword = await bcrypt.hash(req.body.password, salt);
-
-	//Creating a user
-	const user = new User({
-		_id: new Mongoose.Types.ObjectId(),
-		username: req.body.username,
-		fullname: req.body.name,
-		email: req.body.email,
-		phoneNumber: req.body.phoneNumber,
-		password: hashedPassword,
-		type: req.body.type,
-		profileId: '110'
-	});
-	try {
-		const savedUser = await user.save();
-		console.log(savedUser);
-		res.json(savedUser.username);
-	} catch (err) {
-		console.log(err);
-		res.status(400).json(err);
-	}
 });
-app.post('/login', async (req, res) => {
+
+app.get('/api/events', function(req, res) {
+	Event.findAll((err, result) => {
+		if (err) throw err;
+		else if (result) res.send(result);
+		else res.send('No Events');
+	});
+});
+
+app.get('/api/jointEventUser', function(req, res) {
+	Joint.findAll((err, result) => {
+		if (err) throw err;
+		else if (result) res.send(result);
+	});
+});
+
+app.post('/api/jointEventUser', function(req, res) {
+	var data = req.body;
+	console.log(data);
+	Joint.save(data, (err, result) => {
+		if (err) throw err;
+		else if (result) res.send('Joined');
+	});
+});
+// ####################################	SOFIAN	PORTS  ######################################### \\
+
+app.post('/api/signupuser', async (req, res) => {
+	signup(req, res);
+});
+app.post('/api/login', async (req, res) => {
 	// DATA VALIDATION
 	const { error } = loginValidation({
 		username: req.body.username,
@@ -75,7 +84,8 @@ app.post('/login', async (req, res) => {
 	//tokens
 
 	const token = jwt.sign({ _id: user._id }, 'greenfeild');
-	res.header('auth-token', token).json(token);
+	//res.header('auth-token', token).json(token);
+	res.send(user);
 });
 let port = 3001;
 
