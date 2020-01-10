@@ -42,7 +42,6 @@ class UserDashboard extends Component {
         userId: User._id
       });
     }
-
     axios.get("/api/events").then(res => {
       var events = res.data;
       axios.get("/api/jointEventUser").then(data => {
@@ -96,7 +95,6 @@ class UserDashboard extends Component {
     // 	</div>
     return (
       <div>
-        {console.log(this.state.eventsArr)}
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
           <a className="navbar-brand" href="/userdashboard">
             Home

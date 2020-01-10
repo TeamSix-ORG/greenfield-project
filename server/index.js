@@ -50,14 +50,19 @@ app.get('/api/jointEventUser', function(req, res) {
 		else if (result) res.send(result);
 	});
 });
-
-app.post('/api/jointEventUser', function(req, res) {
+// TO save Data in the array of the user
+app.post('/api/profiles', function(req, res) {
 	var data = req.body;
-	console.log(data);
-	Joint.save(data, (err, result) => {
-		if (err) throw err;
-		else if (result) res.send('Joined');
-	});
+	console.log(data)
+	UserProfile.findOne({_userId: data.userId} , (err, result) => {
+		result["attendedEvents"].push(data.eventId)
+		result.save()
+		res.send("Joined")
+	})
+});
+app.post('/api/profiles/:id', function(req, res) {
+	const id = req.params
+	res.send('shite')
 });
 // ####################################	SOFIAN	PORTS  ######################################### \\
 

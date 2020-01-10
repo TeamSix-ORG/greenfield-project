@@ -8,7 +8,8 @@ class Attend extends Component {
     super(props);
     this.state = {
       attend: true,
-      home: false
+      home: false,
+      userId: ""
     };
   }
 
