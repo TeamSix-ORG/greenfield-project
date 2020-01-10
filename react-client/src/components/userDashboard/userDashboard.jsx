@@ -42,27 +42,23 @@ class UserDashboard extends Component {
         userId: User._id
       });
     }
+	console.log(User._id)
     axios.get("/api/events").then(res => {
       var events = res.data;
-      axios.get("/api/jointEventUser").then(data => {
-        var joint = data.data;
-        var arr = [];
+      axios.post(`/api/profile/${User._id}`).then(data => {
+		var joint = data.data;
         for (let i = 0; i < joint.length; i++) {
-          if (joint[i].userId === this.state.userId) {
-            arr.push(joint[i]);
-          }
-        }
-        for (let j = 0; j < arr.length; j++) {
-          console.log("hi");
-          for (let k = 0; k < events.length; k++) {
-            if (arr[j].eventId === events[k].id) {
-              events.splice(k, 1);
-            }
-          }
-        }
-
+			for (let j = 0; j < events.length; j++) {
+				if(joint[i] === events[j].id){
+					events.splice(j,1)
+				}
+				
+			}
+		}
+		
+		
         this.updateState(events);
-      });
+	});
     });
   }
 
