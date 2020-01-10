@@ -11,7 +11,6 @@ const UserProfile = require("../database-mongo/user-profile.js");
 const signup = require("./user/signup.js");
 const User = require("../database-mongo/users.js");
 const Event = require("../database-mongo/events.js");
-const Joint = require("../database-mongo/jointEventUser.js");
 var app = express();
 
 app.use(bodyParser.json());
@@ -42,12 +41,7 @@ app.get("/api/events", function(req, res) {
   });
 });
 
-// app.get('/api/jointEventUser', function(req, res) {
-// 	Joint.findAll((err, result) => {
-// 		if (err) throw err;
-// 		else if (result) res.send(result);
-// 	});
-// });
+
 // TO save Data in the array of the user
 app.post("/api/profiles", function(req, res) {
   var data = req.body;
