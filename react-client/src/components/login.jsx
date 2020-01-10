@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 class Login extends React.Component {
 	constructor(props) {
@@ -9,7 +10,8 @@ class Login extends React.Component {
 			username: '',
 			email: '',
 			password: '',
-			type: 'user'
+			type: 'user',
+			authentified: false
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,12 +23,18 @@ class Login extends React.Component {
 		event.preventDefault();
 		$.ajax({
 			type: 'POST',
-			url: 'http://localhost:3001/login',
+			url: '/api/login',
 			dataType: 'text',
 			data: this.state,
 			contentType: 'application/x-www-form-urlencoded',
 			success: (data) => {
 				console.log(data);
+				console.log(this.state);
+				this.setState({
+					authentified: true
+				});
+				console.log(this.state);
+				localStorage.setItem('user', JSON.stringify(data));
 			},
 			error: (err) => {
 				if (err) {
@@ -36,6 +44,15 @@ class Login extends React.Component {
 		});
 	}
 	render() {
+		if (this.state.authentified) {
+			return (
+				<Redirect
+					to={{
+						pathname: '/userdashboard'
+					}}
+				/>
+			);
+		}
 		const { username, email, password } = this.state;
 		return (
 			<div>

@@ -6,6 +6,13 @@ import Create_account from './components/new-account.jsx';
 import Create_user from './components/signup-user.jsx';
 import Create_organizer from './components/signup-organizer.jsx';
 import Login from './components/login.jsx';
+import UserDashboard from './components/userDashboard/userDashboard.jsx'
+import AttendedEvents from './components/userDashboard/attendedEvents.jsx'
+import UserProfile from './components/userDashboard/userProfile.jsx'
+import EditUserProfile from './components/userDashboard/editUserProfile.jsx'
+
+
+
 
 class App extends React.Component {
 	constructor(props) {
@@ -22,6 +29,12 @@ class App extends React.Component {
 						<Route path="/signupuser" component={Create_user} />
 						<Route path="/signuporganizer" component={Create_organizer} />
 						<Route path="/login" component={Login} />
+						<Route path="/userdashboard" component={UserDashboard} />
+						<Route path="/attendedEvents" component={AttendedEvents} />
+						<Route path="/profile" component={UserProfile} />
+						<Route path="/editUserProfile" component={EditUserProfile} />
+
+						editUserProfile
 					</Switch>
 				</Router>
 			</div>
