@@ -30,7 +30,7 @@ class MoreInfo extends Component {
     obj.eventId = this.props.eventDescription[this.props.index].id;
     // console.log(obj, this.state.userId);
     $.ajax({
-      url: "/api/profile",
+      url: "/api/profiles",
       type: "POST",
       data: obj,
       success: data => {

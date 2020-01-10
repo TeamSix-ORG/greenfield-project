@@ -13,7 +13,7 @@ class AttendedEvents extends Component {
 			attendedArr: [],
 			redirectToUserDashboard: false
 		};
-		window.attendedArr = this.state.attendedArr;
+		
 	}
 
 	toggleStates(e) {
@@ -80,9 +80,25 @@ class AttendedEvents extends Component {
 		    userId: User._id
 		  });
 		}
-console.log(User._id)
-		axios.post(`/api/profiles/${User._id}`)
-		.then(res => console.log(res))
+		axios.post(`/api/profile/${User._id}`)
+		.then(res => {
+			const data = res.data;
+			axios.get(`/api/events`)
+			.then(res => {
+				const events = res.data
+				var array = []
+				for (let i = 0; i < data.length; i++) {
+					for (let j = 0; j < events.length; j++) {
+						if(data[i] === events[j].id){
+							array.push(events[j])
+						}
+						
+					}
+					
+				}
+				this.setState({ attendedArr: array })
+			})
+		})
 	}
 
 	toggleStates(e) {

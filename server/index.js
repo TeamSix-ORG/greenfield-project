@@ -44,12 +44,12 @@ app.get('/api/events', function(req, res) {
 	});
 });
 
-app.get('/api/jointEventUser', function(req, res) {
-	Joint.findAll((err, result) => {
-		if (err) throw err;
-		else if (result) res.send(result);
-	});
-});
+// app.get('/api/jointEventUser', function(req, res) {
+// 	Joint.findAll((err, result) => {
+// 		if (err) throw err;
+// 		else if (result) res.send(result);
+// 	});
+// });
 // TO save Data in the array of the user
 app.post('/api/profiles', function(req, res) {
 	var data = req.body;
@@ -60,9 +60,9 @@ app.post('/api/profiles', function(req, res) {
 		res.send("Joined")
 	})
 });
-app.post('/api/profiles/:id', function(req, res) {
-	const id = req.params
-	res.send('shite')
+app.post('/api/profile/:id', function(req, res) {
+	const id = req.params.id
+	UserProfile.findOne({_userId: id} , (err, result) => {res.send(result.attendedEvents)})
 });
 // ####################################	SOFIAN	PORTS  ######################################### \\
 
