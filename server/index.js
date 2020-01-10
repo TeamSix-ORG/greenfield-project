@@ -58,6 +58,21 @@ app.post("/api/profile/:id", function(req, res) {
     res.send(result.attendedEvents);
   });
 });
+
+app.post("/api/users/:id", function(req, res) {
+  const id = req.params.id;
+  UserProfile.findOne({ _userId: id }, (err, result) => {
+    res.send(result)
+  });
+});
+
+app.put("/api/users/:id", function(req, res) {
+  const id = req.params.id;
+  UserProfile.findOneAndUpdate({_userId: id}, req.body,(err, result) =>{
+    if(err) throw err
+    else console.log('yes')
+  })
+});
 // ####################################	SOFIAN	PORTS  ######################################### \\
 
 app.post("/api/signupuser", async (req, res) => {

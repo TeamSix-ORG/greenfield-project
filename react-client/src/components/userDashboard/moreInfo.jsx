@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Attend from "./attend.jsx";
 import EventsList from "./eventsList.jsx";
 import $ from "jquery";
+import ReactPlayer from "react-player";
+
 
 class MoreInfo extends Component {
   constructor(props) {
@@ -102,12 +104,8 @@ class MoreInfo extends Component {
               Description:{" "}
               {this.props.eventDescription[this.props.index].description}
             </p>
-            <video
-              width="700"
-              height="480"
-              src={this.props.eventDescription[this.props.index].videos[0]}
-              controls
-            />
+           
+            <ReactPlayer url={this.props.eventDescription[this.props.index].videos[0]} />
 
             <p>{this.props.eventDescription[this.props.index].category}</p>
             <p>{this.props.eventDescription[this.props.index].description}</p>

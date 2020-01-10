@@ -6,18 +6,24 @@ class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: "5e148bf8fc13ae0c40000006",
+      userId: "",
       profile: [],
       redirect: false
     };
   }
 
   componentDidMount() {
-    axios.get(`/api/users/${this.state.userId}`).then(res => {
-      const profileId = res.data[0].profileId;
-      axios.get(`/api/profiles/${profileId}`).then(res => {
-        this.setState({ profile: res.data });
+    let User = {};
+    if (localStorage && localStorage.getItem("user")) {
+      User = JSON.parse(JSON.parse(localStorage.getItem("user")));
+      this.setState({
+        userId: User._id
       });
+    }
+
+    axios.post(`/api/users/${User._id}`).then(res => {
+      const profile = res.data;
+      this.setState({ profile: profile })
     });
   }
   changeRedirection() {
@@ -71,17 +77,17 @@ class UserProfile extends Component {
     }
     return (
       <div>
-        {this.state.profile.length > 0 && !this.state.redirect ? (
+        {console.log(this.state.profile)}
+        {!this.state.redirect ? (
           <div style={card}>
-            <img src={this.state.profile[0].imgUrl} style={{ width: "100%" }} />
+            <img src={this.state.profile.imgUrl} style={{ width: "100%" }} />
             <h1>
-              {this.state.profile[0].firstName +
-                " " +
-                this.state.profile[0].lastName}
+              {this.state.profile.fullname}
             </h1>
             <p style={title}>CEO & Founder, Example</p>
-            <p>Birth Date: {this.state.profile[0].birthDate}</p>
-            <p>About: {this.state.profile[0].about}</p>
+            <p>Birth Date: {this.state.profile.birthDate}</p>
+            <p>About: {this.state.profile.about}</p>
+            <p>Phone Number: {this.state.profile.phoneNumber}</p>
             <p>
               <button
                 style={button}
