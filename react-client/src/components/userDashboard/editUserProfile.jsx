@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Axios from "axios";
 import $ from "jquery";
 import NavBar from "./navBar.jsx";
+import { Redirect } from "react-router-dom";
 
 class EditUserProfile extends Component {
   constructor(props) {
@@ -11,7 +12,8 @@ class EditUserProfile extends Component {
       dateOfBirth: "",
       phoneNumber: "",
       about: "",
-      imgUrl: ""
+      imgUrl: "",
+      redirectToProfilePage: false
     };
   }
 
@@ -21,26 +23,49 @@ class EditUserProfile extends Component {
 
   onSubmitHandler(e) {
     e.preventDefault();
-    let User = {};
-    if (localStorage && localStorage.getItem("user")) {
-      User = JSON.parse(JSON.parse(localStorage.getItem("user")));
-      this.setState({
-        userId: User._id
-      });
-    }
+    console.log(this.state + '1')
+    if(this.state.fullname !== "" || this.state.dateOfBirth !== "" || this.state.phoneNumber !== "" || this.state.about !== "" || this.state.imgUrl !== ""){
 
-    $.ajax({
-      url: `/api/users/${User._id}`,
-      type: "PUT",
-      data: this.state,
-      success: data => {
-        console.log(data);
-      },
-      error: err => console.log("reeeee")
-    });
+      let User = {};
+      if (localStorage && localStorage.getItem("user")) {
+        User = JSON.parse(JSON.parse(localStorage.getItem("user")));
+        this.setState({
+          userId: User._id
+        });
+      }
+      console.log(this.state + '2')
+
+      $.ajax({
+        url: `/api/users/${User._id}`,
+        type: "PUT",
+        data: this.state,
+        success: data => {
+          this.setState({ redirectToProfilePage: true })
+        },
+        error: err => console.log("reeeee")
+      });
+    }else{
+      this.setState({ redirectToProfilePage: true })
+    }
   }
   render() {
     const { fullname, dateOfBirth, phoneNumber, about, imgUrl } = this.state;
+
+    if(this.state.redirectToProfilePage){
+      this.setState({
+        redirectToProfilePage: false
+      });
+      return (
+        <Redirect
+          to={{
+            pathname: "/profile"
+          }}
+        />
+      );
+    
+    }
+
+
     return (
       <div>
         <NavBar />
@@ -105,19 +130,6 @@ class EditUserProfile extends Component {
                   onChange={this.onCHangeHandler.bind(this)}
                 ></textarea>
               </div>
-              {/* <div className="form-group">
-                <label htmlFor="uploadPicture">
-                  Upload a Picture or add an image url
-                </label>
-                <input
-                  type="file"
-                  value={imgUrl}
-                  name="imgUrl"
-                  className="form-control-file"
-                  id="uploadPicture"
-                  onChange={this.onCHangeHandler.bind(this)}
-                />
-              </div> */}
               <div className="form-group">
                 <label htmlFor="urlPic">Add an image url</label>
                 <input

@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 import ReactPlayer from "react-player";
 import NavBar from "./navBar.jsx";
+import Axios from "axios";
 
 class AttendedEvents extends Component {
   constructor(props) {
@@ -18,11 +19,11 @@ class AttendedEvents extends Component {
     };
   }
 
-  changeHandler(e){
-    e.preventDefault()
+  changeHandler(e) {
+    e.preventDefault();
     this.setState({
-        [e.target.name]: e.target.value
-    })
+      [e.target.name]: e.target.value
+    });
   }
 
   toggleStates(e) {
@@ -66,36 +67,29 @@ class AttendedEvents extends Component {
   }
 
   clickHandler() {
-   
-   console.log(this.state.eventId)
-  //   let User = {};
-  //   if (localStorage && localStorage.getItem("user")) {
-  //     User = JSON.parse(JSON.parse(localStorage.getItem("user")));
-  //     this.setState({
-  //       userId: User._id
-  //     });
-  //   }
-  //   axios.post(`/api/profile/${User._id}`).then(res => {
-  //     const data1 = res.data;
-  //     for(var i = 0; i < data1.length; i++) {
-  //       if(data1[i] === this.state.eventId){
-  //         data1.splice(i,1)
-  //       }
-  //     }
-  //  console.log(data1)
-  //  var obj = { attendedEvents: data1 }
-  //     $.ajax({
-  //       url: `/api/users/${User._id}`,
-  //       type: `PUT`,
-  //       data: obj,
-  //       success: (res) => {
-  //         console.log(res)
-  //       },
-  //       err: (err) => {
-  //         console.log('err')
-  //       }
-  //     })
-  //   });
+    let User = {};
+    if (localStorage && localStorage.getItem("user")) {
+      User = JSON.parse(JSON.parse(localStorage.getItem("user")));
+      this.setState({
+        userId: User._id
+      });
+    }
+    axios.post(`/api/profile/${User._id}`).then(res => {
+      const data1 = res.data;
+      for (var i = 0; i < data1.length; i++) {
+        if (data1[i] !== this.state.eventId) {
+          data1.splice(i, 1);
+        }
+      }
+      var obj = { attendedEvents: data1 };
+      $.ajax({
+        url: `/api/user/${User._id}`,
+        type: "post",
+        data: obj,
+        success: data => console.log(data),
+        error: err => console.log("hieee")
+      });
+    });
   }
 
   render() {

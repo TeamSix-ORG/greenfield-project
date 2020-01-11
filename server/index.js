@@ -22,6 +22,8 @@ app.use(
 app.use(express.static(__dirname + "/../react-client/dist"));
 
 // ####################################	SOFIAN	PORTS  ######################################### \\
+
+//######### TO GET ONE EVENTS WHEN CALLED UPON #########\\
 app.post("/api/events", function(req, res) {
   var data = req.body;
   console.log(data);
@@ -31,18 +33,18 @@ app.post("/api/events", function(req, res) {
     else res.send("No Events with that name");
   });
 });
-
+//##########################################################\\
+//######### TO GET ALL THE EVENTS WHEN CALLED UPON #########\\
 app.get("/api/events", function(req, res) {
-  console.log("hi");
   Event.findAll((err, result) => {
     if (err) throw err;
     else if (result) res.send(result);
     else res.send("No Events");
   });
 });
+//##########################################################\\
+//######### TO SAVE ATTENDED EVENTS IN THE ARRAY OF THE USER PROFILE #########\\
 
-
-// TO save Data in the array of the user
 app.post("/api/profiles", function(req, res) {
   var data = req.body;
   console.log(data);
@@ -52,27 +54,58 @@ app.post("/api/profiles", function(req, res) {
     res.send("Joined");
   });
 });
+//##########################################################\\
+//######### TO FIND ONE USER PROFILE AND SEND THE ATTENDED EVENTS ARRAY #########\\
+
 app.post("/api/profile/:id", function(req, res) {
   const id = req.params.id;
+  // console.log(id);
   UserProfile.findOne({ _userId: id }, (err, result) => {
     res.send(result.attendedEvents);
   });
 });
+//##########################################################\\
+//######### TO FIND ONE USER PROFILE #########\\
 
 app.post("/api/users/:id", function(req, res) {
   const id = req.params.id;
   UserProfile.findOne({ _userId: id }, (err, result) => {
-    res.send(result)
+    res.send(result);
   });
 });
+//##########################################################\\
+//######### TO UPDATE PROFILE #########\\
 
 app.put("/api/users/:id", function(req, res) {
   const id = req.params.id;
-  UserProfile.findOneAndUpdate({_userId: id}, req.body,(err, result) =>{
-    if(err) throw err
-    else res.send('yes')
-  })
+  UserProfile.findOneAndUpdate({ _userId: id }, req.body, (err, result) => {
+    if (err) throw err;
+    else res.send("yes");
+  });
 });
+//##########################################################\\
+//######### TO DELETE CANCELED EVENTS IN THE ARRAY #########\\
+
+app.post(`/api/user/:id`, (req, res) => {
+  const data = req.body;
+  const id = req.params.id;
+  UserProfile.findOne({ _userId: id }, (err, results) => {
+    if (err) throw err;
+    else {
+      console.log(data["attendedEvents[]"]);
+      for (var i = 0; i < results["attendedEvents"].length; i++) {
+        if (data["attendedEvents[]"] === results["attendedEvents"][i]) {
+          results["attendedEvents"].splice(i, 1);
+          console.log(results);
+        }
+        results.save();
+      }
+      res.send("cool");
+    }
+  });
+});
+//##########################################################\\
+// CAN BE MOR OPTIMIZED BUT HAVE NO TIME
 // ####################################	SOFIAN	PORTS  ######################################### \\
 
 app.post("/api/signupuser", async (req, res) => {
