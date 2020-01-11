@@ -17,26 +17,26 @@ mongoose.connect(
 );
 
 var seedDb = function(users, userprofile, events) {
-  // for (var i = 0; i < users.users.length; i++) {
-  // 	//console.log(User.create, users.users);
-  // 	User.create(users.users[i], (err, res) => {
-  // 		if (err) {
-  // 			console.log(err);
-  // 			return err;
-  // 		} else {
-  // 			console.log('database is populated user');
-  // 		}
-  // 	});
+  for (var i = 0; i < users.users.length; i++) {
+    //console.log(User.create, users.users);
+    User.create(users.users[i], (err, res) => {
+      if (err) {
+        console.log(err);
+        return err;
+      } else {
+        console.log("database is populated user");
+      }
+    });
+  }
+  // for (var i = 0; i < userprofile.userprofile.length; i++) {
+  //   Pofile.save(userprofile.userprofile[i], (err, res) => {
+  //     if (err) {
+  //       return err;
+  //     } else {
+  //       console.log("database is populated user profile");
+  //     }
+  //   });
   // }
-  //   for (var i = 0; i < userprofile.userprofile.length; i++) {
-  //     Pofile.save(userprofile.userprofile[i], (err, res) => {
-  //       if (err) {
-  //         return err;
-  //       } else {
-  //         console.log("database is populated user profile");
-  //       }
-  //     });
-  //   }
   for (var i = 0; i < events.events.length; i++) {
     Event.save(events.events[i], (err, res) => {
       if (err) {

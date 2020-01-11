@@ -12,14 +12,8 @@ class UserDashboard extends Component {
       redirectToAttendedEvents: false,
       userId: ""
     };
-    let User = {};
-    if (localStorage && localStorage.getItem("user")) {
-      User = JSON.parse(JSON.parse(localStorage.getItem("user")));
-      this.setState({
-        userId: User._id
-      });
-    }
-    console.log(User);
+
+    // console.log(User);
   }
   //  UPDATING THE STATE OF THE ARRAY CALLED FROM THE SEARCH FUNCTION TO UPDATE THE VIEW
   updateState(data) {
@@ -69,7 +63,7 @@ class UserDashboard extends Component {
   render() {
     return (
       <div>
-        {console.log(this.state.userId)}
+        {/* {console.log(this.state.userId)} */}
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
           <Link className="navbar-brand" to="/userdashboard">
             Home

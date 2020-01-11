@@ -4,6 +4,7 @@ import EventsList from "./eventsList.jsx";
 import $ from "jquery";
 import ReactPlayer from "react-player";
 import Comments from "./comments.jsx";
+import NavBar from "./navBar.jsx";
 
 class MoreInfo extends Component {
   constructor(props) {
@@ -16,14 +17,17 @@ class MoreInfo extends Component {
       comment: "",
       username: "",
       redirect: false,
-      eventId: ""
+      eventId: "",
+      event: this.props.location.state.eventDescription[
+        this.props.location.state.index
+      ]
     };
     let User = {};
     if (localStorage && localStorage.getItem("user")) {
       User = JSON.parse(JSON.parse(localStorage.getItem("user")));
       this.setState({
         userId: User._id,
-        username: user.username
+        username: User.username
       });
     }
   }
@@ -134,6 +138,9 @@ class MoreInfo extends Component {
 
     return (
       <div>
+        <NavBar />
+        {console.log(this.state.event)}
+        {/* {console.log(this.props.eventDescription)}
         {this.state.moreInfo ? (
           <div
             style={container}
@@ -206,7 +213,7 @@ class MoreInfo extends Component {
           />
         ) : (
           <EventsList events={this.props.eventDescription} />
-        )}
+        )} */}
       </div>
     );
   }

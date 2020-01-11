@@ -13,7 +13,15 @@ let events_Schema = mongoose.Schema({
   organizerId: String,
   planId: String,
   organizerId: String,
-  "plan-id": String
+  planId: String,
+  comments: [
+    {
+      userId: { type: String },
+      userName: { type: String },
+      dateTime: { type: Date },
+      comment: [String]
+    }
+  ]
 });
 
 let Events = mongoose.model("events", events_Schema);

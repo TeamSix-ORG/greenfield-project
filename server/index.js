@@ -112,7 +112,7 @@ app.post(`/api/comment/:id`, (req, res) => {
   Event.findOne({ _id: eventId }, (err, result) => {
     if (err) throw err;
     else if (result) {
-      result["comments"].push(data);
+      result["comments"]["comment"].push(data);
       result.save();
       res.send("Comment Was Sent");
     } else {
