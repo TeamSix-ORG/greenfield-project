@@ -17,6 +17,13 @@ class UserDashboard extends Component {
       redirectToAttendedEvents: false,
       userId: ""
     };
+    let User = {};
+    if (localStorage && localStorage.getItem("user")) {
+      User = JSON.parse(JSON.parse(localStorage.getItem("user")));
+      this.setState({
+        userId: User._id
+      });
+    }
   }
   //  UPDATING THE STATE OF THE ARRAY CALLED FROM THE SEARCH FUNCTION TO UPDATE THE VIEW
   updateState(data) {
@@ -42,23 +49,21 @@ class UserDashboard extends Component {
         userId: User._id
       });
     }
-	console.log(User._id)
+    console.log(User._id);
     axios.get("/api/events").then(res => {
       var events = res.data;
       axios.post(`/api/profile/${User._id}`).then(data => {
-		var joint = data.data;
+        var joint = data.data;
         for (let i = 0; i < joint.length; i++) {
-			for (let j = 0; j < events.length; j++) {
-				if(joint[i] === events[j].id){
-					events.splice(j,1)
-				}
-				
-			}
-		}
-		
-		
+          for (let j = 0; j < events.length; j++) {
+            if (joint[i] === events[j].id) {
+              events.splice(j, 1);
+            }
+          }
+        }
+
         this.updateState(events);
-	});
+      });
     });
   }
 
@@ -66,31 +71,9 @@ class UserDashboard extends Component {
   //  AND SEND THE DATA TO THE SEARCH
   //  IN THE EVENT LIST WE SEND THE FILTTERED DATA TO THE EVENTLIST COMPONENT TO VIEW IT
   render() {
-    // if (this.state.redirectToAttendedEvents) {
-    // 	this.setState({
-    // 		redirectToAttendedEvents: false
-    // 	});
-    // 	return (
-    // 		<Redirect
-    // 			to={{
-    // 				pathname: '/AttendedEvents'
-    // 			}}
-    // 		/>
-    // 	);
-    // }
-    // return (
-    // 	<div>
-    // 		<h1>userDashboard</h1>
-    // 		<div>
-    // 			<button type="submit" onClick={this.toggleStates.bind(this)}>
-    // 				Attended Events
-    // 			</button>
-    // 			<Search events1={this.updateState.bind(this)} />
-    // 			<EventsList events={this.state.eventsArr} />
-    // 		</div>
-    // 	</div>
     return (
       <div>
+        {console.log(this.state.userId)}
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
           <a className="navbar-brand" href="/userdashboard">
             Home

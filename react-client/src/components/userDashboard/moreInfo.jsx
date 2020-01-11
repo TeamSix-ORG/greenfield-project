@@ -4,31 +4,57 @@ import EventsList from "./eventsList.jsx";
 import $ from "jquery";
 import ReactPlayer from "react-player";
 
-
 class MoreInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
       event1: [],
       moreInfo: true,
-	  attendMoney: false,
-	  userId: ""
+      attendMoney: false,
+      userId: "",
+      comment: "",
+      username: ""
     };
-  }
-
-  attendToggler(e) {
-	// Send request to the backend with the id of the event and user id
-	let User = {};
+    let User = {};
     if (localStorage && localStorage.getItem("user")) {
       User = JSON.parse(JSON.parse(localStorage.getItem("user")));
       this.setState({
-        userId: User._id
+        userId: User._id,
+        username: user.username
       });
-	}
-	
-	console.log(User, this.state.userId)
+    }
+  }
+
+  changeHandler(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  commentSubmitHandler(e) {
+    e.preventDefault();
+
+    var obj = {
+      userId: this.state.userId,
+      username: this.state.username,
+      comment: this.state.comment
+    };
+    $.ajax({
+      url: `/api/comments/${this.state.userId}`,
+      type: "post",
+      data: obj,
+      success: data => {
+        if (data === "Comment Was Sent") {
+          this.setState({ redirect: true });
+        }
+      },
+      error: err => throw err
+    });
+  }
+
+  attendToggler(e) {
+    // Send request to the backend with the id of the event and user id
+
     var obj = {};
-    obj.userId = User._id;
+    obj.userId = this.state.userId;
     obj.eventId = this.props.eventDescription[this.props.index].id;
     // console.log(obj, this.state.userId);
     $.ajax({
@@ -104,47 +130,70 @@ class MoreInfo extends Component {
               Description:{" "}
               {this.props.eventDescription[this.props.index].description}
             </p>
-           
-            <ReactPlayer url={this.props.eventDescription[this.props.index].videos[0]} />
+
+            <ReactPlayer
+              url={this.props.eventDescription[this.props.index].videos[0]}
+            />
 
             <p>{this.props.eventDescription[this.props.index].category}</p>
             <p>{this.props.eventDescription[this.props.index].description}</p>
-			<center>
-            <div className="btn-group btn-group-justified">
-              <button
-                type="submit"
-                
-                onClick={this.updateState.bind(this)}
-                className="btn btn-default"
-                style={{ margin: "25px" }}
-              >
-                back
-              </button>
-            </div>
-            {this.props.eventDescription[this.props.index].cost === "FREE" ? (
+            {this.props.eventDescription[this.props.index].comments.length > 0
+              ? this.props.eventDescription[this.props.index].comments.map(
+                  (comment, index) => {
+                    <div key={index}>
+                      <h5>{comments.username}</h5>
+                      <p>{comments.comment}</p>
+                      <textarea
+                        name="comment"
+                        id="comment"
+                        value={this.state.comment}
+                        onChange={this.changeHandler.bind(this)}
+                        cols="30"
+                        rows="10"
+                      ></textarea>
+                      <button onClick={this.commentSubmitHandler.bind(this)}>
+                        Add Comment
+                      </button>
+                    </div>;
+                  }
+                )
+              : null}
+
+            <center>
               <div className="btn-group btn-group-justified">
                 <button
                   type="submit"
+                  onClick={this.updateState.bind(this)}
                   className="btn btn-default"
                   style={{ margin: "25px" }}
-                  onClick={this.attendToggler.bind(this)}
                 >
-                  FREE
+                  back
                 </button>
               </div>
-            ) : (
-              <div className="btn-group btn-group-justified">
-                <button
-                  type="submit"
-                  className="btn btn-default"
-                  style={{ margin: "25px"}}
-                  onClick={this.attendTogglerMoney.bind(this)}
-                >
-                  Attend
-                </button>
-              </div>
-            )}
-			</center>
+              {this.props.eventDescription[this.props.index].cost === "FREE" ? (
+                <div className="btn-group btn-group-justified">
+                  <button
+                    type="submit"
+                    className="btn btn-default"
+                    style={{ margin: "25px" }}
+                    onClick={this.attendToggler.bind(this)}
+                  >
+                    FREE
+                  </button>
+                </div>
+              ) : (
+                <div className="btn-group btn-group-justified">
+                  <button
+                    type="submit"
+                    className="btn btn-default"
+                    style={{ margin: "25px" }}
+                    onClick={this.attendTogglerMoney.bind(this)}
+                  >
+                    Attend
+                  </button>
+                </div>
+              )}
+            </center>
           </div>
         ) : this.state.attendMoney ? (
           <Attend
