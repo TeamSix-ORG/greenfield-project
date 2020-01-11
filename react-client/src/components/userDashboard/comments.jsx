@@ -30,9 +30,9 @@ class Comments extends Component {
       username: this.props.username,
       comment: this.props.comment
     };
-    Axios.put(`/api/comment/${this.props.event.id}`, obj).then(data => {
+    Axios.post(`/api/comment/${this.props.event.id}`, obj).then(data => {
       if (data === "Comment Sent") {
-        alert("Comment Sent");
+        alert("Comment Was Sent");
       }
     });
   }

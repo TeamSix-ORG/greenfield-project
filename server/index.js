@@ -106,7 +106,7 @@ app.post(`/api/user/:id`, (req, res) => {
 });
 //##########################################################\\
 //######### TO ADD COMMENTS #########\\
-app.post(`/api/comments/:id`, (req, res) => {
+app.post(`/api/comment/:id`, (req, res) => {
   const eventId = req.params.id;
   const data = req.body;
   Event.findOne({ _id: eventId }, (err, result) => {
