@@ -1,12 +1,7 @@
 import React, { Component } from "react";
 import Search from "./search.jsx";
 import EventsList from "./eventsList.jsx";
-import $ from "jquery";
-import { Redirect } from "react-router-dom";
-
-import AttendedEvents from "./attendedEvents.jsx";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
 import axios from "axios";
 
 class UserDashboard extends Component {

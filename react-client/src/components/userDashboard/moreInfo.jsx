@@ -3,6 +3,7 @@ import Attend from "./attend.jsx";
 import EventsList from "./eventsList.jsx";
 import $ from "jquery";
 import ReactPlayer from "react-player";
+import Comments from "./comments.jsx";
 
 class MoreInfo extends Component {
   constructor(props) {
@@ -159,32 +160,9 @@ class MoreInfo extends Component {
 
             <p>{this.props.eventDescription[this.props.index].category}</p>
             <p>{this.props.eventDescription[this.props.index].description}</p>
-            {this.props.eventDescription[this.props.index].comments.length > 0
-              ? this.props.eventDescription[this.props.index].comments.map(
-                  (comment, index) => {
-                    <div key={index}>
-                      <h5>{comments.username}</h5>
-                      <p>{comments.comment}</p>
-                      <textarea
-                        name="comment"
-                        id="comment"
-                        value={this.state.comment}
-                        onChange={this.changeHandler.bind(this)}
-                        cols="30"
-                        rows="10"
-                      ></textarea>
-                      <button
-                        name="eventId"
-                        value={eventId}
-                        onClick={this.commentSubmitHandler.bind(this)}
-                      >
-                        Add Comment
-                      </button>
-                    </div>;
-                  }
-                )
-              : null}
-
+            <Comments
+              comments={this.props.eventDescription[this.props.index]}
+            />
             <center>
               <div className="btn-group btn-group-justified">
                 <button

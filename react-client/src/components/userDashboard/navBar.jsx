@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Search from "./search.jsx";
 import { Link } from "react-router-dom";
 
 class NavBar extends Component {
