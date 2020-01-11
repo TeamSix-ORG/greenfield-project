@@ -107,9 +107,18 @@ app.post(`/api/user/:id`, (req, res) => {
 //##########################################################\\
 //######### TO ADD COMMENTS #########\\
 app.post(`/api/comments/:id`, (req, res) => {
-  const eventId = req.params.id
-  const data = req.body
-  Event.
+  const eventId = req.params.id;
+  const data = req.body;
+  Event.findOne({ _id: eventId }, (err, result) => {
+    if (err) throw err;
+    else if (result) {
+      result["comments"].push(data);
+      result.save();
+      res.send("Comment Was Sent");
+    } else {
+      res.sendStatus(400);
+    }
+  });
 });
 //##########################################################\\
 
