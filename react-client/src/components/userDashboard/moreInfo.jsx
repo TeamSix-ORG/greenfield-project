@@ -13,7 +13,9 @@ class MoreInfo extends Component {
       attendMoney: false,
       userId: "",
       comment: "",
-      username: ""
+      username: "",
+      redirect: false,
+      eventId: ""
     };
     let User = {};
     if (localStorage && localStorage.getItem("user")) {
@@ -38,7 +40,7 @@ class MoreInfo extends Component {
       comment: this.state.comment
     };
     $.ajax({
-      url: `/api/comments/${this.state.userId}`,
+      url: `/api/comments/${this.state.eventId}`,
       type: "post",
       data: obj,
       success: data => {
@@ -46,7 +48,9 @@ class MoreInfo extends Component {
           this.setState({ redirect: true });
         }
       },
-      error: err => throw err
+      error: err => {
+        throw err;
+      }
     });
   }
 
@@ -114,10 +118,28 @@ class MoreInfo extends Component {
       padding: "2px 16px"
     };
 
+    if (this.state.redirect) {
+      this.setState({
+        redirect: false
+      });
+      return (
+        <Redirect
+          to={{
+            pathname: "/UserDashboard"
+          }}
+        />
+      );
+    }
+
     return (
       <div>
         {this.state.moreInfo ? (
-          <div style={container}>
+          <div
+            style={container}
+            value={this.props.eventDescription[this.props.index]._id}
+            name="eventId"
+            onClick={this.changeHandler.bind(this)}
+          >
             <img
               src={this.props.eventDescription[this.props.index].imgUrl[0]}
               style={{ width: "100%" }}
@@ -151,7 +173,11 @@ class MoreInfo extends Component {
                         cols="30"
                         rows="10"
                       ></textarea>
-                      <button onClick={this.commentSubmitHandler.bind(this)}>
+                      <button
+                        name="eventId"
+                        value={eventId}
+                        onClick={this.commentSubmitHandler.bind(this)}
+                      >
                         Add Comment
                       </button>
                     </div>;

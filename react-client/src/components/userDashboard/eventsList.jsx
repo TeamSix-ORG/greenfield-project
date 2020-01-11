@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import moreInfo from "./moreInfo.jsx";
 import MoreInfo from "./moreInfo.jsx";
+import { Redirect } from "react-router-dom";
 
 class EventsList extends Component {
   constructor(props) {

@@ -24,6 +24,7 @@ class UserDashboard extends Component {
         userId: User._id
       });
     }
+    console.log(User);
   }
   //  UPDATING THE STATE OF THE ARRAY CALLED FROM THE SEARCH FUNCTION TO UPDATE THE VIEW
   updateState(data) {

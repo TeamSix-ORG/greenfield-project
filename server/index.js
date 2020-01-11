@@ -105,6 +105,14 @@ app.post(`/api/user/:id`, (req, res) => {
   });
 });
 //##########################################################\\
+//######### TO ADD COMMENTS #########\\
+app.post(`/api/comments/:id`, (req, res) => {
+  const eventId = req.params.id
+  const data = req.body
+  Event.
+});
+//##########################################################\\
+
 // CAN BE MOR OPTIMIZED BUT HAVE NO TIME
 // ####################################	SOFIAN	PORTS  ######################################### \\
 
