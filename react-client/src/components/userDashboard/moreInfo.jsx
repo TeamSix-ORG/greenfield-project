@@ -132,9 +132,11 @@ class MoreInfo extends Component {
               <h6>
                 Date: {this.props.eventDescription[this.props.index].date}
               </h6>
-              <ReactPlayer
-                url={this.props.eventDescription[this.props.index].videos[0]}
-              />
+              <center>
+                <ReactPlayer
+                  url={this.props.eventDescription[this.props.index].videos[0]}
+                />
+              </center>
               <br />
               <div>
                 <label>Category:</label>

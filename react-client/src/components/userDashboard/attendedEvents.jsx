@@ -78,12 +78,19 @@ class AttendedEvents extends Component {
 
     axios.post(`/api/profile/${User._id}`).then(res => {
       const data1 = res.data;
+      console.log(data1);
       for (var i = 0; i < data1.length; i++) {
         if (data1[i] !== this.state.eventId) {
           data1.splice(i, 1);
         }
       }
-      var obj = { attendedEvents: data1 };
+      var obj = {};
+      if (data1.length === 0) {
+        obj.attendedEvents = [];
+      } else {
+        obj.attendedEvents = data1;
+      }
+      console.log(obj);
       $.ajax({
         url: `/api/user/${User._id}`,
         type: "post",
