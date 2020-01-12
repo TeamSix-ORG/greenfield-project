@@ -7,12 +7,20 @@ class Comments extends Component {
     this.state = {
       comment: "",
       userId: "",
-      username: ""
+      username: "",
+      redirect: false
     };
   }
 
   changeHandler(e) {
     this.setState({ [e.target.name]: e.target.value });
+  }
+
+  updateState() {
+    console.log("hi");
+    this.setState({
+      redirect: !this.state.redirect
+    });
   }
 
   submitComment(e) {
@@ -33,8 +41,9 @@ class Comments extends Component {
     };
     // console.log(obj, this.props.comments);
     Axios.post(`/api/comment/${this.props.comments._id}`, obj).then(data => {
-      console.log(data.data);
-      if (data.data === "Comment Sent") {
+      if (data.data === "Comment Was Sent") {
+        // this.updateState();
+        console.log(data.data);
         alert("Comment Was Sent");
       }
     });
@@ -42,6 +51,17 @@ class Comments extends Component {
 
   render() {
     const { comment } = this.state;
+
+    if (this.state.redirect) {
+      this.updateState();
+      return (
+        <Redirect
+          to={{
+            pathname: "/userDashboard"
+          }}
+        />
+      );
+    }
     return (
       <div>
         <div className="container">
