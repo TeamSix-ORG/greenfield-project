@@ -126,20 +126,21 @@ app.post(`/api/comment/:id`, (req, res) => {
 app.post(`/api/rate/:id`, (req, res) => {
   const id = req.params.id;
   const data = req.body;
-  var result = 0;
 
   Event.findOne({ _id: id }, (err, result) => {
     if (err) throw err;
     else if (result) {
-      result["rating"].push(data.rating);
-      result.save();
-      for (let i = 0; i < result["rating"].length; i++) {
-        result += result["rating"][i];
-        if (i === result["rating"].length - 1) {
-          var result = result / result["rating"].length;
-        }
-      }
-      res.send(result);
+      var results = 0;
+      result[0]["rating"].push(data.rating);
+      result[0].save();
+      // for (let i = 0; i < result[0]["rating"].length; i++) {
+      //   results += parseInt(result[0]["rating"][i]);
+      //   console.log(results);
+      //   if (i === result[0]["rating"].length - 1) {
+      //     var results = results / result[0]["rating"].length;
+      //   }
+      // }
+      res.json("done");
     }
   });
 });

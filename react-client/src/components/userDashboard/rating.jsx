@@ -5,7 +5,7 @@ import $ from "jquery";
 class Ratings extends Component {
   constructor(props) {
     super(props);
-    this.state = { value: 0 };
+    this.state = { value: 0, rating: null };
   }
 
   ratingSubmit() {
@@ -15,7 +15,10 @@ class Ratings extends Component {
       url: `/api/rate/${this.props.eventId}`,
       type: "POST",
       data: obj,
-      success: data => console.log(data),
+      success: data => {
+        this.setState({ rating: data.results });
+        console.log(data);
+      },
       error: err => {
         throw err;
       }
@@ -25,12 +28,17 @@ class Ratings extends Component {
   render() {
     return (
       <div>
+        {console.log(this.state.rating)}
         {this.state.value !== 0 ? this.ratingSubmit() : null}
-        <BeautyStars
-          value={this.state.value}
-          onChange={value => this.setState({ value })}
-          onclick={this.ratingSubmit.bind(this)}
-        />{" "}
+        <div className="container">
+          <label>Rate this event</label>
+          <BeautyStars
+            value={this.state.value}
+            onChange={value => this.setState({ value })}
+            onclick={this.ratingSubmit.bind(this)}
+          />{" "}
+          <p>{this.state.rating}/5</p>
+        </div>
       </div>
     );
   }
