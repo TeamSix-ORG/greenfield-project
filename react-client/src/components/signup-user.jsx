@@ -34,12 +34,16 @@ class Create_user extends React.Component {
       data: this.state,
       contentType: "application/x-www-form-urlencoded",
       success: data => {
-        this.setState({ redirectToLogin: true });
+        if (data === "err") {
+          this.updateAlert();
+        } else if (data === "Email already exists") {
+          this.updateAlert();
+        } else {
+          this.setState({ redirectToLogin: true });
+        }
       },
       error: err => {
-        if (err) {
-          this.updateAlert();
-        }
+        throw err;
       }
     });
   }
@@ -174,10 +178,7 @@ class Create_user extends React.Component {
                   </button>
                   {this.state.msg === true ? (
                     <div>
-                      <hr className="my-4" />
-                      <div class="alert alert-warning" role="alert">
-                        AN ERROR OCCURED
-                      </div>
+                      {alert("AN ERROR OCCURED")}
                       {this.updateAlert()}
                     </div>
                   ) : null}
