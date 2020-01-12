@@ -99,10 +99,11 @@ class Attend extends Component {
       borderLeftStyle: "none",
       color: "#fff"
       }
-    
 
-
-
+      const tickeStyle = {
+        textAlign: "center",
+        height:"82%"
+      }
 
     return (
       <div>
@@ -168,7 +169,10 @@ class Attend extends Component {
         </div>
         </div>
     :
-    <EventsList  events={this.props.events}/>    
+    <div style={tickeStyle}>
+      <Ticket />
+      <button onClick={() => window.print()}>PRINT</button>
+    </div>
     }
       </div>
     );
