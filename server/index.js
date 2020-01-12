@@ -110,12 +110,13 @@ app.post(`/api/user/:id`, (req, res) => {
 app.post(`/api/comment/:id`, (req, res) => {
   const eventId = req.params.id;
   const data = req.body;
-  // console.log(data);
+  console.log(data);
   Event.findOne({ _id: eventId }, (err, result) => {
     if (err) throw err;
     else if (result) {
-      result[0]["comments"].push(data);
-      result[0].save();
+      console.log(result);
+      result["comments"].push(data);
+      result.save();
       res.send("Comment Was Sent");
     } else {
       res.sendStatus(400);
