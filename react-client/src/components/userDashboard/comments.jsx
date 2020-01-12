@@ -15,30 +15,30 @@ class Comments extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  // submitComment(e) {
-  //   e.preventDefault();
-  //   let User = {};
-  //   if (localStorage && localStorage.getItem("user")) {
-  //     User = JSON.parse(JSON.parse(localStorage.getItem("user")));
-  //     this.setState({
-  //       userId: User._id,
-  //       username: User.username
-  //     });
-  //   }
+  submitComment(e) {
+    e.preventDefault();
+    let User = {};
+    if (localStorage && localStorage.getItem("user")) {
+      User = JSON.parse(JSON.parse(localStorage.getItem("user")));
+      this.setState({
+        userId: User._id,
+        username: User.username
+      });
+    }
 
-  //   var obj = {
-  //     userId: User._id,
-  //     username: User.username,
-  //     comment: this.state.comment
-  //   };
-  //   // console.log(obj, this.props.comments);
-  //   Axios.post(`/api/comment/${this.props.comments._id}`, obj).then(data => {
-  //     console.log(data.data);
-  //     if (data.data === "Comment Sent") {
-  //       alert("Comment Was Sent");
-  //     }
-  //   });
-  // }
+    var obj = {
+      userId: User._id,
+      username: User.username,
+      comment: this.state.comment
+    };
+    // console.log(obj, this.props.comments);
+    Axios.post(`/api/comment/${this.props.comments._id}`, obj).then(data => {
+      console.log(data.data);
+      if (data.data === "Comment Sent") {
+        alert("Comment Was Sent");
+      }
+    });
+  }
 
   render() {
     const { comment } = this.state;
