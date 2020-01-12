@@ -14,7 +14,8 @@ let events_Schema = mongoose.Schema({
   planId: String,
   organizerId: String,
   planId: String,
-  comments: [Object]
+  comments: [Object],
+  rating: []
 });
 
 let Events = mongoose.model("events", events_Schema);

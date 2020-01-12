@@ -6,7 +6,7 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 import ReactPlayer from "react-player";
 import NavBar from "./navBar.jsx";
-import Axios from "axios";
+import Ratings from "./rating.jsx";
 
 class AttendedEvents extends Component {
   constructor(props) {
@@ -122,6 +122,7 @@ class AttendedEvents extends Component {
     return (
       <div>
         <NavBar />
+
         {/* <button type="submit" onClick={this.toggleStates.bind(this)}>
           Dashboard
         </button> */}
@@ -136,12 +137,16 @@ class AttendedEvents extends Component {
                 onClick={this.changeHandler.bind(this)}
               >
                 <img src={attended.imgUrl[0]} style={{ width: "100%" }} />
-                <h1>{attended.eventName}</h1>
-                <h4>Date: {attended.date}</h4>
+                <center>
+                  <h1>{attended.eventName}</h1>
+                  <h4>Date: {attended.date}</h4>
+                </center>
 
-                <ReactPlayer url={attended.videos[0]} />
                 <p style={ps}>Category:{attended.category}</p>
+                <ReactPlayer url={attended.videos[0]} />
+                <br />
                 <p style={ps}>Description: {attended.description}</p>
+                <Ratings eventId={attended._id} />
                 <center>
                   <button
                     type="button"
