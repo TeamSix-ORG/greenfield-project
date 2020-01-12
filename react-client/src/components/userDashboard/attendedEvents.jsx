@@ -48,6 +48,7 @@ class AttendedEvents extends Component {
       axios.get(`/api/events`).then(res => {
         const events = res.data;
         var array = [];
+        console.log(data.length);
         for (let i = 0; i < data.length; i++) {
           for (let j = 0; j < events.length; j++) {
             if (data[i] === events[j]._id) {
@@ -55,7 +56,7 @@ class AttendedEvents extends Component {
             }
           }
         }
-        console.log(events);
+        console.log(array);
         this.setState({ attendedArr: array });
       });
     });

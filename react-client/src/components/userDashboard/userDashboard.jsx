@@ -46,7 +46,8 @@ class UserDashboard extends Component {
         var joint = data.data;
         for (let i = 0; i < joint.length; i++) {
           for (let j = 0; j < events.length; j++) {
-            if (joint[i] === events[j].id) {
+            if (joint[i] === events[j]._id) {
+              console.log(joint, events);
               events.splice(j, 1);
             }
           }
