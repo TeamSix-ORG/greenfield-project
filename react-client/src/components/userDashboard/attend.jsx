@@ -101,6 +101,7 @@ class Attend extends Component {
 
     return (
       <div>
+        {console.log(this.props.eventId)}
         {this.state.attend ? (
           <div style={attendForm}>
             <h1 style={title}>USER INFO</h1>
@@ -144,7 +145,7 @@ class Attend extends Component {
                 id="Billing_address"
                 style={inputBox1}
                 onChange={this.handleChange.bind(this)}
-                placeholder="Enter password"
+                placeholder="Enter Billing Address"
                 required
               />
               <hr />

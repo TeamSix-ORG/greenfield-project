@@ -75,6 +75,7 @@ class AttendedEvents extends Component {
         userId: User._id
       });
     }
+
     axios.post(`/api/profile/${User._id}`).then(res => {
       const data1 = res.data;
       for (var i = 0; i < data1.length; i++) {

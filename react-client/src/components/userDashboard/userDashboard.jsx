@@ -66,9 +66,9 @@ class UserDashboard extends Component {
       <div>
         {/* {console.log(this.state.userId)} */}
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-          <a className="navbar-brand" href="/userdashboard">
+          <Link className="navbar-brand" to="/userdashboard">
             Home
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -83,28 +83,28 @@ class UserDashboard extends Component {
           <div className="collapse navbar-collapse" id="navbarColor01">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
-                <a
+                <Link
                   className="nav-link"
-                  href="/attendedevents"
+                  to="/attendedevents"
                   // onClick={this.toggleStates.bind(this)}
                 >
                   Attended Events
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/profile">
+                <Link className="nav-link" to="/profile">
                   Profile
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/about">
+                <Link className="nav-link" to="/about">
                   About
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/login">
+                <Link className="nav-link" to="/login">
                   Logout
-                </a>
+                </Link>
               </li>
             </ul>
             <Search events1={this.updateState.bind(this)} />

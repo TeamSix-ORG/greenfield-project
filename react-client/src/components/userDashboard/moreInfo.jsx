@@ -189,7 +189,7 @@ class MoreInfo extends Component {
           </div>
         ) : this.state.attendMoney ? (
           <Attend
-            eventId={this.props.eventDescription[this.props.index].id}
+            eventId={this.props.eventDescription[this.props.index]._id}
             events={this.props.eventDescription}
           />
         ) : (
