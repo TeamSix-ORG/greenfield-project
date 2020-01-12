@@ -14,7 +14,8 @@ class Create_user extends React.Component {
       confirmPassord: "",
       type: "user",
       redirectToLogin: false,
-      msg: false
+      msg: false,
+      message: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,9 +36,9 @@ class Create_user extends React.Component {
       contentType: "application/x-www-form-urlencoded",
       success: data => {
         if (data === "err") {
-          this.updateAlert();
+          this.updateAlert(data);
         } else if (data === "Email already exists") {
-          this.updateAlert();
+          this.updateAlert(data);
         } else {
           this.setState({ redirectToLogin: true });
         }
@@ -47,8 +48,11 @@ class Create_user extends React.Component {
       }
     });
   }
-  updateAlert() {
-    this.setState({ msg: !this.state.msg });
+  updateAlert(data) {
+    this.setState({
+      msg: !this.state.msg,
+      message: data
+    });
   }
   render() {
     const {
@@ -178,7 +182,7 @@ class Create_user extends React.Component {
                   </button>
                   {this.state.msg === true ? (
                     <div>
-                      {alert("AN ERROR OCCURED")}
+                      {alert(this.state.message)}
                       {this.updateAlert()}
                     </div>
                   ) : null}
