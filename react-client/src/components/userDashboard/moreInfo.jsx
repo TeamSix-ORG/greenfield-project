@@ -122,21 +122,23 @@ class MoreInfo extends Component {
               src={this.props.eventDescription[this.props.index].imgUrl[0]}
               style={{ width: "100%" }}
             />
+            <br />
             <div className="container">
               <h3>
                 Name: {this.props.eventDescription[this.props.index].eventName}
               </h3>
-
+              <br />
               <h6>
                 Date: {this.props.eventDescription[this.props.index].date}
               </h6>
               <ReactPlayer
                 url={this.props.eventDescription[this.props.index].videos[0]}
               />
-              <p>
-                Category:{" "}
-                {this.props.eventDescription[this.props.index].category}
-              </p>
+              <br />
+              <div>
+                <label>Category:</label>
+                <p>{this.props.eventDescription[this.props.index].category}</p>
+              </div>
               <p>
                 Description:{" "}
                 {this.props.eventDescription[this.props.index].description}

@@ -44,18 +44,22 @@ class Comments extends Component {
     const { comment } = this.state;
     return (
       <div>
-        {this.props.comments.comments.length > 0
-          ? this.props.comments.comments.map((comment, idx) => {
-              return (
-                <div key={idx} className="container">
-                  <h3>Comments</h3>
-                  <hr />
-                  <h5>@{comment.username}</h5>
-                  <p>{comment.comment}</p>
-                </div>
-              );
-            })
-          : null}
+        <div className="container">
+          <h3>Comments</h3>
+        </div>
+        {this.props.comments.comments.length > 0 ? (
+          this.props.comments.comments.map((comment, idx) => {
+            return (
+              <div key={idx} className="container">
+                <hr />
+                <h5>@{comment.username}</h5>
+                <p>{comment.comment}</p>
+              </div>
+            );
+          })
+        ) : (
+          <p>NO COMMENTS TO SHOW</p>
+        )}
         <br />
         <hr />
         <form onSubmit={this.submitComment.bind(this)}>
