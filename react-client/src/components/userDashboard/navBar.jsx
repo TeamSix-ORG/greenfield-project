@@ -13,9 +13,9 @@ class NavBar extends Component {
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-          <Link className="navbar-brand" to="/userdashboard">
+          <a className="navbar-brand" href="/userdashboard">
             Home
-          </Link>
+          </a>
           <button
             className="navbar-toggler"
             type="button"
@@ -30,28 +30,28 @@ class NavBar extends Component {
           <div className="collapse navbar-collapse" id="navbarColor01">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
-                <Link
+                <a
                   className="nav-link"
-                  to="/attendedevents"
+                  href="/attendedevents"
                   // onClick={this.toggleStates.bind(this)}
                 >
                   Attended Events
-                </Link>
+                </a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/profile">
+                <a className="nav-link" href="/profile">
                   Profile
-                </Link>
+                </a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/login">
+                <a className="nav-link" href="/login">
                   About
-                </Link>
+                </a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="#">
+                <a className="nav-link" href="#">
                   Logout
-                </Link>
+                </a>
               </li>
             </ul>
           </div>

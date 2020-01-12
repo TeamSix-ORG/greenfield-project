@@ -33,7 +33,7 @@ class App extends React.Component {
             <Route path="/profile" component={UserProfile} />
             <Route path="/editUserProfile" component={EditUserProfile} />
             <Route path="/organizerdashboard" component={organizerDashoard} />
-            <Route path="/moreINfo" component={MoreInfo} />
+            {/* <Route path="/moreINfo" component={MoreInfo} /> */}
             editUserProfile
           </Switch>
         </Router>

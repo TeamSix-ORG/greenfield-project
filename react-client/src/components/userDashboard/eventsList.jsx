@@ -10,8 +10,7 @@ class EventsList extends Component {
       eventList: true,
       moreInfo: false,
       index: null,
-      msg: "",
-      redirectToMoreInfo: false
+      msg: ""
     };
   }
   //  THIS FUNCTION IS USED TO UPDATE THE STATES AND GET THE INDEX OF THE CLICKED DIV TO SEND TO THE MORE INF TAB
@@ -25,19 +24,20 @@ class EventsList extends Component {
 
   //
 
-  updateState(e) {
-    e.preventDefault();
-    this.setState({
-      msg: "NO EVENTS TO SHOW"
-    });
-  }
+  // updateState(e) {
+  //     e.preventDefault()
+  //     this.setState({
+  //         msg: 'NO EVENTS TO SHOW'
+  //     })
+  // }
 
   //  THIS FUNCTION IS USED TO TOGGLE THE VIEW BETWEEN THE EVENTS LIST AND THE MORE INFO TAB
 
   toggleComponents(e) {
     e.preventDefault();
     this.setState({
-      redirectToMoreInfo: true
+      eventList: false,
+      moreInfo: true
     });
   }
 
@@ -61,23 +61,6 @@ class EventsList extends Component {
     const ps = {
       padding: "2px 16px"
     };
-
-    if (this.state.redirectToMoreInfo) {
-      this.setState({
-        redirectToMoreInfo: false
-      });
-      return (
-        <Redirect
-          to={{
-            pathname: "/moreInfo",
-            state: {
-              index: this.state.index,
-              eventDescription: this.props.events
-            }
-          }}
-        />
-      );
-    }
 
     return (
       <div>
@@ -119,7 +102,12 @@ class EventsList extends Component {
               <p>NO EVENTS TO SHOW FOR NOW </p>
             </center>
           )
-        ) : null}
+        ) : (
+          <MoreInfo
+            index={this.state.index}
+            eventDescription={this.props.events}
+          />
+        )}
       </div>
     );
   }

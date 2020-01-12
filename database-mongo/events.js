@@ -6,7 +6,7 @@ let events_Schema = mongoose.Schema({
   eventName: String,
   description: String,
   date: String,
-  imgUrl: [String],
+  imgUrl: [Object],
   videos: [String],
   category: String,
   cost: String,
@@ -14,14 +14,7 @@ let events_Schema = mongoose.Schema({
   planId: String,
   organizerId: String,
   planId: String,
-  comments: [
-    {
-      userId: { type: String },
-      userName: { type: String },
-      dateTime: { type: Date },
-      comment: [String]
-    }
-  ]
+  comments: [Object]
 });
 
 let Events = mongoose.model("events", events_Schema);

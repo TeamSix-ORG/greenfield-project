@@ -4,7 +4,6 @@ import EventsList from "./eventsList.jsx";
 import $ from "jquery";
 import ReactPlayer from "react-player";
 import Comments from "./comments.jsx";
-import NavBar from "./navBar.jsx";
 
 class MoreInfo extends Component {
   constructor(props) {
@@ -17,11 +16,16 @@ class MoreInfo extends Component {
       comment: "",
       username: "",
       redirect: false,
-      eventId: "",
-      event: this.props.location.state.eventDescription[
-        this.props.location.state.index
-      ]
+      eventId: ""
     };
+  }
+
+  changeHandler(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  attendToggler(e) {
+    // Send request to the backend with the id of the event and user id
     let User = {};
     if (localStorage && localStorage.getItem("user")) {
       User = JSON.parse(JSON.parse(localStorage.getItem("user")));
@@ -30,40 +34,9 @@ class MoreInfo extends Component {
         username: User.username
       });
     }
-  }
-
-  changeHandler(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
-  commentSubmitHandler(e) {
-    e.preventDefault();
-
-    var obj = {
-      userId: this.state.userId,
-      username: this.state.username,
-      comment: this.state.comment
-    };
-    $.ajax({
-      url: `/api/comments/${this.state.eventId}`,
-      type: "post",
-      data: obj,
-      success: data => {
-        if (data === "Comment Was Sent") {
-          this.setState({ redirect: true });
-        }
-      },
-      error: err => {
-        throw err;
-      }
-    });
-  }
-
-  attendToggler(e) {
-    // Send request to the backend with the id of the event and user id
 
     var obj = {};
-    obj.userId = this.state.userId;
+    obj.userId = User._id;
     obj.eventId = this.props.eventDescription[this.props.index].id;
     // console.log(obj, this.state.userId);
     $.ajax({
@@ -138,9 +111,6 @@ class MoreInfo extends Component {
 
     return (
       <div>
-        <NavBar />
-        {console.log(this.state.event)}
-        {/* {console.log(this.props.eventDescription)}
         {this.state.moreInfo ? (
           <div
             style={container}
@@ -152,21 +122,26 @@ class MoreInfo extends Component {
               src={this.props.eventDescription[this.props.index].imgUrl[0]}
               style={{ width: "100%" }}
             />
-            <h3>Date: {this.props.eventDescription[this.props.index].date}</h3>
-            <h3>
-              Name: {this.props.eventDescription[this.props.index].eventName}
-            </h3>
-            <p>
-              Description:{" "}
-              {this.props.eventDescription[this.props.index].description}
-            </p>
+            <div className="container">
+              <h3>
+                Name: {this.props.eventDescription[this.props.index].eventName}
+              </h3>
 
-            <ReactPlayer
-              url={this.props.eventDescription[this.props.index].videos[0]}
-            />
-
-            <p>{this.props.eventDescription[this.props.index].category}</p>
-            <p>{this.props.eventDescription[this.props.index].description}</p>
+              <h6>
+                Date: {this.props.eventDescription[this.props.index].date}
+              </h6>
+              <ReactPlayer
+                url={this.props.eventDescription[this.props.index].videos[0]}
+              />
+              <p>
+                Category:{" "}
+                {this.props.eventDescription[this.props.index].category}
+              </p>
+              <p>
+                Description:{" "}
+                {this.props.eventDescription[this.props.index].description}
+              </p>
+            </div>
             <Comments
               comments={this.props.eventDescription[this.props.index]}
             />
@@ -213,7 +188,7 @@ class MoreInfo extends Component {
           />
         ) : (
           <EventsList events={this.props.eventDescription} />
-        )} */}
+        )}
       </div>
     );
   }

@@ -85,10 +85,10 @@ const events = [
     cost: "FREE",
     organizerId: "5e148bf8fc13ae0c40000004",
     planId: "5e148aadfc13ae1216000001",
-    Comments: [
+    comments: [
       {
-        _userId: "5e18932dd484d007a467d42a",
-        userName: "SofianSaleh",
+        userId: "5e18932dd484d007a467d42a",
+        username: "SofianSaleh",
         comment: "HAHAHAHAHAHAH"
       }
     ]

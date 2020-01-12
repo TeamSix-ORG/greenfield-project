@@ -51,6 +51,7 @@ app.post("/api/profiles", function(req, res) {
   UserProfile.findOne({ _userId: data.userId }, (err, result) => {
     result["attendedEvents"].push(data.eventId);
     result.save();
+    console.log(result.attendedEvents);
     res.send("Joined");
   });
 });
@@ -109,11 +110,12 @@ app.post(`/api/user/:id`, (req, res) => {
 app.post(`/api/comment/:id`, (req, res) => {
   const eventId = req.params.id;
   const data = req.body;
+  // console.log(data);
   Event.findOne({ _id: eventId }, (err, result) => {
     if (err) throw err;
     else if (result) {
-      result["comments"]["comment"].push(data);
-      result.save();
+      result[0]["comments"].push(data);
+      result[0].save();
       res.send("Comment Was Sent");
     } else {
       res.sendStatus(400);
