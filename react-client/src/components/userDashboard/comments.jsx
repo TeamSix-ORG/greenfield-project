@@ -17,7 +17,6 @@ class Comments extends Component {
   }
 
   updateState() {
-    console.log("hi");
     this.setState({
       redirect: !this.state.redirect
     });
@@ -33,6 +32,7 @@ class Comments extends Component {
         username: User.username
       });
     }
+    console.log("heellll");
     if (this.state.comment !== "") {
       var obj = {
         userId: User._id,
@@ -52,10 +52,6 @@ class Comments extends Component {
     } else {
       alert("PLEASE FILL THE TEXT BOX");
     }
-  }
-
-  componentDidMount() {
-    console.log("ho");
   }
 
   render() {
@@ -91,7 +87,7 @@ class Comments extends Component {
         )}
         <br />
         <hr />
-        <form onSubmit={this.submitComment.bind(this)}>
+        <form>
           <div className="container">
             <label htmlFor="comment">Comment:</label>
           </div>
@@ -107,6 +103,7 @@ class Comments extends Component {
           <button
             className="btn btn-lg btn-primary btn-block text-uppercase"
             type="submit"
+            onClick={this.submitComment.bind(this)}
           >
             Add Comment
           </button>

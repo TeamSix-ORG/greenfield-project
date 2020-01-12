@@ -45,11 +45,9 @@ class AttendedEvents extends Component {
     }
     axios.post(`/api/profile/${User._id}`).then(res => {
       const data = res.data;
-      console.log(data);
       axios.get(`/api/events`).then(res => {
         const events = res.data;
         var array = [];
-        console.log(data.length);
         for (let i = 0; i < data.length; i++) {
           for (let j = 0; j < events.length; j++) {
             if (data[i] === events[j]._id) {
@@ -57,7 +55,6 @@ class AttendedEvents extends Component {
             }
           }
         }
-        console.log(array);
         this.setState({ attendedArr: array });
       });
     });
@@ -123,10 +120,6 @@ class AttendedEvents extends Component {
     return (
       <div>
         <NavBar />
-
-        {/* <button type="submit" onClick={this.toggleStates.bind(this)}>
-          Dashboard
-        </button> */}
         <div>
           {this.state.attendedArr.map((attended, index) => {
             return (

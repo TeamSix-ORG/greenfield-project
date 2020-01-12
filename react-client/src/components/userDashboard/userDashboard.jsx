@@ -88,7 +88,7 @@ class UserDashboard extends Component {
                   href="/attendedevents"
                   // onClick={this.toggleStates.bind(this)}
                 >
-                  Attendedzz Events
+                  Attended Events
                 </a>
               </li>
               <li className="nav-item">

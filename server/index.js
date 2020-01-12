@@ -93,7 +93,7 @@ app.post(`/api/user/:id`, (req, res) => {
   UserProfile.findOne({ _userId: id }, (err, results) => {
     if (err) throw err;
     else {
-      HTMLFormControlsCollection.log(data, results);
+      console.log(data, results);
       for (var i = 0; i < results["attendedEvents"].length; i++) {
         if (data["attendedEvents[]"] === results["attendedEvents"][i]) {
           results["attendedEvents"].splice(i, 1);
