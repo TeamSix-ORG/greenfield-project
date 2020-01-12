@@ -1,5 +1,6 @@
 import React from "react";
 import $ from "jquery";
+import { Redirect } from "react-router-dom";
 
 class Create_user extends React.Component {
   constructor(props) {
