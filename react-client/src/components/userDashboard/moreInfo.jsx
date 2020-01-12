@@ -4,6 +4,7 @@ import EventsList from "./eventsList.jsx";
 import $ from "jquery";
 import ReactPlayer from "react-player";
 import Comments from "./comments.jsx";
+import Ratings from "./rating.jsx";
 
 class MoreInfo extends Component {
   constructor(props) {
@@ -144,6 +145,9 @@ class MoreInfo extends Component {
                 {this.props.eventDescription[this.props.index].description}
               </p>
             </div>
+            <Ratings
+              eventId={this.props.eventDescription[this.props.index]._id}
+            />
             <Comments
               comments={this.props.eventDescription[this.props.index]}
             />

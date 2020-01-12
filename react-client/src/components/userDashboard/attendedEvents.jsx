@@ -7,6 +7,7 @@ import axios from "axios";
 import ReactPlayer from "react-player";
 import NavBar from "./navBar.jsx";
 import Ratings from "./rating.jsx";
+import Comments from "./comments.jsx";
 
 class AttendedEvents extends Component {
   constructor(props) {
@@ -141,12 +142,12 @@ class AttendedEvents extends Component {
                   <h1>{attended.eventName}</h1>
                   <h4>Date: {attended.date}</h4>
                 </center>
-
                 <p style={ps}>Category:{attended.category}</p>
                 <ReactPlayer url={attended.videos[0]} />
                 <br />
                 <p style={ps}>Description: {attended.description}</p>
                 <Ratings eventId={attended._id} />
+                <Comments comments={attended} />
                 <center>
                   <button
                     type="button"

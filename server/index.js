@@ -93,7 +93,7 @@ app.post(`/api/user/:id`, (req, res) => {
   UserProfile.findOne({ _userId: id }, (err, results) => {
     if (err) throw err;
     else {
-      console.log(data["attendedEvents[]"]);
+      HTMLFormControlsCollection.log(data, results);
       for (var i = 0; i < results["attendedEvents"].length; i++) {
         if (data["attendedEvents[]"] === results["attendedEvents"][i]) {
           results["attendedEvents"].splice(i, 1);
@@ -133,14 +133,15 @@ app.post(`/api/rate/:id`, (req, res) => {
       var results = 0;
       result[0]["rating"].push(data.rating);
       result[0].save();
-      // for (let i = 0; i < result[0]["rating"].length; i++) {
-      //   results += parseInt(result[0]["rating"][i]);
-      //   console.log(results);
-      //   if (i === result[0]["rating"].length - 1) {
-      //     var results = results / result[0]["rating"].length;
-      //   }
-      // }
-      res.json("done");
+      for (let i = 0; i < result[0]["rating"].length; i++) {
+        results += parseInt(result[0]["rating"][i]);
+        console.log(results);
+        if (i === result[0]["rating"].length - 1) {
+          var results = results / result[0]["rating"].length;
+        }
+      }
+      results = String(results).substring(0, 3);
+      res.json({ results: results });
     }
   });
 });

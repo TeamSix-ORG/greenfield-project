@@ -29,13 +29,16 @@ class Ratings extends Component {
     return (
       <div>
         {console.log(this.state.rating)}
-        {this.state.value !== 0 ? this.ratingSubmit() : null}
+        {/* {this.state.value !== 0 ? this.ratingSubmit() : null} */}
         <div className="container">
           <label>Rate this event</label>
           <BeautyStars
             value={this.state.value}
-            onChange={value => this.setState({ value })}
-            onclick={this.ratingSubmit.bind(this)}
+            onChange={value => {
+              this.setState({ value });
+              this.ratingSubmit();
+            }}
+            rate={this.ratingSubmit.bind(this)}
           />{" "}
           <p>{this.state.rating}/5</p>
         </div>
