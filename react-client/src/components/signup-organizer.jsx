@@ -11,7 +11,10 @@ class Create_organizer extends React.Component {
       email: "",
       password: "",
       confirmPassord: "",
-      type: "organizer"
+      type: "organizer",
+      redirectToLogin: false,
+      msg: false,
+      message: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,13 +34,26 @@ class Create_organizer extends React.Component {
       data: this.state,
       contentType: "application/x-www-form-urlencoded",
       success: data => {
-        console.log(data);
+        if (data === "err") {
+          this.updateAlert(data);
+        } else if (data === "Email already exists") {
+          this.updateAlert(data);
+        } else {
+          this.setState({ redirectToLogin: true });
+        }
       },
       error: err => {
         if (err) {
           console.log(err);
         }
       }
+    });
+  }
+
+  updateAlert(data) {
+    this.setState({
+      msg: !this.state.msg,
+      message: data
     });
   }
 
@@ -154,6 +170,12 @@ class Create_organizer extends React.Component {
                     Sign Up
                   </button>
                   <hr className="my-4" />
+                  {this.state.msg === true ? (
+                    <div>
+                      {alert(this.state.message)}
+                      {this.updateAlert()}
+                    </div>
+                  ) : null}
                 </form>
               </div>
             </div>
