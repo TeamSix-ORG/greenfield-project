@@ -37,8 +37,8 @@ class MoreInfo extends Component {
 
     var obj = {};
     obj.userId = User._id;
-    obj.eventId = this.props.eventDescription[this.props.index].id;
-    // console.log(obj, this.state.userId);
+    obj.eventId = this.props.eventDescription[this.props.index]._id;
+    console.log(obj, this.state.userId);
     $.ajax({
       url: "/api/profiles",
       type: "POST",

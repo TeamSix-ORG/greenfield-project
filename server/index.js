@@ -62,7 +62,7 @@ app.post("/api/profile/:id", function(req, res) {
   const id = req.params.id;
   // console.log(id);
   UserProfile.findOne({ _userId: id }, (err, result) => {
-    res.send(result.attendedEvents);
+    res.send(result);
   });
 });
 //##########################################################\\
