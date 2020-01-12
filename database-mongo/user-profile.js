@@ -21,7 +21,8 @@ let user_profileSchema = mongoose.Schema({
   birthDate: String,
   imgUrl: String,
   about: String,
-  attendedEvents: []
+  attendedEvents: [], 
+  tickets : [],
 });
 
 module.exports = mongoose.model("user_profile", user_profileSchema);
