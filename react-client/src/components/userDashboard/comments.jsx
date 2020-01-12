@@ -43,8 +43,10 @@ class Comments extends Component {
       Axios.post(`/api/comment/${this.props.comments._id}`, obj).then(data => {
         if (data.data === "Comment Was Sent") {
           console.log(data.data);
+          this.setState({
+            redirect: !this.state.redirect
+          });
           alert("Comment Was Sent");
-          this.updateState();
         }
       });
     } else {
@@ -52,23 +54,27 @@ class Comments extends Component {
     }
   }
 
+  componentDidMount() {
+    console.log("ho");
+  }
+
   render() {
     const { comment } = this.state;
 
-    if (this.state.redirect) {
-      this.updateState();
-      return (
-        <Redirect
-          to={{
-            pathname: "/userDashboard"
-          }}
-        />
-      );
-    }
+    // if (this.state.redirect) {
+    //   this.updateState();
+    //   return (
+    //     <Redirect
+    //       to={{
+    //         pathname: "/attendedEvents"
+    //       }}
+    //     />
+    //   );
+    // }
     return (
       <div>
         <div className="container">
-          <h3>Comments</h3>
+          <h3>Comments ({this.props.comments.comments.length})</h3>
         </div>
         {this.props.comments.comments.length > 0 ? (
           this.props.comments.comments.map((comment, idx) => {
