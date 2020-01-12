@@ -23,9 +23,13 @@ class EditUserProfile extends Component {
 
   onSubmitHandler(e) {
     e.preventDefault();
-    console.log(this.state + '1')
-    if(this.state.fullname !== "" || this.state.dateOfBirth !== "" || this.state.phoneNumber !== "" || this.state.about !== "" || this.state.imgUrl !== ""){
-
+    if (
+      this.state.fullname !== "" ||
+      this.state.dateOfBirth !== "" ||
+      this.state.phoneNumber !== "" ||
+      this.state.about !== "" ||
+      this.state.imgUrl !== ""
+    ) {
       let User = {};
       if (localStorage && localStorage.getItem("user")) {
         User = JSON.parse(JSON.parse(localStorage.getItem("user")));
@@ -33,25 +37,30 @@ class EditUserProfile extends Component {
           userId: User._id
         });
       }
-      console.log(this.state + '2')
-
+      var obj = this.state;
+      for (var key in obj) {
+        if (obj[key] === "") {
+          delete obj[key];
+        }
+      }
+      console.log(obj);
       $.ajax({
         url: `/api/users/${User._id}`,
         type: "PUT",
         data: this.state,
         success: data => {
-          this.setState({ redirectToProfilePage: true })
+          this.setState({ redirectToProfilePage: true });
         },
         error: err => console.log("reeeee")
       });
-    }else{
-      this.setState({ redirectToProfilePage: true })
+    } else {
+      this.setState({ redirectToProfilePage: true });
     }
   }
   render() {
     const { fullname, dateOfBirth, phoneNumber, about, imgUrl } = this.state;
 
-    if(this.state.redirectToProfilePage){
+    if (this.state.redirectToProfilePage) {
       this.setState({
         redirectToProfilePage: false
       });
@@ -62,9 +71,7 @@ class EditUserProfile extends Component {
           }}
         />
       );
-    
     }
-
 
     return (
       <div>
