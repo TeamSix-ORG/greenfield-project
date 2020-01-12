@@ -125,6 +125,23 @@ app.post(`/api/comment/:id`, (req, res) => {
 //######### TO ADD RATING #########\\
 app.post(`/api/rate/:id`, (req, res) => {
   const id = req.params.id;
+  const data = req.body;
+  var result = 0;
+
+  Event.findOne({ _id: id }, (err, result) => {
+    if (err) throw err;
+    else if (result) {
+      result["rating"].push(data.rating);
+      result.save();
+      for (let i = 0; i < result["rating"].length; i++) {
+        result += result["rating"][i];
+        if (i === result["rating"].length - 1) {
+          var result = result / result["rating"].length;
+        }
+      }
+      res.send(result);
+    }
+  });
 });
 //##########################################################\\
 

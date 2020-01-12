@@ -91,7 +91,8 @@ const events = [
         username: "SofianSaleh",
         comment: "HAHAHAHAHAHAH"
       }
-    ]
+    ],
+    rating: [3, 2, 4, 5, 2, 2]
   },
 
   {
@@ -112,7 +113,8 @@ const events = [
         userName: "SofianSaleh",
         comment: "HAHAHAHAsdfsdgsfdgsdfgsfgsdfgHAHAH"
       }
-    ]
+    ],
+    rating: [3, 2, 4, 5, 2, 2]
   },
   {
     _id: new Mongoose.Types.ObjectId(),
@@ -132,7 +134,8 @@ const events = [
         userName: "SofianSaleh",
         comment: "HAHAHAHAHAsadfhjklhgfdrseasrdfghjkhgfdHAH"
       }
-    ]
+    ],
+    rating: [3, 2, 4, 5, 2, 2]
   },
   {
     _id: new Mongoose.Types.ObjectId(),
