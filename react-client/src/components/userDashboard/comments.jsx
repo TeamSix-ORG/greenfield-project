@@ -33,20 +33,23 @@ class Comments extends Component {
         username: User.username
       });
     }
-
-    var obj = {
-      userId: User._id,
-      username: User.username,
-      comment: this.state.comment
-    };
-    // console.log(obj, this.props.comments);
-    Axios.post(`/api/comment/${this.props.comments._id}`, obj).then(data => {
-      if (data.data === "Comment Was Sent") {
-        // this.updateState();
-        console.log(data.data);
-        alert("Comment Was Sent");
-      }
-    });
+    if (this.state.comment !== "") {
+      var obj = {
+        userId: User._id,
+        username: User.username,
+        comment: this.state.comment
+      };
+      // console.log(obj, this.props.comments);
+      Axios.post(`/api/comment/${this.props.comments._id}`, obj).then(data => {
+        if (data.data === "Comment Was Sent") {
+          console.log(data.data);
+          alert("Comment Was Sent");
+          this.updateState();
+        }
+      });
+    } else {
+      alert("PLEASE FILL THE TEXT BOX");
+    }
   }
 
   render() {
