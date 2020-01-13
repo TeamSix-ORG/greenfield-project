@@ -11,7 +11,8 @@ import AttendedEvents from './components/userDashboard/attendedEvents.jsx';
 import UserProfile from './components/userDashboard/userProfile.jsx';
 import EditUserProfile from './components/userDashboard/editUserProfile.jsx';
 import organizerDashoard from './components/organizerDashboard/organizerDashoard.jsx';
-import createEvent from './components/organizerDashboard/createEvent.jsx';
+import Createevent from './components/organizerDashboard/createEvent.jsx';
+import MoreInfo from './components/userDashboard/moreInfo.jsx';
 
 class App extends React.Component {
 	constructor(props) {
@@ -32,8 +33,8 @@ class App extends React.Component {
 						<Route path="/attendedEvents" component={AttendedEvents} />
 						<Route path="/profile" component={UserProfile} />
 						<Route path="/editUserProfile" component={EditUserProfile} />
+						<Route path="/createevent" component={Createevent} />
 						<Route path="/organizerdashboard" component={organizerDashoard} />
-						<Route path="/createevent" component={createEvent} />
 					</Switch>
 				</Router>
 			</div>

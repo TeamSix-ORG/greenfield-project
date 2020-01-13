@@ -12,12 +12,12 @@ let signup = async (req, res) => {
 		email: req.body.email,
 		password: req.body.password
 	});
-	if (error) return res.status(400).json(error.details[0].message);
+	if (error) return res.send(error);
 
 	//checking if the email exists
 	const emaiExist = await User.findOne({ email: req.body.email });
 	if (emaiExist) {
-		res.status(400).json('Email already exists');
+		res.send('Email already exists');
 	}
 
 	//hashing the password
@@ -32,19 +32,19 @@ let signup = async (req, res) => {
 		password: hashedPassword,
 		type: req.body.type
 	});
+	console.log('imhere');
 	try {
 		const savedUser = await user.save();
 
-		res.json(savedUser._id);
+		res.send(savedUser._id);
 		try {
 			createprofile(req, savedUser._id);
 		} catch (err) {
-			console.log(err);
-			res.status(400).json(err);
+			res.send('err');
 		}
 	} catch (err) {
 		console.log(err);
-		res.status(400).json(err);
+		res.send('err');
 	}
 };
 

@@ -3,16 +3,28 @@ import $ from 'jquery';
 import EventsList from './eventsList.jsx';
 import Search from './search.jsx';
 import { Redirect } from 'react-router-dom';
+import axios from 'axios';
+import ReactPlayer from 'react-player';
+import NavBar from './navBar.jsx';
+import Ratings from './rating.jsx';
+import Comments from './comments.jsx';
 
 class AttendedEvents extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			userId: '5e17a83d39ddb953b5b2dcc1',
+			userId: '',
 			attendedArr: [],
-			redirectToUserDashboard: false
+			redirectToUserDashboard: false,
+			eventId: ''
 		};
-		window.attendedArr = this.state.attendedArr;
+	}
+
+	changeHandler(e) {
+		e.preventDefault();
+		this.setState({
+			[e.target.name]: e.target.value
+		});
 	}
 
 	toggleStates(e) {
@@ -24,41 +36,27 @@ class AttendedEvents extends Component {
 	}
 
 	componentDidMount() {
-		$.ajax({
-			url: '/api/jointEventUser',
-			type: 'GET',
-			success: (data) => {
-				var arr = [];
-				for (var i = 0; i < data.length; i++) {
-					if (data[i].userId === this.state.userId) {
-						arr.push(data[i].eventId);
-					}
-				}
-				console.log(data, 'hi');
-				this.fetchEvents(arr);
-			},
-			error: (err) => {
-				throw err;
-			}
-		});
-	}
-
-	fetchEvents(arr) {
-		$.ajax({
-			url: '/api/events',
-			type: 'GET',
-			success: (results) => {
+		let User = {};
+		if (localStorage && localStorage.getItem('user')) {
+			User = JSON.parse(localStorage.getItem('user'));
+			this.setState({
+				userId: User._id
+			});
+		}
+		axios.post(`/api/profile/${User._id}`).then((res) => {
+			const data = res.data;
+			axios.get(`/api/events`).then((res) => {
+				const events = res.data;
 				var array = [];
-				for (var i = 0; i < results.length; i++) {
-					for (let j = 0; j < results.length; j++) {
-						if (results[j].id === arr[i]) {
-							array.push(results[j]);
+				for (let i = 0; i < data.length; i++) {
+					for (let j = 0; j < events.length; j++) {
+						if (data[i] === events[j]._id) {
+							array.push(events[j]);
 						}
 					}
 				}
-				console.log(arr);
 				this.setState({ attendedArr: array });
-			}
+			});
 		});
 	}
 
@@ -69,11 +67,46 @@ class AttendedEvents extends Component {
 		});
 	}
 
+	clickHandler() {
+		let User = {};
+		if (localStorage && localStorage.getItem('user')) {
+			User = JSON.parse(localStorage.getItem('user'));
+			this.setState({
+				userId: User._id
+			});
+		}
+
+		axios.post(`/api/profile/${User._id}`).then((res) => {
+			const data1 = res.data;
+			console.log(data1);
+			for (var i = 0; i < data1.length; i++) {
+				if (data1[i] !== this.state.eventId) {
+					data1.splice(i, 1);
+				}
+			}
+			var obj = {};
+			if (data1.length === 0) {
+				obj.attendedEvents = [];
+			} else {
+				obj.attendedEvents = data1;
+			}
+			console.log(obj);
+			$.ajax({
+				url: `/api/user/${User._id}`,
+				type: 'post',
+				data: obj,
+				success: (data) => console.log(data),
+				error: (err) => console.log('hieee')
+			});
+		});
+	}
+
 	render() {
 		const container = {
 			margin: '50px auto 0',
 			width: '700px',
-			boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)'
+			boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+			backgroundColor: 'white'
 		};
 
 		const ps = {
@@ -95,21 +128,40 @@ class AttendedEvents extends Component {
 
 		return (
 			<div>
-				<button type="submit" onClick={this.toggleStates.bind(this)}>
-					Dashboard
-				</button>
+				<NavBar />
 				<div>
 					{this.state.attendedArr.map((attended, index) => {
 						return (
-							<div key={index} style={container}>
+							<div
+								key={index}
+								style={container}
+								value={attended.id}
+								name="eventId"
+								onClick={this.changeHandler.bind(this)}
+							>
 								<img src={attended.imgUrl[0]} style={{ width: '100%' }} />
-								<h1>{attended.eventName}</h1>
-								<h4>Date: {attended.date}</h4>
-								<p style={ps}>{attended.videos[0]}</p>
-								<video width="700" height="480" src={attended.videos[0]} controls />
-
+								<center>
+									<h1>{attended.eventName}</h1>
+									<h4>Date: {attended.date}</h4>
+								</center>
 								<p style={ps}>Category:{attended.category}</p>
+								<ReactPlayer url={attended.videos[0]} />
+								<br />
 								<p style={ps}>Description: {attended.description}</p>
+								<Ratings eventId={attended._id} />
+								<Comments comments={attended} />
+								<center>
+									<button
+										type="button"
+										className="btn btn-danger"
+										style={{ margin: '25px' }}
+										onClick={this.clickHandler.bind(this)}
+										name="eventId"
+										value={attended.id}
+									>
+										Cancel
+									</button>
+								</center>
 							</div>
 						);
 					})}
@@ -118,4 +170,5 @@ class AttendedEvents extends Component {
 		);
 	}
 }
+
 export default AttendedEvents;

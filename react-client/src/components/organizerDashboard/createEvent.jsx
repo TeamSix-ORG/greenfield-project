@@ -14,7 +14,10 @@ class createEvent extends Component {
 			description: '',
 			date: '',
 			category: '',
-			cost: ''
+			cost: '',
+			image: '',
+			video: '',
+			organizerId: ''
 		};
 		this.handleClick = this.handleClick.bind(this);
 		this.handleChange = this.handleChange.bind(this);
@@ -26,6 +29,15 @@ class createEvent extends Component {
 	handleChange(e) {
 		this.setState({ [e.target.name]: e.target.value });
 	}
+	componentDidMount() {
+		let User = {};
+		if (localStorage && localStorage.getItem('user')) {
+			User = JSON.parse(localStorage.getItem('user'));
+			this.setState({
+				organizerId: User._id
+			});
+		}
+	}
 	handleSubmit(event) {
 		event.preventDefault();
 
@@ -36,12 +48,11 @@ class createEvent extends Component {
 			data: this.state,
 			contentType: 'application/x-www-form-urlencoded',
 			success: (data) => {
+				console.log('hello');
 				console.log(data);
 			},
 			error: (err) => {
-				if (err) {
-					console.log(err);
-				}
+				console.log(err);
 			}
 		});
 	}
@@ -49,64 +60,95 @@ class createEvent extends Component {
 	render() {
 		return (
 			<div>
-				<h1>Create a new Event</h1>
-				<form onSubmit={this.handleSubmit}>
-					<label>
-						Event Name:
-						<input
-							type="text"
-							placeholder="Event Name"
-							name="eventname"
-							value={this.state.eventname}
-							onChange={this.handleChange}
-						/>
-					</label>
-					<label>
-						description:
-						<input
-							type="text"
-							placeholder="description"
-							name="description"
-							value={this.state.description}
-							onChange={this.handleChange}
-						/>
-					</label>
-					<label>
-						Date:
-						<input type="date" name="date" value={this.state.date} onChange={this.handleChange} />
-					</label>
-					<label>
-						Category:
-						<input
-							type="text"
-							placeholder="enter your email"
-							name="category"
-							value={this.state.category}
-							onChange={this.handleChange}
-						/>
-					</label>
-					<label>
-						Add images :
-						<input type="file" name="image" ref="fileUploader" />
-					</label>
-					<label>
-						Add videos :
-						<input type="file" name="video" ref="fileUploader" />
-					</label>
+				<div className="container">
+					<form onSubmit={this.handleSubmit.bind(this)}>
+						<fieldset>
+							<legend>Create a new Event</legend>
 
-					<label>
-						cost:
-						<input
-							type="text"
-							placeholder="cost"
-							name="cost"
-							value={this.state.cost}
-							onChange={this.handleChange}
-						/>
-					</label>
+							<div className="form-group">
+								<label htmlFor="Name">Event Name: </label>
+								<input
+									type="text"
+									name="eventname"
+									value={this.state.eventname}
+									onChange={this.handleChange}
+									className="form-control"
+									placeholder="Enter te event name"
+								/>
+							</div>
+							<div className="form-group">
+								<label htmlFor="description">Event Name: </label>
+								<input
+									type="text"
+									placeholder="description"
+									name="description"
+									value={this.state.description}
+									onChange={this.handleChange}
+									className="form-control"
+								/>
+							</div>
 
-					<button type="submit">Submit</button>
-				</form>
+							<div className="form-group">
+								<label htmlFor="dateOfBirth">Date</label>
+								<input
+									type="date"
+									name="date"
+									value={this.state.date}
+									onChange={this.handleChange}
+									className="form-control"
+									placeholder="Enter  Date"
+								/>
+							</div>
+
+							<div className="form-group">
+								<label htmlFor="category">Category</label>
+								<input
+									type="text"
+									placeholder="Category"
+									name="category"
+									value={this.state.category}
+									onChange={this.handleChange}
+									className="form-control"
+								/>
+							</div>
+							<div className="form-group">
+								<label htmlFor="cost">cost</label>
+								<input
+									type="text"
+									placeholder="cost"
+									name="cost"
+									value={this.state.cost}
+									onChange={this.handleChange}
+									className="form-control"
+								/>
+							</div>
+
+							<div className="form-group">
+								<label htmlFor="urlPic">Add an image url</label>
+								<input
+									name="image"
+									type="text"
+									value={this.state.image}
+									onChange={this.handleChange}
+									className="form-control"
+								/>
+							</div>
+							<div className="form-group">
+								<label htmlFor="urlPic">Add a video url</label>
+								<input
+									name="video"
+									value={this.state.video}
+									onChange={this.handleChange}
+									type="text"
+									className="form-control"
+								/>
+							</div>
+							<button type="submit" className="btn btn-primary">
+								Submit
+							</button>
+						</fieldset>
+					</form>
+				</div>
 			</div>
 		);
 	}
