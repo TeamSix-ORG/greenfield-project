@@ -4,32 +4,20 @@
 
 # Team
 
-    Product Owner: Mohammed Amine Slaimia
-    Scrum Master: Wajdi Hamrouni
+    Product Owner: Wajdi Hamrouni
+    Scrum Master: Mohammed Amine Slaimia
     Development Team Members: Sofian Saleh, Ziead Brhoumi, Fares Jelasi
 
 # Usage
 
-Deployed address: 
-
-Start by signing up as an organaizer and then add an event and users can attend to it
+Start by signing up as an organaizer and then add an event and users can attend to it.
 
 # Requirements
 
-    -axios: "^0.19.1",
-		-bcryptjs: "^2.4.3",
-		-body-parser: "^1.17.2",
-		-bootstrap: "^4.0.0-alpha.6",
-		-bootswatch: "^4.4.1",
-		-jquery: "^3.1.1",
-		-jsonwebtoken: "^8.5.1",
-		-mongoose: "^5.7.5",
-		-react-player: "^1.14.2",
-		-react-router-dom: "^5.1.2",
-		-reactstrap: "8.2.0"
-    
-    and more checkout package.json file
-
+- Node 6.9.1
+- express: "^4.17.1"
+- react: "^16.12.0"
+- mongoose : "^5.8.7"
 
 # Development
 
