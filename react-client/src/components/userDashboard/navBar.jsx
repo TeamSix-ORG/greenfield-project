@@ -12,7 +12,7 @@ class NavBar extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <Link className="navbar-brand" to="/userdashboard">
             Home
           </Link>
@@ -49,7 +49,7 @@ class NavBar extends Component {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="#">
+                <Link className="nav-link" to="/login">
                   Logout
                 </Link>
               </li>

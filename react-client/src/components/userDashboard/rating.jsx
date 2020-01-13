@@ -7,6 +7,32 @@ class Ratings extends Component {
     super(props);
     this.state = { value: 0, rating: null };
   }
+  updateState() {
+    setTimeout(() => {
+      this.ratingSubmit();
+    }, 1000);
+  }
+
+  componentDidMount() {
+    $.ajax({
+      url: `/api/rate/${this.props.eventId}`,
+      type: "GET",
+      success: data => {
+        var result = 0;
+        for (var i = 0; i < data[0].rating.length; i++) {
+          result += parseInt(data[0].rating[i]);
+          if (i === data[0].rating.length - 1) {
+            result = result / data[0].rating.length;
+          }
+        }
+        result = String(result).substring(0, 4);
+        this.setState({ rating: result });
+      },
+      error: err => {
+        throw err;
+      }
+    });
+  }
 
   ratingSubmit() {
     console.log(this.state.value);
@@ -16,8 +42,9 @@ class Ratings extends Component {
       type: "POST",
       data: obj,
       success: data => {
-        this.setState({ rating: data.results });
-        console.log(data);
+        // this.setState({ rating: data.results });
+        // console.log(data);
+        this.componentDidMount();
       },
       error: err => {
         throw err;
@@ -28,15 +55,13 @@ class Ratings extends Component {
   render() {
     return (
       <div>
-        {console.log(this.state.rating)}
-        {/* {this.state.value !== 0 ? this.ratingSubmit() : null} */}
         <div className="container">
           <label>Rate this event</label>
           <BeautyStars
             value={this.state.value}
             onChange={value => {
-              this.setState({ value });
-              this.ratingSubmit();
+              this.setState({ value: value });
+              this.updateState();
             }}
             rate={this.ratingSubmit.bind(this)}
           />{" "}
