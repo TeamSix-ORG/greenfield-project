@@ -26,8 +26,7 @@ Start by signing up as an organaizer and then add an event and users can attend 
 - mongoose : 5.8.7
 
 # Depelopment
-> Deployed By : **Sofian Saleh**
-> Link : [https://event-managments.herokuapp.com/signupuser]
+
 
 ## Installing Dependencies
 
