@@ -27,29 +27,12 @@ app.post("/api/createevnt", async function(req, res) {
     if (err) throw err;
     else res.send("yes");
   });
-  //   const Event = new Event({
-  //     _id: new Mongoose.Types.ObjectId(),
-  //     eventName: req.body.eventname,
-  //     description: req.body.description,
-  //     date: req.body.date,
-  //     category: req.body.category,
-  //     cost: req.body.cost
-  //   });
-
-  //   try {
-  //     const newevent = await Event.create(event);
-  //     res.json(newevent);
-  //   } catch (err) {
-  //     console.log(err);
-  //     res.status(400).json(err);
-  //   }
 });
 // ####################################	SOFIAN	PORTS  ######################################### \\
 
 //######### TO GET ONE EVENTS WHEN CALLED UPON #########\\
 app.post("/api/events", function(req, res) {
   var data = req.body;
-  console.log(data);
   Event.findOne(data, (err, result) => {
     if (err) throw err;
     else if (result) res.send(result);
@@ -70,7 +53,6 @@ app.get("/api/events", function(req, res) {
 
 app.post("/api/profiles", function(req, res) {
   var data = req.body;
-  console.log(data);
   UserProfile.findOne({ _userId: data.userId }, (err, result) => {
     result["attendedEvents"].push(data.eventId);
     result.save();
@@ -133,10 +115,9 @@ app.post(`/api/user/:id`, (req, res) => {
   });
 });
 //##########################################################\\
-//######### TO ADD COMMENTS #########\\
+//######### TO GET ALL THE CREATED EVENTS BY THE ORGANIZER ID #########\\
 
 app.post(`/api/eventscreated/:id`, (req, res) => {
-  console.log("ggg");
   Event.events.find({ organizerId: req.params.id }, (err, result) => {
     if (err) throw err;
     else if (result) {
@@ -147,6 +128,10 @@ app.post(`/api/eventscreated/:id`, (req, res) => {
     }
   });
 });
+//##########################################################\\
+
+//######### TO ADD COMMENTS TO THE EVENT #########\\
+
 app.post(`/api/comment/:id`, (req, res) => {
   const eventId = req.params.id;
   const data = req.body;
@@ -159,6 +144,16 @@ app.post(`/api/comment/:id`, (req, res) => {
     } else {
       res.sendStatus(400);
     }
+  });
+});
+//##########################################################\\
+//############# TO GET ALL THE COMMENTS FOR A SPECIFIC EVENT  #################\\
+
+app.get(`/api/comment/:id`, (req, res) => {
+  console.log(req.params.id);
+  Event.findOne({ _id: req.params.id }, (err, data) => {
+    if (err) throw err;
+    else res.send(data);
   });
 });
 //##########################################################\\
@@ -175,13 +170,12 @@ app.post(`/api/rate/:id`, (req, res) => {
       var results = 0;
       result[0]["rating"].push(data.rating);
       result[0].save();
-
-      //   results = String(results).substring(0, 3);
-      //   res.json({ results: results });
       res.send("done");
     }
   });
 });
+
+//############# TO GET THE RATING OF A SPECIFIC EVENT ################\\
 
 app.get(`/api/rate/:id`, (req, res) => {
   const id = req.params.id;
@@ -193,42 +187,10 @@ app.get(`/api/rate/:id`, (req, res) => {
     }
   });
 });
-
-app.get(`/api/comment/:id`, (req, res) => {
-  console.log(req.params.id);
-  Event.findOne({ _id: req.params.id }, (err, data) => {
-    if (err) throw err;
-    else res.send(data);
-  });
-});
 //##########################################################\\
 
 // CAN BE MOR OPTIMIZED BUT HAVE NO TIME
 // ####################################	SOFIAN	PORTS  ######################################### \\
-
-// app.post("/api/createevnt", (req, res) => {
-//   var event = {
-//     _id: new Mongoose.Types.ObjectId(),
-//     eventName: req.body.eventname,
-//     description: req.body.description,
-//     date: req.body.date,
-//     organizerId: req.body.organizerId,
-//     category: req.body.category,
-//     imgUrl: req.body.image,
-//     videos: req.body.video,
-//     cost: req.body.cost
-//   };
-//   console.log(req.body);
-//   Event.save(event, (result, err) => {
-//     if (err) {
-//       console.log("erre");
-//       res.status(400).json(err);
-//     } else {
-//       console.log("done");
-//       res.json(result);
-//     }
-//   });
-// });
 
 app.post("/api/signupuser", async (req, res) => {
   signup(req, res);
@@ -259,8 +221,10 @@ app.get("*", (req, res) => {
     root: path.join(__dirname, "../react-client/dist")
   });
 });
-let port = 3001;
+let port = process.env.PORT || 3001;
 
 app.listen(port, function() {
   console.log(`listening, on port ${port}`);
 });
+
+// room for improvement add each routes that are used in seperate files
