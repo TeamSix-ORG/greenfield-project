@@ -30,7 +30,8 @@ Start by signing up as an organaizer and then add an event and users can attend 
 From within the root directory:
 
 - `npm install`
-- `npm run react-dev` -`npm run server-dev`
+- `npm run react-dev`
+- `npm run server-dev`
 
 ## Tasks
 
