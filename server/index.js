@@ -11,7 +11,6 @@ const UserProfile = require('../database-mongo/user-profile.js');
 const signup = require('./user/signup.js');
 const User = require('../database-mongo/users.js');
 const Event = require('../database-mongo/events.js');
-const Joint = require('../database-mongo/jointEventUser.js');
 var app = express();
 
 app.use(bodyParser.json());
@@ -22,13 +21,9 @@ app.use(
 );
 app.use(express.static(__dirname + '/../react-client/dist'));
 
-app.get('*', (req, res) => {
-	res.sendFile('index.html', {
-		root: path.join(__dirname, '../react-client/dist')
-	});
-});
-
 // ####################################	SOFIAN	PORTS  ######################################### \\
+
+//######### TO GET ONE EVENTS WHEN CALLED UPON #########\\
 app.post('/api/events', function(req, res) {
 	var data = req.body;
 	console.log(data);
@@ -38,7 +33,8 @@ app.post('/api/events', function(req, res) {
 		else res.send('No Events with that name');
 	});
 });
-
+//##########################################################\\
+//######### TO GET ALL THE EVENTS WHEN CALLED UPON #########\\
 app.get('/api/events', function(req, res) {
 	Event.findAll((err, result) => {
 		if (err) throw err;
@@ -46,23 +42,153 @@ app.get('/api/events', function(req, res) {
 		else res.send('No Events');
 	});
 });
+//##########################################################\\
+//######### TO SAVE ATTENDED EVENTS IN THE ARRAY OF THE USER PROFILE #########\\
 
-app.get('/api/jointEventUser', function(req, res) {
-	Joint.findAll((err, result) => {
-		if (err) throw err;
-		else if (result) res.send(result);
-	});
-});
-
-app.post('/api/jointEventUser', function(req, res) {
+app.post('/api/profiles', function(req, res) {
 	var data = req.body;
 	console.log(data);
-	Joint.save(data, (err, result) => {
-		if (err) throw err;
-		else if (result) res.send('Joined');
+	UserProfile.findOne({ _userId: data.userId }, (err, result) => {
+		result['attendedEvents'].push(data.eventId);
+		result.save();
+		console.log(result.attendedEvents);
+		res.send('Joined');
 	});
 });
+//##########################################################\\
+//######### TO FIND ONE USER PROFILE AND SEND THE ATTENDED EVENTS ARRAY #########\\
+
+app.post('/api/profile/:id', function(req, res) {
+	const id = req.params.id;
+	// console.log(id);
+	UserProfile.findOne({ _userId: id }, (err, result) => {
+		if (result === null) {
+			res.send('no events to show');
+		}
+		res.send(result.attendedEvents);
+	});
+});
+//##########################################################\\
+//######### TO FIND ONE USER PROFILE #########\\
+
+app.post('/api/users/:id', function(req, res) {
+	const id = req.params.id;
+	UserProfile.findOne({ _userId: id }, (err, result) => {
+		res.send(result);
+	});
+});
+//##########################################################\\
+//######### TO UPDATE PROFILE #########\\
+
+app.put('/api/users/:id', function(req, res) {
+	const id = req.params.id;
+	UserProfile.findOneAndUpdate({ _userId: id }, req.body, (err, result) => {
+		if (err) throw err;
+		else res.send('yes');
+	});
+});
+//##########################################################\\
+//######### TO DELETE CANCELED EVENTS IN THE ARRAY #########\\
+
+app.post(`/api/user/:id`, (req, res) => {
+	const data = req.body;
+	const id = req.params.id;
+	UserProfile.findOne({ _userId: id }, (err, results) => {
+		if (err) throw err;
+		else {
+			console.log(data);
+			console.log(data, results);
+			for (var i = 0; i < results['attendedEvents'].length; i++) {
+				if (data['attendedEvents[]'] === results['attendedEvents'][i]) {
+					results['attendedEvents'].splice(i, 1);
+					console.log(results);
+				}
+				results.save();
+			}
+			res.send('cool');
+		}
+	});
+});
+//##########################################################\\
+//######### TO ADD COMMENTS #########\\
+
+app.post(`/api/eventscreated/:id`, (req, res) => {
+	console.log('ggg');
+	Event.events.find({ organizerId: req.params.id }, (err, result) => {
+		if (err) throw err;
+		else if (result) {
+			res.send(result);
+		} else {
+			res.sendStatus(400);
+		}
+	});
+});
+app.post(`/api/comment/:id`, (req, res) => {
+	const eventId = req.params.id;
+	const data = req.body;
+	Event.findOne({ _id: eventId }, (err, result) => {
+		if (err) throw err;
+		else if (result) {
+			result[0]['comments'].push(data);
+			result[0].save();
+			res.send('Comment Was Sent');
+		} else {
+			res.sendStatus(400);
+		}
+	});
+});
+//##########################################################\\
+//######### TO ADD RATING #########\\
+app.post(`/api/rate/:id`, (req, res) => {
+	const id = req.params.id;
+	const data = req.body;
+
+	Event.findOne({ _id: id }, (err, result) => {
+		if (err) throw err;
+		else if (result) {
+			var results = 0;
+			result[0]['rating'].push(data.rating);
+			result[0].save();
+			for (let i = 0; i < result[0]['rating'].length; i++) {
+				results += parseInt(result[0]['rating'][i]);
+				console.log(results);
+				if (i === result[0]['rating'].length - 1) {
+					var results = results / result[0]['rating'].length;
+				}
+			}
+			results = String(results).substring(0, 3);
+			res.json({ results: results });
+		}
+	});
+});
+//##########################################################\\
+
+// CAN BE MOR OPTIMIZED BUT HAVE NO TIME
 // ####################################	SOFIAN	PORTS  ######################################### \\
+
+app.post('/api/createevnt', (req, res) => {
+	var event = {
+		_id: new Mongoose.Types.ObjectId(),
+		eventName: req.body.eventname,
+		description: req.body.description,
+		date: req.body.date,
+		organizerId: req.body.organizerId,
+		category: req.body.category,
+		imgUrl: req.body.image,
+		videos: req.body.video,
+		cost: req.body.cost
+	};
+	console.log(req.body);
+	Event.save(event, (result, err) => {
+		if (err) {
+			console.log('erre');
+			res.status(400).json(err);
+		} else {
+			console.log('done');
+			res.json(result);
+		}
+	});
+});
 
 app.post('/api/signupuser', async (req, res) => {
 	signup(req, res);
@@ -86,6 +212,12 @@ app.post('/api/login', async (req, res) => {
 	const token = jwt.sign({ _id: user._id }, 'greenfeild');
 	//res.header('auth-token', token).json(token);
 	res.send(user);
+});
+
+app.get('*', (req, res) => {
+	res.sendFile('index.html', {
+		root: path.join(__dirname, '../react-client/dist')
+	});
 });
 let port = 3001;
 

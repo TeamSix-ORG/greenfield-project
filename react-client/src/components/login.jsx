@@ -11,7 +11,8 @@ class Login extends React.Component {
 			email: '',
 			password: '',
 			type: 'user',
-			authentified: false
+			authentified: false,
+			usertype: ''
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,13 +29,12 @@ class Login extends React.Component {
 			data: this.state,
 			contentType: 'application/x-www-form-urlencoded',
 			success: (data) => {
-				console.log(data);
-				console.log(this.state);
+				console.log(typeof data);
 				this.setState({
-					authentified: true
+					authentified: true,
+					usertype: JSON.parse(data).type
 				});
-				console.log(this.state);
-				localStorage.setItem('user', JSON.stringify(data));
+				localStorage.setItem('user', data);
 			},
 			error: (err) => {
 				if (err) {
@@ -44,7 +44,7 @@ class Login extends React.Component {
 		});
 	}
 	render() {
-		if (this.state.authentified) {
+		if (this.state.authentified && this.state.usertype === 'user') {
 			return (
 				<Redirect
 					to={{
@@ -52,47 +52,83 @@ class Login extends React.Component {
 					}}
 				/>
 			);
+		} else if (this.state.authentified && this.state.usertype === 'organizer') {
+			return (
+				<Redirect
+					to={{
+						pathname: '/organizerdashboard'
+					}}
+				/>
+			);
 		}
 		const { username, email, password } = this.state;
 		return (
-			<div>
-				<h1>create a user account</h1>
-				<form onSubmit={this.handleSubmit}>
-					<label>
-						Username:
-						<input
-							type="text"
-							placeholder="Choose username"
-							name="username"
-							value={username}
-							onChange={this.handleChange}
-							required
-						/>
-					</label>
-					<label>
-						Email:
-						<input
-							type="text"
-							placeholder="enter your email"
-							name="email"
-							value={email}
-							onChange={this.handleChange}
-							required
-						/>
-					</label>
-					<label>
-						Password:
-						<input
-							type="password"
-							placeholder="enter your password"
-							name="password"
-							value={password}
-							onChange={this.handleChange}
-							required
-						/>
-					</label>
-					<button type="submit">Submit</button>
-				</form>
+			<div className="container">
+				<div className="row">
+					<div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
+						<div className="card card-signin my-5">
+							<div className="card-body">
+								<h5 className="card-title text-center">Sign In</h5>
+								<form className="form-signin" onSubmit={this.handleSubmit}>
+									<div className="form-label-group">
+										<input
+											type="text"
+											id="inputEmail"
+											name="username"
+											value={username}
+											onChange={this.handleChange}
+											className="form-control"
+											placeholder="Username"
+											required
+											autoFocus
+										/>
+										<label htmlFor="inputEmail">Username</label>
+									</div>
+
+									<div className="form-label-group">
+										<input
+											type="email"
+											id="inputEmail"
+											name="email"
+											value={email}
+											onChange={this.handleChange}
+											className="form-control"
+											placeholder="Email address"
+											required
+											autoFocus
+										/>
+										<label htmlFor="inputEmail">Email address</label>
+									</div>
+
+									<div className="form-label-group">
+										<input
+											type="password"
+											id="inputPassword"
+											className="form-control"
+											placeholder="Password"
+											name="password"
+											value={password}
+											onChange={this.handleChange}
+											required
+										/>
+										<label htmlFor="inputPassword">Password</label>
+									</div>
+
+									<div className="custom-control custom-checkbox mb-3">
+										<input type="checkbox" className="custom-control-input" id="customCheck1" />
+										<label className="custom-control-label" htmlFor="customCheck1">
+											Remember password
+										</label>
+									</div>
+									<button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
+										Sign in
+									</button>
+									<hr className="my-4" />
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		);
 	}

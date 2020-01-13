@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Attend from './attend.jsx';
 import EventsList from './eventsList.jsx';
 import $ from 'jquery';
+import ReactPlayer from 'react-player';
+import Comments from './comments.jsx';
+import Ratings from './rating.jsx';
 
 class MoreInfo extends Component {
 	constructor(props) {
@@ -9,18 +12,36 @@ class MoreInfo extends Component {
 		this.state = {
 			event1: [],
 			moreInfo: true,
-			attendMoney: false
+			attendMoney: false,
+			userId: '',
+			comment: '',
+			username: '',
+			redirect: false,
+			eventId: ''
 		};
+	}
+
+	changeHandler(e) {
+		this.setState({ [e.target.name]: e.target.value });
 	}
 
 	attendToggler(e) {
 		// Send request to the backend with the id of the event and user id
+		let User = {};
+		if (localStorage && localStorage.getItem('user')) {
+			User = JSON.parse(localStorage.getItem('user'));
+			this.setState({
+				userId: User._id,
+				username: User.username
+			});
+		}
+
 		var obj = {};
-		obj.userId = '5e17a83d39ddb953b5b2dcc1';
-		obj.eventId = this.props.eventDescription[this.props.index].id;
-		console.log(obj, this.props.userId);
+		obj.userId = User._id;
+		obj.eventId = this.props.eventDescription[this.props.index]._id;
+		console.log(obj, this.state.userId);
 		$.ajax({
-			url: '/api/jointEventUser',
+			url: '/api/profiles',
 			type: 'POST',
 			data: obj,
 			success: (data) => {
@@ -60,7 +81,8 @@ class MoreInfo extends Component {
 		const container = {
 			margin: '50px auto 0',
 			width: '700px',
-			boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)'
+			boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+			backgroundColor: 'white'
 		};
 
 		const cardMedia = {
@@ -76,41 +98,85 @@ class MoreInfo extends Component {
 			padding: '2px 16px'
 		};
 
+		if (this.state.redirect) {
+			this.setState({
+				redirect: false
+			});
+			return (
+				<Redirect
+					to={{
+						pathname: '/UserDashboard'
+					}}
+				/>
+			);
+		}
+
 		return (
 			<div>
 				{this.state.moreInfo ? (
-					<div style={container}>
+					<div
+						style={container}
+						value={this.props.eventDescription[this.props.index]._id}
+						name="eventId"
+						onClick={this.changeHandler.bind(this)}
+					>
 						<img src={this.props.eventDescription[this.props.index].imgUrl[0]} style={{ width: '100%' }} />
-						<h3>Date: {this.props.eventDescription[this.props.index].date}</h3>
-						<h3>Name: {this.props.eventDescription[this.props.index].eventName}</h3>
-						<p>Description: {this.props.eventDescription[this.props.index].description}</p>
-						<video
-							width="700"
-							height="480"
-							src={this.props.eventDescription[this.props.index].videos[0]}
-							controls
-						/>
-
-<<<<<<< HEAD
-						<p>{this.props.eventDescription[this.props.index].category}</p>
-						<p>{this.props.eventDescription[this.props.index].description}</p>
-						<button type="submit" onClick={this.updateState.bind(this)} style={cardMedia}>
-							back
-						</button>
-						{this.props.eventDescription[this.props.index].cost === 'FREE' ? (
-							<button type="submit" onClick={this.attendToggler.bind(this)} style={cardMedia}>
-								FREE
-							</button>
-						) : (
-							<button type="submit" onClick={this.attendTogglerMoney.bind(this)} style={cardMedia}>
-								Attend
-							</button>
-						)}
+						<br />
+						<div className="container">
+							<h3>Name: {this.props.eventDescription[this.props.index].eventName}</h3>
+							<br />
+							<h6>Date: {this.props.eventDescription[this.props.index].date}</h6>
+							<center>
+								<ReactPlayer url={this.props.eventDescription[this.props.index].videos[0]} />
+							</center>
+							<br />
+							<div>
+								<label>Category:</label>
+								<p>{this.props.eventDescription[this.props.index].category}</p>
+							</div>
+							<p>Description: {this.props.eventDescription[this.props.index].description}</p>
+						</div>
+						<Ratings eventId={this.props.eventDescription[this.props.index]._id} />
+						<Comments comments={this.props.eventDescription[this.props.index]} />
+						<center>
+							<div className="btn-group btn-group-justified">
+								<button
+									type="submit"
+									onClick={this.updateState.bind(this)}
+									className="btn btn-default"
+									style={{ margin: '25px' }}
+								>
+									back
+								</button>
+							</div>
+							{this.props.eventDescription[this.props.index].cost === 'FREE' ? (
+								<div className="btn-group btn-group-justified">
+									<button
+										type="submit"
+										className="btn btn-default"
+										style={{ margin: '25px' }}
+										onClick={this.attendToggler.bind(this)}
+									>
+										FREE
+									</button>
+								</div>
+							) : (
+								<div className="btn-group btn-group-justified">
+									<button
+										type="submit"
+										className="btn btn-default"
+										style={{ margin: '25px' }}
+										onClick={this.attendTogglerMoney.bind(this)}
+									>
+										Attend
+									</button>
+								</div>
+							)}
+						</center>
 					</div>
 				) : this.state.attendMoney ? (
 					<Attend
-						eventId={this.props.eventDescription[this.props.index].id}
-						userId="5e148bf8fc13ae0c40000000"
+						eventId={this.props.eventDescription[this.props.index]._id}
 						events={this.props.eventDescription}
 					/>
 				) : (
@@ -119,39 +185,6 @@ class MoreInfo extends Component {
 			</div>
 		);
 	}
-=======
-            <p>{this.props.eventDescription[this.props.index].category}</p>
-            <p>{this.props.eventDescription[this.props.index].description}</p>
-            <button type="submit" onClick={this.updateState.bind(this)} style={cardMedia}>
-                back
-              </button>
-            {this.props.eventDescription[this.props.index].cost === "FREE" ? (
-              <button type="submit" onClick={this.attendToggler.bind(this)} style={cardMedia}>
-                FREE
-              </button>
-            ) : (
-              <button
-                type="submit"
-                onClick={this.attendTogglerMoney.bind(this)} style={cardMedia}
-              >
-                Attend
-              </button>
-            )}
-          </div>
-        ) : this.state.attendMoney ? (
-          <Attend
-            eventId={this.props.eventDescription[this.props.index].id}
-            userId="5e148bf8fc13ae0c40000006"
-            events={this.props.eventDescription}
-          />
-        )
-        :
-        <EventsList events={this.props.eventDescription} />
-      }
-      </div>
-    );
-  }
->>>>>>> f87c584f37b4f95b7e3abb134484c1743af912de
 }
 
 export default MoreInfo;
