@@ -2,17 +2,11 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 class NavBar extends Component {
-  updateState(data) {
-    if (data) {
-      this.setState({
-        eventsArr: data
-      });
-    }
-  }
+  // a typical navbar
   render() {
     return (
       <div>
-        <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <Link className="navbar-brand" to="/userdashboard">
             Home
           </Link>
@@ -49,7 +43,7 @@ class NavBar extends Component {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="#">
+                <Link className="nav-link" to="/login">
                   Logout
                 </Link>
               </li>
